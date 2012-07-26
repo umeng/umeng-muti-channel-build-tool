@@ -1,0 +1,7 @@
+C:\Users\Administrator.PC-20110804QHVX\Documents\SharpDevelop Projects\UmengChannel\UmengChannel\bin\Release\UmengChannel.exe
+C:\Users\Administrator.PC-20110804QHVX\Documents\SharpDevelop Projects\UmengChannel\UmengChannel\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\Administrator.PC-20110804QHVX\Documents\SharpDevelop Projects\UmengChannel\UmengChannel\obj\x86\Release\UmengChannel.MainForm.resources
+C:\Users\Administrator.PC-20110804QHVX\Documents\SharpDevelop Projects\UmengChannel\UmengChannel\obj\x86\Release\UmengChannel.exe
+C:\Users\Administrator.PC-20110804QHVX\Documents\SharpDevelop Projects\UmengChannel\UmengChannel\bin\Release\UmengChannel.exe.config
+C:\Users\Administrator.PC-20110804QHVX\Documents\SharpDevelop Projects\UmengChannel\UmengChannel\obj\x86\Release\GenerateResource-ResGen.read.1.tlog
+C:\Users\Administrator.PC-20110804QHVX\Documents\SharpDevelop Projects\UmengChannel\UmengChannel\obj\x86\Release\GenerateResource-ResGen.write.1.tlog
