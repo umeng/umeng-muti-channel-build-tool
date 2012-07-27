@@ -95,9 +95,9 @@ namespace UmengChannel
 			
 			System.Text.StringBuilder pathBuilder = new System.Text.StringBuilder();
 			
-			//pathBuilder.Append("\"");
-			pathBuilder.Append(path);//path.Replace("\\","\\\\"));
-			//pathBuilder.Append("\"");
+			pathBuilder.Append("\"");
+			pathBuilder.Append(path);
+			pathBuilder.Append("\"");
 			
 			return pathBuilder.ToString();
 		}

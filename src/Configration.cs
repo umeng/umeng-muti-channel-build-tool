@@ -75,14 +75,14 @@ namespace UmengChannel
 			path.Append(";");
 			path.Append(Path.Combine("%JAVA_HOME%","lib"));
 			path.Append(";");
-			path.Append(Path.Combine(android_home,"tools"));
-			path.Append(";");
 			path.Append(Path.Combine("%ANT_HOME%","bin"));
 			path.Append(";");
 			path.Append("%JAVA_HOME%;");
 			path.Append("%ANT_HOME%;");
 			path.Append(Path.Combine(java_home,"bin;"));//+
 			path.Append(Path.Combine(ant_home,"bin;"));//+
+			path.Append(Path.Combine(android_home,"tools"));
+			path.Append(";");
 			
 			System.Environment.SetEnvironmentVariable("PATH", path.ToString());//, EnvironmentVariableTarget.User);
 			

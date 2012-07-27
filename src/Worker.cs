@@ -47,7 +47,6 @@ namespace UmengChannel
 			try{
 				backup();
 				doWork();
-				
 			}catch(XException xex){
 				throw xex;
 			}catch(Exception ex){
@@ -107,7 +106,7 @@ namespace UmengChannel
 			int progress = 0;
 			
 			publishProgress(progress++, total);
-			setAntEnvironmet();
+			setProjectEnvironmet();
 			publishProgress(progress++, total);
 			if(project.setProguard)
 			{
@@ -169,9 +168,11 @@ namespace UmengChannel
 			signCmd.Append(string.Format(" -keystore {0}", Utils.generateSafePathString(project.keystore_file_path)));
 			signCmd.Append(string.Format(" -storepass {0}", project.keystore_pw));
 			signCmd.Append(string.Format(" -keypass {0}",project.key_pw));
+			
 			signCmd.Append(string.Format(" -signedjar {0}-unaligned.apk {1}", 
 			                             Utils.generateSafePathString(Path.Combine(bin,projectName)),
 			                             Utils.generateSafePathString(Path.Combine(bin,"*unsigned.apk"))));
+
 			signCmd.Append(string.Format(" {0}", project.alias));
 			signCmd.Append(" -digestalg SHA1 -sigalg MD5withRSA");
 			
@@ -184,19 +185,24 @@ namespace UmengChannel
 			
 			zipAlignCmd.Append("zipalign");
 			zipAlignCmd.Append(" -v 4");//32bits
+
 			zipAlignCmd.Append(string.Format(" {0}", Utils.generateSafePathString(Path.Combine(bin, "*unaligned.apk"))));
 			zipAlignCmd.Append(string.Format(" {0}", Utils.generateSafePathString(Path.Combine(bin, string.Format("{0}-{1}.apk", projectName, channle)))));
 			
 			Sys.Run(zipAlignCmd.ToString());
 		}
 		
-		private void setAntEnvironmet(){
+		private void setProjectEnvironmet(){
 			Log.i("Update android project environment");
 			
-			string build_file = System.IO.Path.Combine(project.project_path,"Build.xml");
+			string build_file = Path.Combine(project.project_path,"Build.xml");
+			string project_property_file = Path.Combine(project.project_path, "project.properties");
 			
-			if(!File.Exists(build_file)){
-				//Sys.Run(string.Format("android update project -p {0} -t {1}", project.project_path, "android-4"));
+
+			if(!File.Exists(build_file) && !File.Exists(project_property_file)){
+				Sys.Run(string.Format("android update project -p {0} -t android-4", Utils.generateSafePathString(project.project_path)));
+					
+			}else if(!File.Exists(build_file) && File.Exists(project_property_file)){
 				Sys.Run(string.Format("android update project -p {0}", Utils.generateSafePathString(project.project_path)));
 			}
 			
@@ -371,7 +377,8 @@ namespace UmengChannel
 		
 		public SyncCmd()
 		{
-			p.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived);
+			p.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived );
+			p.ErrorDataReceived += new DataReceivedEventHandler( p_ErrorDataReceived );
 			//设定程序名
 
 			p.StartInfo.FileName = "cmd.exe";
@@ -405,6 +412,7 @@ namespace UmengChannel
 		public void run(string cmd){
 			p.Start();
 			p.BeginOutputReadLine();
+			p.BeginErrorReadLine();
 			p.StandardInput.WriteLine(cmd);
 			p.StandardInput.WriteLine("exit");
 			p.WaitForExit();
@@ -413,6 +421,11 @@ namespace UmengChannel
 		void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
 		{
 			Log.i("!!"+ e.Data);
+		}
+		
+		void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+		{
+			Log.e("!!"+ e.Data);
 		}
 	}
 	

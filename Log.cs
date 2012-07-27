@@ -55,6 +55,9 @@ namespace UmengChannel
 		
 		public static void e(string error){
 			Debug.WriteLine("ERROR:" + error);
+			
+			sw.WriteLine(error);
+			sw.Flush();
 		}
 		
 		public static void e(Exception e){
