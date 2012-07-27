@@ -107,7 +107,7 @@ namespace UmengChannel
 			int progress = 0;
 			
 			publishProgress(progress++, total);
-			setAntEnvironmet();
+			setProjectEnvironmet();
 			publishProgress(progress++, total);
 			if(project.setProguard)
 			{
@@ -170,7 +170,7 @@ namespace UmengChannel
 			signCmd.Append(string.Format(" -storepass {0}", project.keystore_pw));
 			signCmd.Append(string.Format(" -keypass {0}",project.key_pw));
 			signCmd.Append(string.Format(" -signedjar {0}-unaligned.apk {1}", Path.Combine(bin,projectName), Path.Combine(bin,"*unsigned.apk") ));
-			signCmd.Append(string.Format(" -verbose {0}", project.alias));
+			signCmd.Append(string.Format(" {0}", project.alias));
 			signCmd.Append(" -digestalg SHA1 -sigalg MD5withRSA");
 			
 			Sys.Run(signCmd.ToString());
@@ -182,24 +182,23 @@ namespace UmengChannel
 			
 			zipAlignCmd.Append("zipalign");
 			zipAlignCmd.Append(" -v 4");//32bits
-<<<<<<< HEAD
-			zipAlignCmd.Append(" *-unaligned.apk");
-			zipAlignCmd.Append(string.Format("{0}-{1}.apk", projectName, channle));
-=======
+
 			zipAlignCmd.Append(string.Format(" {0}", Path.Combine(bin, "*unaligned.apk")));
 			zipAlignCmd.Append(string.Format(" {0}", Path.Combine(bin, string.Format("{0}-{1}.apk", projectName, channle))));
->>>>>>> c9a3d09aa42d0fa1fe35a54098450aa8eeefd218
 			
 			Sys.Run(zipAlignCmd.ToString());
 		}
 		
-		private void setAntEnvironmet(){
+		private void setProjectEnvironmet(){
 			Log.i("Update android project environment");
 			
-			string build_file = System.IO.Path.Combine(project.project_path,"Build.xml");
+			string build_file = Path.Combine(project.project_path,"Build.xml");
+			string project_property_file = Path.Combine(project.project_path, "project.properties");
 			
-			if(!File.Exists(build_file)){
-				//Sys.Run(string.Format("android update project -p {0} -t {1}", project.project_path, "android-4"));
+			if(!File.Exists(build_file) && !File.Exists(project_property_file)){
+				Sys.Run(string.Format("android update project -p {0} -t android-4", project.project_path));
+					
+			}else if(!File.Exists(build_file) && File.Exists(project_property_file)){
 				Sys.Run(string.Format("android update project -p {0}", project.project_path));
 			}
 			
