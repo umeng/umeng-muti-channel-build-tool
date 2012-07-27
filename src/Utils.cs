@@ -26,13 +26,28 @@ namespace UmengChannel
 		}
 		
 		public static bool isValidAndroidProject(string path){
-			string [] files = {".classpath", ".project", "AndroidManifest.xml"};
+			string [] files = {"AndroidManifest.xml"};
 			string file_path;
 			foreach (string file in files){
 				file_path = System.IO.Path.Combine(path, file);
 				if(!System.IO.File.Exists(file_path)) 
 					return false;
 			}
+			return true;
+		}
+		
+		public static bool isValidAndroidSDKPath(string path){
+			string [] folders = {"tools","platforms"};
+			string folder_path;
+			
+			foreach(string folder in folders){
+				folder_path  = Path.Combine(path, folder);
+				
+				if(!Directory.Exists( folder_path)){
+				 	return false;  	
+				}
+			}
+			
 			return true;
 		}
 		

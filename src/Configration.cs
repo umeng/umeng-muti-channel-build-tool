@@ -12,27 +12,20 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 namespace UmengChannel
 {
 	public class Configration{
 		//project directory
 		public const string projects_path = "projects";
-		public const string general_setting = "config.xml";
+		public const string general_setting = "sys.cfg";
 		
-		private string java_env = null;
-		public string java_home {
-			get{
-				return java_env;
-			}
-			set
-			{
-				if(java_env != value){
-					java_env = value;
-					System.Environment.SetEnvironmentVariable("JAVA_HOME", value);
-				}
-			}
-		}
+		public string java_home {get;set;}
+		public string android_home {get;set;}
+		public string ant_home {get;set;}
+		
+		private bool hasSetEnvironment = false;
 		
 		private string currentProject;
 		public SortedList<string,ProjectConfigration> projects {get ;set;}
@@ -42,10 +35,14 @@ namespace UmengChannel
 		private Configration(){
 			if(projects == null){
 				projects = new SortedList<string, ProjectConfigration>();
+				
 			}
-			loadConfig();
-			LoadProjects();
+			
+			ant_home = Path.Combine(System.Environment.CurrentDirectory,Path.Combine("tools","ant"));
 			buildDirectory();
+			
+			loadSysConfig();
+			LoadProjects();
 		}
 		
 		private void buildDirectory()
@@ -58,6 +55,42 @@ namespace UmengChannel
 			}
 		}
 		
+		public void setEnvironment(){
+			if(hasSetEnvironment)
+			{
+				return;
+			}
+			
+			string s1 = System.Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
+			string s2 = System.Environment.GetEnvironmentVariable("JAVA_HOME", EnvironmentVariableTarget.Process);
+			string s3 = System.Environment.GetEnvironmentVariable("ANT_HOME",EnvironmentVariableTarget.Process);
+			
+			Log.i("set environment");
+			System.Environment.SetEnvironmentVariable("JAVA_HOME", java_home);//, EnvironmentVariableTarget.User);
+			System.Environment.SetEnvironmentVariable("ANT_HOME", ant_home);//, EnvironmentVariableTarget.User);
+			
+			System.Text.StringBuilder path = new System.Text.StringBuilder();
+			
+			path.Append(Path.Combine("%JAVA_HOME%","bin"));
+			path.Append(";");
+			path.Append(Path.Combine("%JAVA_HOME%","lib"));
+			path.Append(";");
+			path.Append(Path.Combine(android_home,"tools"));
+			path.Append(";");
+			path.Append(Path.Combine("%ANT_HOME%","bin"));
+			path.Append(";");
+			path.Append("%JAVA_HOME%;");
+			path.Append("%ANT_HOME%;");
+			path.Append(Path.Combine(java_home,"bin;"));//+
+			path.Append(Path.Combine(ant_home,"bin;"));//+
+			
+			System.Environment.SetEnvironmentVariable("PATH", path.ToString());//, EnvironmentVariableTarget.User);
+			
+			hasSetEnvironment = true;
+			
+			            
+		}
+		
 		public static Configration Instanse(){
 			if(configration == null) {
 				Utils.checkOrSetAnthome();
@@ -67,8 +100,20 @@ namespace UmengChannel
 			return configration;
 		}
 		
-		private void loadConfig(){
-			java_home = System.Environment.GetEnvironmentVariable("JAVA_HOME");
+		private void loadSysConfig(){
+			string sys_setting = Path.Combine("projects",general_setting);
+			if(!File.Exists(sys_setting)) return;
+			
+			using(StreamReader sw = File.OpenText(sys_setting))
+		    {
+				java_home = sw.ReadLine();
+				android_home = sw.ReadLine();
+		    }
+			
+			if(!string.IsNullOrEmpty(java_home) && !string.IsNullOrEmpty(android_home))
+			{
+				setEnvironment();
+			}
 		}
 
 		/// <summary>
@@ -144,6 +189,14 @@ namespace UmengChannel
 				pair.Value.writeSettintToFile(pair.Key);
 			}
 		}
+		
+		public void saveSysConfig(){
+
+			using(StreamWriter sw = File.CreateText(Path.Combine("projects",general_setting))){
+				sw.WriteLine(java_home);
+				sw.WriteLine( android_home);
+			}
+		}
 		/// <summary>
 		/// project.count = 1 : return new ProjectConfigration
 		/// project.count > 1 : return next.
@@ -186,7 +239,7 @@ namespace UmengChannel
 			string project_name = null;
   			ProjectConfigration pconfig = null;
   			
-			 foreach (string f in files)
+  			foreach (string f in files.Where( X=> ((string)X).Contains("setting@")))
 			 {
 			 	project_name = parceProjectNameFromFileName(f);
 			 	pconfig = ProjectConfigration.readSettingFromFile(project_name);
@@ -203,6 +256,8 @@ namespace UmengChannel
 			fileName = System.IO.Path.GetFileName(fileName);
 			return fileName.Substring(8, fileName.Length - 12);
 		}
+		
+		
 	}
 	/// <summary>
 	/// Description of Configration.
@@ -227,9 +282,6 @@ namespace UmengChannel
 		// should proguard
 		public bool setProguard {get;set;}
 		// tools path
-		
-		public string android_sdk_path {get;set;}
-		public string java_sdk_path {get;set;}
 		
 		public List<string> channels {get;set;}
 

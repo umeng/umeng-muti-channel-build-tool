@@ -58,7 +58,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Configration.cs" />
-    <Compile Include="src\GenerateAntBuildFile.cs" />
     <Compile Include="src\Utils.cs" />
     <Compile Include="src\Worker.cs" />
   </ItemGroup>

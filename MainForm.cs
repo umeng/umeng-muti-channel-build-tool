@@ -86,6 +86,8 @@ namespace UmengChannel
 		private void bindGeneralConfig(){
 			this.tb_java_path.DataBindings.Clear();
 			this.tb_java_path.DataBindings.Add("Text",Configration.Instanse(),"java_home",false,DataSourceUpdateMode.OnPropertyChanged);
+			this.tb_android_sdk_path.DataBindings.Clear();
+			this.tb_android_sdk_path.DataBindings.Add("Text",Configration.Instanse(),"android_home",false,DataSourceUpdateMode.OnPropertyChanged);
 		}
 		//projects -> view
 		private void refreshProjects(){
@@ -246,9 +248,23 @@ namespace UmengChannel
 			if (folderBrowserDialog1.ShowDialog() == DialogResult.OK){
 				string path = null;
 				if(Utils.isValidJavaSDKPath(path = folderBrowserDialog1.SelectedPath)){	
-					Configration.Instanse().java_home = path;
+					this.tb_java_path.Text = path;
 				}else{
 					MessageBox.Show("请选择 JDK 工程根目录( 包涵 lin ,bin 等子目录)");
+				}
+			}
+		}
+		
+		void Bt_android_sdk_pathClick(object sender, EventArgs e)
+		{
+			FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
+
+			if (folderBrowserDialog1.ShowDialog() == DialogResult.OK){
+				string path = null;
+				if(Utils.isValidAndroidSDKPath(path = folderBrowserDialog1.SelectedPath)){	
+					this.tb_android_sdk_path.Text = path;
+				}else{
+					MessageBox.Show("请选择 Android SDK 目录( 包涵 platform , tools 等子目录)");
 				}
 			}
 		}
@@ -276,6 +292,7 @@ namespace UmengChannel
 		private void Application_ApplicationExit(object sender, EventArgs e) {
 		    try {
 				Configration.Instanse().saveProjects();
+				Configration.Instanse().saveSysConfig();
 		    } catch {}
 		}
 		
@@ -332,11 +349,24 @@ namespace UmengChannel
 				
 			}
 			
+			if(string.IsNullOrEmpty(Configration.Instanse().java_home))
+			{
+				error = "JDK 路径没有设置";
+			}
+			
+			if(string.IsNullOrEmpty(Configration.Instanse().android_home))
+			{
+				error = "Android SDK 路径没有设置";
+			}
+			
 			if(error != null)
 			{
 				MessageBox.Show(error);
 				return false;
 			}
+			
+			Configration.Instanse().setEnvironment();
+			
 			//if(android_sdk_path == null)
 			//if(java sdk path !
 			return true;
@@ -358,5 +388,8 @@ namespace UmengChannel
 			refreshProjects();
 			bindProjectConfig();
 		}
+	
+		
+		
 	}
 }
