@@ -90,5 +90,17 @@ namespace UmengChannel
 			return string.Format("setting@{0}.xml",project);
 		}
 		
+		public static string generateSafePathString(string path)
+		{
+			
+			System.Text.StringBuilder pathBuilder = new System.Text.StringBuilder();
+			
+			//pathBuilder.Append("\"");
+			pathBuilder.Append(path);//path.Replace("\\","\\\\"));
+			//pathBuilder.Append("\"");
+			
+			return pathBuilder.ToString();
+		}
+		
 	}
 }

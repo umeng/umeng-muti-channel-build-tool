@@ -166,11 +166,13 @@ namespace UmengChannel
 			string bin = Path.Combine(project.project_path,"bin");
 			//signCmd.Append(Path.Combine(project.java_sdk_path,Path.Combine("bin","jarsigner")));
 			signCmd.Append("jarsigner");
-			signCmd.Append(string.Format(" -keystore {0}", project.keystore_file_path));
+			signCmd.Append(string.Format(" -keystore {0}", Utils.generateSafePathString(project.keystore_file_path)));
 			signCmd.Append(string.Format(" -storepass {0}", project.keystore_pw));
 			signCmd.Append(string.Format(" -keypass {0}",project.key_pw));
-			signCmd.Append(string.Format(" -signedjar {0}-unaligned.apk {1}", Path.Combine(bin,projectName), Path.Combine(bin,"*unsigned.apk") ));
-			signCmd.Append(string.Format(" -verbose {0}", project.alias));
+			signCmd.Append(string.Format(" -signedjar {0}-unaligned.apk {1}", 
+			                             Utils.generateSafePathString(Path.Combine(bin,projectName)),
+			                             Utils.generateSafePathString(Path.Combine(bin,"*unsigned.apk"))));
+			signCmd.Append(string.Format(" {0}", project.alias));
 			signCmd.Append(" -digestalg SHA1 -sigalg MD5withRSA");
 			
 			Sys.Run(signCmd.ToString());
@@ -182,8 +184,8 @@ namespace UmengChannel
 			
 			zipAlignCmd.Append("zipalign");
 			zipAlignCmd.Append(" -v 4");//32bits
-			zipAlignCmd.Append(string.Format(" {0}", Path.Combine(bin, "*unaligned.apk")));
-			zipAlignCmd.Append(string.Format(" {0}", Path.Combine(bin, string.Format("{0}-{1}.apk", projectName, channle))));
+			zipAlignCmd.Append(string.Format(" {0}", Utils.generateSafePathString(Path.Combine(bin, "*unaligned.apk"))));
+			zipAlignCmd.Append(string.Format(" {0}", Utils.generateSafePathString(Path.Combine(bin, string.Format("{0}-{1}.apk", projectName, channle)))));
 			
 			Sys.Run(zipAlignCmd.ToString());
 		}
@@ -195,7 +197,7 @@ namespace UmengChannel
 			
 			if(!File.Exists(build_file)){
 				//Sys.Run(string.Format("android update project -p {0} -t {1}", project.project_path, "android-4"));
-				Sys.Run(string.Format("android update project -p {0}", project.project_path));
+				Sys.Run(string.Format("android update project -p {0}", Utils.generateSafePathString(project.project_path)));
 			}
 			
 			Log.i("...");
@@ -242,8 +244,8 @@ namespace UmengChannel
 		
 		private void buildUnsignedApk(){
 			Log.i("Build apk ...");
-			Sys.Run(string.Format("ant clean -f {0}", Path.Combine(project.project_path,"build.xml")));
-			Sys.Run(string.Format("ant release -f {0}",Path.Combine(project.project_path,"build.xml")));
+			Sys.Run(string.Format("ant clean -f {0}", Utils.generateSafePathString(Path.Combine(project.project_path,"build.xml"))));
+			Sys.Run(string.Format("ant release -f {0}", Utils.generateSafePathString(Path.Combine(project.project_path,"build.xml"))));
 		}
 		
 		private void setProguard(){
