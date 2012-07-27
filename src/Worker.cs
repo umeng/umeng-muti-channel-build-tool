@@ -163,12 +163,14 @@ namespace UmengChannel
 		private void signAPK(string projectName){
 			StringBuilder signCmd = new StringBuilder();
 			
-			signCmd.Append(Path.Combine(project.java_sdk_path,Path.Combine("bin","jarsigner")));
+			string bin = Path.Combine(project.project_path,"bin");
+			//signCmd.Append(Path.Combine(project.java_sdk_path,Path.Combine("bin","jarsigner")));
+			signCmd.Append("jarsigner");
 			signCmd.Append(string.Format(" -keystore {0}", project.keystore_file_path));
 			signCmd.Append(string.Format(" -storepass {0}", project.keystore_pw));
 			signCmd.Append(string.Format(" -keypass {0}",project.key_pw));
-			signCmd.Append(string.Format(" -signedjar {0} {1}-unaligned.apk", "*unsigned.apk", projectName));
-			signCmd.Append(string.Format(" {0}", project.alias));
+			signCmd.Append(string.Format(" -signedjar {0}-unaligned.apk {1}", Path.Combine(bin,projectName), Path.Combine(bin,"*unsigned.apk") ));
+			signCmd.Append(string.Format(" -verbose {0}", project.alias));
 			signCmd.Append(" -digestalg SHA1 -sigalg MD5withRSA");
 			
 			Sys.Run(signCmd.ToString());
@@ -176,11 +178,17 @@ namespace UmengChannel
 		
 		private void zipAlign(string projectName,string channle){
 			StringBuilder zipAlignCmd = new StringBuilder();
+			string bin = Path.Combine(project.project_path,"bin");
 			
 			zipAlignCmd.Append("zipalign");
 			zipAlignCmd.Append(" -v 4");//32bits
+<<<<<<< HEAD
 			zipAlignCmd.Append(" *-unaligned.apk");
 			zipAlignCmd.Append(string.Format("{0}-{1}.apk", projectName, channle));
+=======
+			zipAlignCmd.Append(string.Format(" {0}", Path.Combine(bin, "*unaligned.apk")));
+			zipAlignCmd.Append(string.Format(" {0}", Path.Combine(bin, string.Format("{0}-{1}.apk", projectName, channle))));
+>>>>>>> c9a3d09aa42d0fa1fe35a54098450aa8eeefd218
 			
 			Sys.Run(zipAlignCmd.ToString());
 		}
