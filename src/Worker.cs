@@ -180,7 +180,7 @@ namespace UmengChannel
 			zipAlignCmd.Append("zipalign");
 			zipAlignCmd.Append(" -v 4");//32bits
 			zipAlignCmd.Append(" *-unaligned.apk");
-			zipAlignCmd.Append(string.Format("{0}-{1}.apk", projectName,, channle));
+			zipAlignCmd.Append(string.Format("{0}-{1}.apk", projectName, channle));
 			
 			Sys.Run(zipAlignCmd.ToString());
 		}
