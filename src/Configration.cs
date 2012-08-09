@@ -70,7 +70,7 @@ namespace UmengChannel
 			System.Text.StringBuilder path = new System.Text.StringBuilder();
 			
 			path.Append(originPath);
-			path.Append(";")
+			path.Append(";");
 			path.Append(Path.Combine("%JAVA_HOME%","bin"));
 			path.Append(";");
 			path.Append(Path.Combine("%JAVA_HOME%","lib"));

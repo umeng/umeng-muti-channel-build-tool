@@ -206,6 +206,17 @@ namespace UmengChannel
 			Sys.Run(zipAlignCmd.ToString());
 		}
 		
+		private string findUnsignedAPK(){
+			string bin = Path.Combine(project.project_path, "bin");
+			foreach(string file in Directory.GetFiles(bin))
+			{
+				if(file.EndsWith("unsigned.apk")){
+					return file;
+				}
+			}
+			
+			return null;
+		}
 		private void setProjectEnvironmet(){
 			Log.i("Update android project environment");
 			

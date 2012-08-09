@@ -362,11 +362,12 @@ namespace UmengChannel
 				
 			}
 			
-			if(project.channels == null || project.channels.Capacity <=0){
+			if(project.channels == null || project.channels.Count <=0){
 				error = "渠道没有设置";
 				Log.w("Please input channels !");
 				
 			}
+
 			
 			if(string.IsNullOrEmpty(Configration.Instanse().java_home))
 			{
