@@ -186,22 +186,41 @@ namespace UmengChannel
 		//delete channel
 		void Button1Click(object sender, EventArgs e)
 		{
+			if(channels.SelectedIndex < 0 || channels.SelectedIndex >= project.channels.Count ) 
+			{
+				return;
+			}
 			deleteChannel(project.channels[channels.SelectedIndex]);
 		}
 		//input channel(enter!)
 		void TextBox5KeyDown(object sender, KeyEventArgs e)
 		{
 			TextBox tb_channel = sender as TextBox;
+			
 			if (e.KeyCode == Keys.Enter ){
 				string channel = tb_channel.Text;
 				if(!string.IsNullOrEmpty(channel) && Utils.isValidChannal(channel)){
 					addChannel(channel);
+					this.tb_input_channel_area.Text = string.Empty;
 				}else{
 					Log.w("invalid channel ");
 					MessageBox.Show("invalid channel" + channel);
 				}
   			}
 			
+		}
+		
+		void Tb_input_channel_areaEnter(object sender, EventArgs e)
+		{
+			this.label_hint.Visible = false;
+		}
+		
+		void Tb_input_channel_areaLeave(object sender, EventArgs e)
+		{
+			if(string.IsNullOrEmpty(tb_input_channel_area.Text))
+			{
+				this.label_hint.Visible = true;
+			}
 		}
 		
 		//open the apks folder
@@ -388,8 +407,35 @@ namespace UmengChannel
 			refreshProjects();
 			bindProjectConfig();
 		}
-	
 		
+		void Label8Click(object sender, EventArgs e)
+		{
+			
+		}
 		
+		void Label6Click(object sender, EventArgs e)
+		{
+			
+		}
+		
+		void Label_hintClick(object sender, EventArgs e)
+		{
+			
+		}
+		
+		void Label9Click(object sender, EventArgs e)
+		{
+			
+		}
+		
+		void MainFormLoad(object sender, EventArgs e)
+		{
+			
+		}
+		
+		void FontDialog1Apply(object sender, EventArgs e)
+		{
+			
+		}
 	}
 }

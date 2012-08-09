@@ -73,7 +73,14 @@ namespace UmengChannel
 				
 				if(File.Exists(dst_file)) File.Delete(dst_file);
 				
-				File.Copy(src_file, src_file+"~");
+				File.Copy(src_file, dst_file);
+			}
+			
+			//should delete ant.properties
+			string ant_file = Path.Combine(project.project_path, srcs[1]);
+			if(File.Exists(ant_file)) 
+			{
+				File.Delete(ant_file);
 			}
 			
 		}
@@ -86,15 +93,22 @@ namespace UmengChannel
 			foreach(string src in srcs){
 				dst_file = Path.Combine(project.project_path, src+"~");
 				src_file = Path.Combine(project.project_path, src);
-				if(File.Exists( dst_file))
+				
+				//restore backup file
+				if(File.Exists( dst_file) && File.Exists(src_file))
 				{
 					File.Replace(dst_file, src_file, null);
 					
-				}else if(File.Exists(src_file))
+				}//restore deleted file
+				else if(File.Exists(dst_file) && !File.Exists(src_file))
+				{
+					File.Move(dst_file, src_file);
+				}//delete App generated file
+				else if(!File.Exists(dst_file) && File.Exists(src_file))
 				{
 					File.Delete(src_file);
 				}
-				
+			
 			}
 		}
 		
@@ -381,6 +395,8 @@ namespace UmengChannel
 			p.ErrorDataReceived += new DataReceivedEventHandler( p_ErrorDataReceived );
 			//设定程序名
 
+			//for xp
+			p.StartInfo.WorkingDirectory = System.Environment.CurrentDirectory;
 			p.StartInfo.FileName = "cmd.exe";
 
 			//关闭Shell的使用
@@ -420,12 +436,12 @@ namespace UmengChannel
 		
 		void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
 		{
-			Log.i("!!"+ e.Data);
+			Log.i( e.Data);
 		}
 		
 		void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
 		{
-			Log.e("!!"+ e.Data);
+			Log.e( e.Data);
 		}
 	}
 	
