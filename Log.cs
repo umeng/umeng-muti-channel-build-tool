@@ -45,7 +45,7 @@ namespace UmengChannel
 		public static void i(string info){
 			Debug.WriteLine("INFO:" + info);
 			
-			sw.WriteLine("INFO:"+info);
+			sw.WriteLine(info);
 			sw.Flush();
 		}
 		
@@ -56,7 +56,7 @@ namespace UmengChannel
 		public static void e(string error){
 			Debug.WriteLine("ERROR:" + error);
 			
-			sw.WriteLine("ERROR:"+error);
+			sw.WriteLine(error);
 			sw.Flush();
 		}
 		

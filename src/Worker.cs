@@ -73,14 +73,7 @@ namespace UmengChannel
 				
 				if(File.Exists(dst_file)) File.Delete(dst_file);
 				
-				File.Copy(src_file, dst_file);
-			}
-			
-			//should delete ant.properties
-			string ant_file = Path.Combine(project.project_path, srcs[1]);
-			if(File.Exists(ant_file)) 
-			{
-				File.Delete(ant_file);
+				File.Copy(src_file, src_file+"~");
 			}
 			
 		}
@@ -93,22 +86,15 @@ namespace UmengChannel
 			foreach(string src in srcs){
 				dst_file = Path.Combine(project.project_path, src+"~");
 				src_file = Path.Combine(project.project_path, src);
-				
-				//restore backup file
-				if(File.Exists( dst_file) && File.Exists(src_file))
+				if(File.Exists( dst_file))
 				{
 					File.Replace(dst_file, src_file, null);
 					
-				}//restore deleted file
-				else if(File.Exists(dst_file) && !File.Exists(src_file))
-				{
-					File.Move(dst_file, src_file);
-				}//delete App generated file
-				else if(!File.Exists(dst_file) && File.Exists(src_file))
+				}else if(File.Exists(src_file))
 				{
 					File.Delete(src_file);
 				}
-			
+				
 			}
 		}
 		
@@ -173,6 +159,18 @@ namespace UmengChannel
 		//& "$jdkPath\bin\jarsigner" -keystore $KeystorePath -storepass $StorePass -keypass $KeyPass 
 		//-signedjar "$signedPath\$ProjectName-$ChannelName.apk" -verbose "$ProjectRootDirectory\bin\$UnsignedReleaseApkName" $Alias -digestalg SHA1 -sigalg MD5withRSA
     
+		private string findUnsignedAPKName(){
+			string [] bin = Directory.GetFiles(Path.Combine(project.project_path,"bin"));
+			
+			foreach(string file_name in bin){
+				if(file_name.EndsWith("unsigned.apk")){
+					return file_name;
+				}
+			}
+			
+			throw new Exception("build fail , can't find *unsigned.apk file.");
+		}
+		
 		private void signAPK(string projectName){
 			StringBuilder signCmd = new StringBuilder();
 			
@@ -183,9 +181,9 @@ namespace UmengChannel
 			signCmd.Append(string.Format(" -storepass {0}", project.keystore_pw));
 			signCmd.Append(string.Format(" -keypass {0}",project.key_pw));
 			
-			signCmd.Append(string.Format(" -signedjar {0}-unaligned.apk {1}", 
-			                             Utils.generateSafePathString(Path.Combine(bin,projectName)),
-			                             Utils.generateSafePathString(Path.Combine(bin,"*unsigned.apk"))));
+			signCmd.Append(string.Format(" -signedjar {0} {1}", 
+			                             Utils.generateSafePathString(Path.Combine(bin,projectName + "-unaligned.apk")),
+			                             Utils.generateSafePathString(Path.Combine(bin,  findUnsignedAPKName()))));//ListTest-release
 
 			signCmd.Append(string.Format(" {0}", project.alias));
 			signCmd.Append(" -digestalg SHA1 -sigalg MD5withRSA");
@@ -196,27 +194,21 @@ namespace UmengChannel
 		private void zipAlign(string projectName,string channle){
 			StringBuilder zipAlignCmd = new StringBuilder();
 			string bin = Path.Combine(project.project_path,"bin");
+			string unaligned_file = Path.Combine(bin, projectName+"-unaligned.apk");
+			
+			if(!File.Exists(unaligned_file)){
+				throw new Exception(string.Format("signer apk error .. can't find {0}-unaligned.apk file for zip align", projectName));
+			}
 			
 			zipAlignCmd.Append("zipalign");
 			zipAlignCmd.Append(" -v 4");//32bits
 
-			zipAlignCmd.Append(string.Format(" {0}", Utils.generateSafePathString(Path.Combine(bin, "*unaligned.apk"))));
+			zipAlignCmd.Append(string.Format(" {0}", Utils.generateSafePathString(unaligned_file)));
 			zipAlignCmd.Append(string.Format(" {0}", Utils.generateSafePathString(Path.Combine(bin, string.Format("{0}-{1}.apk", projectName, channle)))));
 			
 			Sys.Run(zipAlignCmd.ToString());
 		}
 		
-		private string findUnsignedAPK(){
-			string bin = Path.Combine(project.project_path, "bin");
-			foreach(string file in Directory.GetFiles(bin))
-			{
-				if(file.EndsWith("unsigned.apk")){
-					return file;
-				}
-			}
-			
-			return null;
-		}
 		private void setProjectEnvironmet(){
 			Log.i("Update android project environment");
 			
@@ -406,8 +398,6 @@ namespace UmengChannel
 			p.ErrorDataReceived += new DataReceivedEventHandler( p_ErrorDataReceived );
 			//设定程序名
 
-			//for xp
-			p.StartInfo.WorkingDirectory = System.Environment.CurrentDirectory;
 			p.StartInfo.FileName = "cmd.exe";
 
 			//关闭Shell的使用

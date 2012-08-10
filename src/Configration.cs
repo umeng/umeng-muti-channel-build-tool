@@ -61,7 +61,9 @@ namespace UmengChannel
 				return;
 			}
 			
-			string originPath = System.Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
+			string s1 = System.Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
+			string s2 = System.Environment.GetEnvironmentVariable("JAVA_HOME", EnvironmentVariableTarget.Process);
+			string s3 = System.Environment.GetEnvironmentVariable("ANT_HOME",EnvironmentVariableTarget.Process);
 			
 			Log.i("set environment");
 			System.Environment.SetEnvironmentVariable("JAVA_HOME", java_home);//, EnvironmentVariableTarget.User);
@@ -69,8 +71,6 @@ namespace UmengChannel
 			
 			System.Text.StringBuilder path = new System.Text.StringBuilder();
 			
-			path.Append(originPath);
-			path.Append(";");
 			path.Append(Path.Combine("%JAVA_HOME%","bin"));
 			path.Append(";");
 			path.Append(Path.Combine("%JAVA_HOME%","lib"));
