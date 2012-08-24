@@ -74,6 +74,11 @@ namespace UmengChannel
 				if(File.Exists(dst_file)) File.Delete(dst_file);
 				
 				File.Copy(src_file, src_file+"~");
+
+				if(src.Equals(srcs[1]))
+				{
+					File.Delete(src_file);
+				}
 			}
 			
 		}
@@ -86,14 +91,21 @@ namespace UmengChannel
 			foreach(string src in srcs){
 				dst_file = Path.Combine(project.project_path, src+"~");
 				src_file = Path.Combine(project.project_path, src);
-				if(File.Exists( dst_file))
+				
+				//restore backup file
+				if(File.Exists( dst_file) && File.Exists(src_file))
+ 				{
+ 					File.Replace(dst_file, src_file, null);
+ 					
+				}//restore deleted file
+				else if(File.Exists(dst_file) && !File.Exists(src_file))
 				{
-					File.Replace(dst_file, src_file, null);
-					
-				}else if(File.Exists(src_file))
-				{
-					File.Delete(src_file);
-				}
+					File.Move(dst_file, src_file);
+				}//delete App generated file
+				else if(!File.Exists(dst_file) && File.Exists(src_file))
+ 				{
+ 					File.Delete(src_file);
+ 				}
 				
 			}
 		}
@@ -396,6 +408,8 @@ namespace UmengChannel
 		{
 			p.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived );
 			p.ErrorDataReceived += new DataReceivedEventHandler( p_ErrorDataReceived );
+			
+			p.StartInfo.WorkingDirectory = System.Environment.CurrentDirectory;
 			//设定程序名
 
 			p.StartInfo.FileName = "cmd.exe";
