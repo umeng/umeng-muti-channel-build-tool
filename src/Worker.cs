@@ -44,16 +44,21 @@ namespace UmengChannel
 		}
 		private void run(){
 			
-			try{
-				backup();
-				doWork();
-			}catch(XException xex){
-				throw xex;
-			}catch(Exception ex){
-				throw ex;
-			}finally{
-				restore();
+			if( project.isApkProject ){
+				doWorkFromApk();
+			}else{
+				try{
+					backup();
+					doWorkFromSource();
+				}catch(XException xex){
+					throw xex;
+				}catch(Exception ex){
+					throw ex;
+				}finally{
+					restore();
+				}
 			}
+			
 		}
 		
 		
@@ -109,8 +114,65 @@ namespace UmengChannel
 				
 			}
 		}
+
+        //apktool d --no-src  -f DkReader_1.7.0.1671.apk dk
+        private void doWorkFromApk()
+        {
+        	int total = project.channels.Count*3 + 1;
+        	int progress = 0;
+        	
+        	publishProgress( progress ++ , total );
+        	decodeApk();
+        	
+            foreach (string channle in project.channels)
+            {
+            	publishProgress( progress ++ , total );
+            	replaceChannle( channle );
+            	publishProgress( progress ++ , total );
+            	rebuildApk();
+            	
+            	publishProgress( progress ++ , total );
+            	signAPK();
+            	zipAlign();
+            	
+            	copyToWorkspace( channle );
+            }
+        }
+        
+        private void decodeApk(){
+        	
+        	if( !File.Exists(project.project_path)){
+        		throw new XException("Target apk is missing..");
+        	}
+        	
+        	List<String> cmd = new List<string>();
+            cmd.Add( "apktool" );
+            cmd.Add( "d" );
+            cmd.Add("--no-src");
+            cmd.Add("-f");
+            cmd.Add(string.Format("\"{0}\"", project.project_path));
+            cmd.Add(string.Format("\"{0}\"", project.ApkDecodeFolder));
+
+            Sys.Run( ToCommand(cmd) );
+        }
+        
+        private void rebuildApk(){
+        	
+        	if( !Directory.Exists( project.ApkTempFolder )){
+        		Directory.CreateDirectory( project.ApkTempFolder );
+        	}
+        	
+        	List<String> cmd = new List<string>();
+            cmd.Add( "apktool" );
+            cmd.Add( "b" );
+            cmd.Add("--no-src");
+            cmd.Add(string.Format("\"{0}\"", project.ApkDecodeFolder));
+            cmd.Add(string.Format("\"{0}\"", project.UnsignedApkFile));
+
+            Sys.Run( ToCommand( cmd ));
+        }
 		
-		private void doWork(){
+		private void doWorkFromSource(){
 			//start work//total = channel.length*2 + 3
 			Log.i("Start to generate APK for channnels");
 			
@@ -131,7 +193,6 @@ namespace UmengChannel
 			//setSignApk();
 			
 			List<string> channels = project.channels;
-			string project_name = Utils.getAndroidProjectName(project.project_path);
 			
 			foreach(string channel in channels){
 				Log.i("Start to generate APK for " + channel);
@@ -142,11 +203,11 @@ namespace UmengChannel
 					publishProgress(progress++, total);
 					
 					buildUnsignedApk();
-					signAPK(project_name);
-					zipAlign(project_name, channel);
+					signAPK();
+					zipAlign();
 					
 					publishProgress(progress++, total);
-					copyToWorkspace(project_name,channel);
+					copyToWorkspace(channel);
 					
 				}catch(Exception e){
 					throw e;
@@ -154,71 +215,48 @@ namespace UmengChannel
 			}
 		}
 		
-//		private void doubleCheck()
-//		{
-//			string dir = Path.Combine(System.Environment.CurrentDirectory, "output",Utils.getAndroidProjectName(project.project_path));
-//			
-//			foreach(string channle in project.channels)
-//			{
-//				if(!File.Exists(Path.Combine(dir, )))
-//			}
-//		}
-		
 		private void publishProgress(int progress, int total){
 			workReporter.ReportProgress(progress*100/total);
 		}
 		
-		//& "$jdkPath\bin\jarsigner" -keystore $KeystorePath -storepass $StorePass -keypass $KeyPass 
-		//-signedjar "$signedPath\$ProjectName-$ChannelName.apk" -verbose "$ProjectRootDirectory\bin\$UnsignedReleaseApkName" $Alias -digestalg SHA1 -sigalg MD5withRSA
-    
-		private string findUnsignedAPKName(){
-			string [] bin = Directory.GetFiles(Path.Combine(project.project_path,"bin"));
-			
-			foreach(string file_name in bin){
-				if(file_name.EndsWith("unsigned.apk")){
-					return file_name;
-				}
-			}
-			
-			throw new Exception("build fail , can't find *unsigned.apk file.");
+		private void signAPK(){
+        	
+        	List<String> cmd = new List<string>();
+        	
+        	cmd.Add( "jarsigner" );
+        	cmd.Add( "-keystore" );
+        	cmd.Add( string.Format("\"{0}\"", project.keystore_file_path ));
+        	cmd.Add( "-storepass" );
+        	cmd.Add( project.keystore_pw );
+        	cmd.Add( "-keypass" );
+        	cmd.Add( project.key_pw );
+        	cmd.Add( "-signedjar" );
+        	cmd.Add( string.Format("\"{0}\"", project.UnzipalignApkFile ));
+        	cmd.Add( string.Format("\"{0}\"", project.UnsignedApkFile ));
+        	cmd.Add( project.alias );
+        	cmd.Add( "-digestalg" );
+        	cmd.Add( "SHA1" );
+        	cmd.Add( "-sigalg" );
+        	cmd.Add( "MD5withRSA" );
+        	
+        	Sys.Run( ToCommand( cmd ));
 		}
 		
-		private void signAPK(string projectName){
-			StringBuilder signCmd = new StringBuilder();
-			
-			string bin = Path.Combine(project.project_path,"bin");
-			//signCmd.Append(Path.Combine(project.java_sdk_path,Path.Combine("bin","jarsigner")));
-			signCmd.Append("jarsigner");
-			signCmd.Append(string.Format(" -keystore {0}", Utils.generateSafePathString(project.keystore_file_path)));
-			signCmd.Append(string.Format(" -storepass {0}", project.keystore_pw));
-			signCmd.Append(string.Format(" -keypass {0}",project.key_pw));
-			
-			signCmd.Append(string.Format(" -signedjar {0} {1}", 
-			                             Utils.generateSafePathString(Path.Combine(bin,projectName + "-unaligned.apk")),
-			                             Utils.generateSafePathString(Path.Combine(bin,  findUnsignedAPKName()))));//ListTest-release
-
-			signCmd.Append(string.Format(" {0}", project.alias));
-			signCmd.Append(" -digestalg SHA1 -sigalg MD5withRSA");
-			
-			Sys.Run(signCmd.ToString());
-		}
-		
-		private void zipAlign(string projectName,string channle){
-			StringBuilder zipAlignCmd = new StringBuilder();
-			string bin = Path.Combine(project.project_path,"bin");
-			string unaligned_file = Path.Combine(bin, projectName+"-unaligned.apk");
-			
-			if(!File.Exists(unaligned_file)){
-				throw new Exception(string.Format("signer apk error .. can't find {0}-unaligned.apk file for zip align", projectName));
+		private void zipAlign(){
+        	
+        	if(!File.Exists( project.UnzipalignApkFile )){
+				throw new Exception(string.Format("signer apk error .. can't find {0} file for zip align", project.UnzipalignApkFile));
 			}
-			
-			zipAlignCmd.Append("zipalign");
-			zipAlignCmd.Append(" -v 4");//32bits
-
-			zipAlignCmd.Append(string.Format(" {0}", Utils.generateSafePathString(unaligned_file)));
-			zipAlignCmd.Append(string.Format(" {0}", Utils.generateSafePathString(Path.Combine(bin, string.Format("{0}-{1}.apk", projectName, channle)))));
-			
-			Sys.Run(zipAlignCmd.ToString());
+        	
+        	List<String> cmd = new List<string>();
+        	
+        	cmd.Add( "zipalign" );
+        	cmd.Add( "-v" );
+        	cmd.Add( "4" );
+        	cmd.Add( string.Format("\"{0}\"", project.UnzipalignApkFile ));
+        	cmd.Add( string.Format("\"{0}\"", project.finalApkFile )); 
+        
+        	Sys.Run( ToCommand( cmd ));
 		}
 		
 		private void setProjectEnvironmet(){
@@ -229,10 +267,10 @@ namespace UmengChannel
 			
 
 			if(!File.Exists(build_file) && !File.Exists(project_property_file)){
-				Sys.Run(string.Format("android update project -p {0} -t android-4", Utils.generateSafePathString(project.project_path)));
+				Sys.Run(string.Format("android update project -p \"{0}\" -t android-4", project.project_path));
 					
 			}else if(!File.Exists(build_file) && File.Exists(project_property_file)){
-				Sys.Run(string.Format("android update project -p {0}", Utils.generateSafePathString(project.project_path)));
+				Sys.Run(string.Format("android update project -p \"{0}\"", project.project_path));
 			}
 			
 			Log.i("...");
@@ -240,8 +278,8 @@ namespace UmengChannel
 		
 		private void replaceChannle(string channel){
 			Log.i("Add or replcae channle");
-			
-			string androidmanifest_file = System.IO.Path.Combine(project.project_path,"AndroidManifest.xml");
+
+			string androidmanifest_file = project.AndroidManifestFile;
 			
 			if(!File.Exists(androidmanifest_file)){
 				throw new Exception("Can't find AndroidManifest.xml file in the dir");
@@ -279,8 +317,8 @@ namespace UmengChannel
 		
 		private void buildUnsignedApk(){
 			Log.i("Build apk ...");
-			Sys.Run(string.Format("ant clean -f {0}", Utils.generateSafePathString(Path.Combine(project.project_path,"build.xml"))));
-			Sys.Run(string.Format("ant release -f {0}", Utils.generateSafePathString(Path.Combine(project.project_path,"build.xml"))));
+			Sys.Run(string.Format("ant clean -f \"{0}\"", Path.Combine(project.project_path,"build.xml")));
+			Sys.Run(string.Format("ant release -f \"{0}\"", Path.Combine(project.project_path,"build.xml")));
 		}
 		
 		private void setProguard(){
@@ -353,14 +391,13 @@ namespace UmengChannel
 				sw.WriteLine(string.Format("key.alias={0}",project.alias));
 				sw.WriteLine(string.Format("key.store.password={0}",project.keystore_pw));
 				sw.WriteLine(string.Format("key.alias.password={0}",project.key_pw));
-				//sigalg="MD5withRSA"
-            	//digestalg="SHA1"
 				sw.WriteLine(string.Format("key.alias.password={0}",project.key_pw));
 			}	       
 		}
 		
-		private void copyToWorkspace(string project_name , string channel){
-			string apk_file = Path.Combine(project.project_path,Path.Combine("bin", string.Format("{0}-{1}.apk",project_name, channel)));
+		private void copyToWorkspace(string channel){
+			
+			string apk_file = project.finalApkFile ;
 		
 			if(apk_file == null || !File.Exists(apk_file))
 			{
@@ -375,7 +412,7 @@ namespace UmengChannel
 		
 		private string generateDstFile(string channel){
 			
-			string project_name  = Utils.getAndroidProjectName(project.project_path);
+			string project_name  = project.ProjectName;
 			string file_name  = string.Format("{0}_{1}.apk",project_name , channel);
 			
 			string dst_path  = Path.Combine(System.Environment.CurrentDirectory,
@@ -386,6 +423,18 @@ namespace UmengChannel
 			}
 			
 			return Path.Combine(dst_path, file_name);
+		}
+		
+		private string ToCommand(List<string> cmd ){
+			
+			StringBuilder msb = new StringBuilder();
+			
+			foreach(string p in cmd ){
+				msb.Append(p);
+				msb.Append(" ");
+			}
+			
+			return msb.ToString();
 		}
 	}
 	

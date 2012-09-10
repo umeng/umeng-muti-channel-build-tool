@@ -127,7 +127,7 @@ namespace UmengChannel
 
 		//view to object
 		private void setOrUpdateConfig(){
-			string project_name = Utils.getAndroidProjectName(this.tb_project.Text);
+			string project_name = System.IO.Path.GetFileName( this.tb_project.Text );
 	
 			ProjectConfigration config = Configration.Instanse().getOrCreateProject(project_name);
 			config.project_path = this.tb_project.Text;
@@ -226,9 +226,7 @@ namespace UmengChannel
 		//open the apks folder
 		void Button2Click(object sender, EventArgs e)
 		{
-			string path = System.IO.Path.Combine(System.Environment.CurrentDirectory,
-                Path.Combine("output", Utils.getAndroidProjectName(project.project_path)));
-			System.Diagnostics.Process.Start("explorer.exe", path);
+			System.Diagnostics.Process.Start("explorer.exe", project.outputFolder);
 		}
 		//open project path
 		void Bt_open_projectClick(object sender, EventArgs e)
@@ -300,10 +298,14 @@ namespace UmengChannel
 		}
 		
 		private void OnGenerateProject(string path){
-			string new_project = Utils.getAndroidProjectName(path);
+			string new_project = System.IO.Path.GetFileName( path );
 			project = Configration.Instanse().addProject(new_project);
 			project.project_path = path;
-			
+
+            if (path.ToLower().EndsWith(".apk"))
+            {
+                project.isApkProject = true;
+            }
 			refreshProjects();
 			bindProjectConfig();
 		}
@@ -322,14 +324,32 @@ namespace UmengChannel
 				error = "工程目录没有设置";
 			
 			}
-			
-			if(!Directory.Exists(project.project_path)){
-				Log.e("The input project path does't exit");
-				error = "工程目录不存在";
-				
-			}else{
-				Log.i("Target project is OK ... ");
-			}
+
+            if (project.isApkProject)
+            {
+                if (!File.Exists(project.project_path))
+                {
+                    Log.e("input apk doesn't exit");
+                    error = "指定 APK 文件不存在";
+                }
+                else
+                {
+                    Log.i("Target apk is OK ... ");
+                }
+            }
+            else
+            {
+                if (!Directory.Exists(project.project_path))
+                {
+                    Log.e("The input project path does't exit");
+                    error = "工程目录不存在";
+
+                }
+                else
+                {
+                    Log.i("Target project is OK ... ");
+                }
+            }
 			
 			if(project.keystore_file_path == null){
 				Log.e("Please set the keystore file path");
@@ -408,35 +428,18 @@ namespace UmengChannel
 			refreshProjects();
 			bindProjectConfig();
 		}
-		
-		void Label8Click(object sender, EventArgs e)
-		{
-			
-		}
-		
-		void Label6Click(object sender, EventArgs e)
-		{
-			
-		}
-		
-		void Label_hintClick(object sender, EventArgs e)
-		{
-			
-		}
-		
-		void Label9Click(object sender, EventArgs e)
-		{
-			
-		}
-		
-		void MainFormLoad(object sender, EventArgs e)
-		{
-			
-		}
-		
-		void FontDialog1Apply(object sender, EventArgs e)
-		{
-			
-		}
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.DefaultExt = "apk";
+            openFileDialog1.Filter = "apk files (*.apk)|*.APK";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                OnGenerateProject( openFileDialog1.FileName );
+            }
+        }
 	}
 }

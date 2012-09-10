@@ -51,10 +51,6 @@ namespace UmengChannel
 			return true;
 		}
 		
-		public static string getAndroidProjectName(string path){
-			return System.IO.Path.GetFileName(path);
-		}
-		
 		//ant need
 		public static bool checkOrSetAnthome(){
 			string ant_home = System.Environment.GetEnvironmentVariable("ANT_HOME");

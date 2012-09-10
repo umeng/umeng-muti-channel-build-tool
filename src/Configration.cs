@@ -268,7 +268,77 @@ namespace UmengChannel
 		
 		//project
 		public string project_path {get;set;}
+		//
+		public string AndroidManifestFile {
+			get {
+				return Path.Combine( isApkProject ? ApkDecodeFolder : project_path , "AndroidManifest.xml");
+			}
+		}
 		
+		public string UnsignedApkFile {
+			get {
+				if( isApkProject ){
+					return  Path.Combine( ApkTempFolder , "unsigned.apk" );
+				}else{
+					return Path.Combine( BinFolder , findUnsignedAPKName() );
+				}
+			}
+		}
+		
+		public string UnzipalignApkFile {
+			get {
+				return Path.Combine( isApkProject ? ApkTempFolder : BinFolder, "unzipalign.apk" );
+			}
+		}
+		
+		public string finalApkFile {
+			get {
+				return Path.Combine( isApkProject ? ApkTempFolder : BinFolder, "release.apk" );
+			}
+		}
+		
+		private string findUnsignedAPKName(){
+			string [] bin = Directory.GetFiles( BinFolder );
+			
+			foreach(string file_name in bin){
+				if(file_name.EndsWith("unsigned.apk")){
+					return file_name;
+				}
+			}
+			
+			throw new Exception("build fail , can't find *unsigned.apk file.");
+		}
+		
+		public string ApkDecodeFolder {
+			get {
+				return Path.Combine( System.Environment.CurrentDirectory , "temp" );
+			}
+		}
+		
+		public string ApkTempFolder {
+			get {
+				return Path.Combine( System.Environment.CurrentDirectory, "bin" );
+			}
+		}
+		
+		public string BinFolder {
+			get {
+				return Path.Combine( project_path, "bin" );
+			}
+		}
+		
+		public string ProjectName {
+			get {
+				return System.IO.Path.GetFileName( project_path );
+			}
+		}
+		
+		public string outputFolder {
+			get {
+				return Path.Combine( System.Environment.CurrentDirectory , Path.Combine("output", ProjectName ));
+			}
+		}
+        public Boolean isApkProject = false;
 		//sign
 		
 		public string keystore_file_path {get;set;}
