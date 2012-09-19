@@ -24,6 +24,7 @@ namespace UmengChannel
 		public string java_home {get;set;}
 		public string android_home {get;set;}
 		public string ant_home {get;set;}
+        public string apktool_home { get; set; }
 		
 		private bool hasSetEnvironment = false;
 		
@@ -38,7 +39,8 @@ namespace UmengChannel
 				
 			}
 			
-			ant_home = Path.Combine(System.Environment.CurrentDirectory,Path.Combine("tools","ant"));
+			ant_home = Path.Combine(System.Environment.CurrentDirectory, Path.Combine("tools","ant"));
+            apktool_home = Path.Combine(System.Environment.CurrentDirectory, Path.Combine("tools", "apktool"));
 			buildDirectory();
 			
 			loadSysConfig();
@@ -60,38 +62,42 @@ namespace UmengChannel
 			{
 				return;
 			}
+			Log.i("set environment");
 			
 			string pathOrg = System.Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
 			
-			Log.i("set environment");
 			System.Environment.SetEnvironmentVariable("JAVA_HOME", java_home);//, EnvironmentVariableTarget.User);
 			System.Environment.SetEnvironmentVariable("ANT_HOME", ant_home);//, EnvironmentVariableTarget.User);
 			
-			System.Text.StringBuilder path = new System.Text.StringBuilder();
 			
-			path.Append(pathOrg);
-			path.Append(";");
-			path.Append(Path.Combine("%JAVA_HOME%","bin"));
-			path.Append(";");
-			path.Append(Path.Combine("%JAVA_HOME%","lib"));
-			path.Append(";");
-			path.Append(Path.Combine("%ANT_HOME%","bin"));
-			path.Append(";");
-			path.Append("%JAVA_HOME%;");
-			path.Append("%ANT_HOME%;");
-			path.Append(Path.Combine(java_home,"bin;"));//+
-			path.Append(Path.Combine(ant_home,"bin;"));//+
-			path.Append(Path.Combine(android_home,"tools"));
-			path.Append(";");
+			List<String> path = new List<string>();
+
+			path.Add( pathOrg );
+			path.Add( Path.Combine("%JAVA_HOME%","bin") );
+			path.Add( Path.Combine("%JAVA_HOME%","lib") );
+			path.Add( Path.Combine("%ANT_HOME%","bin") );
+			path.Add( "%JAVA_HOME%" );
+			path.Add( "%ANT_HOME%" );
+			path.Add( Path.Combine(java_home,"bin") );
+			path.Add( Path.Combine(ant_home,"bin") );
+			path.Add( Path.Combine(android_home,"tools") );
+            path.Add(apktool_home);
 			
-			System.Environment.SetEnvironmentVariable("PATH", path.ToString());//, EnvironmentVariableTarget.User);
+			System.Text.StringBuilder paths = new System.Text.StringBuilder();
+			
+			foreach(string p in path)
+			{
+				paths.Append( p );
+				paths.Append( ";" );
+			}
+			
+			System.Environment.SetEnvironmentVariable("PATH", paths.ToString());
 			
 			hasSetEnvironment = true;           
 		}
 		
 		public static Configration Instanse(){
 			if(configration == null) {
-				Utils.checkOrSetAnthome();
 				configration = new Configration();
 			}
 			

@@ -14,6 +14,8 @@ using System.Threading;
 using System.ComponentModel;
 using System.IO;
 
+using UmengChannel.analytics;
+
 namespace UmengChannel
 {
 	/// <summary>
@@ -24,7 +26,10 @@ namespace UmengChannel
 		ProjectConfigration project = null;
 		BackgroundWorker bw = new BackgroundWorker();
 		//private string currentProject = null;
-		
+
+        // A simple analytics sdk for windows form 
+        MobclickAgent agent = MobclickAgent.Instance();
+
 		public MainForm()
 		{
             Application.ApplicationExit += new EventHandler(this.Application_ApplicationExit);
@@ -41,6 +46,8 @@ namespace UmengChannel
 			bindGeneralConfig();
 			
 			initBackgroundWorker();
+
+            agent.StartNewSession("50596b7c52701557f6000157", "official");
     
 		}
 		//set backgroundworker for background task!
@@ -68,11 +75,15 @@ namespace UmengChannel
 		    	sb.Append("\n\n");
 		    	sb.Append("查看 /log/i.txt 详细错误信息");
 		    	MessageBox.Show(sb.ToString());
+                
+                agent.OnEvent("build", "fail");
 		    }
 		
 		    else
 		    {
 		    	MessageBox.Show( "渠道打包完成" );
+                
+                agent.OnEvent("build", "success");
 		    }
 		}
 		
@@ -171,6 +182,8 @@ namespace UmengChannel
 			progressBar1.Visible = true;
 			
 			bw.RunWorkerAsync();
+
+            agent.OnEvent("build", "start");
 		}
 		
 		private void doWork(object sender, DoWorkEventArgs e){
@@ -308,12 +321,16 @@ namespace UmengChannel
             }
 			refreshProjects();
 			bindProjectConfig();
+
+            agent.OnEvent("build", "new_project");
 		}
 	
 		private void Application_ApplicationExit(object sender, EventArgs e) {
 		    try {
 				Configration.Instanse().saveProjects();
 				Configration.Instanse().saveSysConfig();
+
+                agent.EndSession();
 		    } catch {}
 		}
 		

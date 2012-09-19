@@ -17,7 +17,7 @@ using System.Linq;
 namespace UmengChannel
 {
 	/// <summary>
-	/// Description of Worker.
+	/// All the build work is here
 	/// </summary>
 	public class Worker
 	{
@@ -44,9 +44,11 @@ namespace UmengChannel
 		}
 		private void run(){
 			
-			if( project.isApkProject ){
+			if( project.isApkProject )
+            {
 				doWorkFromApk();
-			}else{
+			}else
+            {
 				try{
 					backup();
 					doWorkFromSource();
@@ -126,6 +128,7 @@ namespace UmengChannel
         	
             foreach (string channle in project.channels)
             {
+                clean();
             	publishProgress( progress ++ , total );
             	replaceChannle( channle );
             	publishProgress( progress ++ , total );
@@ -138,9 +141,17 @@ namespace UmengChannel
             	copyToWorkspace( channle );
             }
         }
-        
-        private void decodeApk(){
-        	
+
+        private void clean()
+        {
+            if( Directory.Exists( project.ApkTempFolder ))
+            {
+                Directory.Delete(project.ApkTempFolder, true);
+            }
+        }
+
+        private void decodeApk()
+        { 	
         	if( !File.Exists(project.project_path)){
         		throw new XException("Target apk is missing..");
         	}
@@ -165,7 +176,6 @@ namespace UmengChannel
         	List<String> cmd = new List<string>();
             cmd.Add( "apktool" );
             cmd.Add( "b" );
-            cmd.Add("--no-src");
             cmd.Add(string.Format("\"{0}\"", project.ApkDecodeFolder));
             cmd.Add(string.Format("\"{0}\"", project.UnsignedApkFile));
 
@@ -282,7 +292,7 @@ namespace UmengChannel
 			string androidmanifest_file = project.AndroidManifestFile;
 			
 			if(!File.Exists(androidmanifest_file)){
-				throw new Exception("Can't find AndroidManifest.xml file in the dir");
+				throw new Exception( string.Format( "Can't find AndroidManifest.xml file in the {0}", androidmanifest_file ));
 			}
 			
 			XmlDocument doc = new XmlDocument();

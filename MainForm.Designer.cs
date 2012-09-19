@@ -224,7 +224,7 @@ namespace UmengChannel
             this.tb_input_channel_area.Location = new System.Drawing.Point(597, 91);
             this.tb_input_channel_area.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tb_input_channel_area.Name = "tb_input_channel_area";
-            this.tb_input_channel_area.Size = new System.Drawing.Size(208, 23);
+            this.tb_input_channel_area.Size = new System.Drawing.Size(196, 23);
             this.tb_input_channel_area.TabIndex = 14;
             this.tb_input_channel_area.TabStop = false;
             this.tb_input_channel_area.Enter += new System.EventHandler(this.Tb_input_channel_areaEnter);
@@ -239,7 +239,6 @@ namespace UmengChannel
             this.label6.Size = new System.Drawing.Size(72, 24);
             this.label6.TabIndex = 15;
             this.label6.Text = "工程名称";
-           
             // 
             // progressBar1
             // 
@@ -399,12 +398,11 @@ namespace UmengChannel
             this.label_hint.Enabled = false;
             this.label_hint.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label_hint.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label_hint.Location = new System.Drawing.Point(597, 95);
+            this.label_hint.Location = new System.Drawing.Point(597, 91);
             this.label_hint.Name = "label_hint";
-            this.label_hint.Size = new System.Drawing.Size(209, 25);
+            this.label_hint.Size = new System.Drawing.Size(193, 25);
             this.label_hint.TabIndex = 31;
             this.label_hint.Text = "输入渠道名称，然后回车";
-
             // 
             // label8
             // 

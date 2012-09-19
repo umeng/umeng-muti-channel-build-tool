@@ -51,24 +51,6 @@ namespace UmengChannel
 			return true;
 		}
 		
-		//ant need
-		public static bool checkOrSetAnthome(){
-			string ant_home = System.Environment.GetEnvironmentVariable("ANT_HOME");
-	
-			if(ant_home == null || !Directory.Exists(ant_home)){
-				ant_home = System.IO.Path.Combine(System.Environment.CurrentDirectory,
-                    Path.Combine("tools","ant"));
-				
-				if(Directory.Exists(ant_home)){
-					System.Environment.SetEnvironmentVariable("ANT_HOME", ant_home);
-				}else{
-					return false;
-				}
-				
-			}
-			
-			return true;
-		}
 		
 		public static bool isValidJavaSDKPath(string path){
 			string bin = System.IO.Path.Combine(path,"bin");
@@ -84,19 +66,6 @@ namespace UmengChannel
 		public static string generateSettingFileName(string project)
 		{
 			return string.Format("setting@{0}.xml",project);
-		}
-		
-		public static string generateSafePathString(string path)
-		{
-			
-			System.Text.StringBuilder pathBuilder = new System.Text.StringBuilder();
-			
-			pathBuilder.Append("\"");
-			pathBuilder.Append(path);
-			pathBuilder.Append("\"");
-			
-			return pathBuilder.ToString();
-		}
-		
+		}	
 	}
 }
