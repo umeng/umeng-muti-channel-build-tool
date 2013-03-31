@@ -1,0 +1,63 @@
+﻿<Window x:Class="UmengPackage.ConfigTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:UIControls;assembly=UIControls"
+             mc:Ignorable="d" 
+             Height="450" Width="650" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+         Title="签名和渠道模版配置">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="HorizontalListDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Height="402">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="6*" />
+        </Grid.RowDefinitions>
+        <GroupBox Header="签名配置" Height="115" HorizontalAlignment="Left" Margin="8,12,0,0" Name="groupBox2" VerticalAlignment="Top" Width="610">
+            <Grid Height="120" Width="595">
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="13,6,0,0" Name="keystore" Text="KeyStore:" VerticalAlignment="Top" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="290,45,0,0" Name="keystore_pw" Text="Password:" VerticalAlignment="Top" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="37,45,0,0" Name="alias" Text="Alias:" VerticalAlignment="Top" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="292,9,0,0" Name="alias_pw" Text="Password:" VerticalAlignment="Top" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="355,6,0,0" Name="tb_store_pw" VerticalAlignment="Top" Width="157" 
+                         Text="{Binding Keystore_Pw}" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="81,42,0,0" Name="tb_alias" VerticalAlignment="Top" Width="157" 
+                         Text="{Binding Alias}"/>
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="355,42,0,0" Name="tb_alias_pw" VerticalAlignment="Top" Width="157" 
+                         Text="{Binding Key_Pw}"/>
+                <local:SearchTextBox Search="SearchTextBox_FindKeyStore" Name="tb_keystore" Margin="81,6,357,88" LabelText="path to keystore "
+                         Text="{Binding Keystore_File_Path}"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="常用渠道" Height="100" Margin="18,7,0,0" Name="groupBox3" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600">
+            <ListBox x:Name="StandardChannelTemplate" Width="Auto" Style="{StaticResource ListBoxControlStyle}" Grid.Row="1" ButtonBase.Click="Button_Add" Background="Transparent" 
+                     />
+        </GroupBox>
+        <GroupBox Grid.Row="2" Header="渠道配置" Height="100" HorizontalAlignment="Left" Margin="12,0,0,0" Name="groupBox4" VerticalAlignment="Top" Width="600">
+            <Grid  Width="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ListBox HorizontalAlignment="Left" Grid.Column="0" Width="Auto" x:Name="Channels" Style="{StaticResource ListBoxControlStyle}"
+                         ButtonBase.Click="Button_Remove" Background="Transparent"
+                         />
+                <Button Grid.Column="1" HorizontalAlignment="Right" Name="AddChannel" Click="AddChannel_Click" Content="添加渠道" Width="90" Background="Transparent" />
+            </Grid>
+        </GroupBox>
+        <Button Grid.Row="3" Content="保存" Height="23" HorizontalAlignment="Left" Margin="556,15,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="save_Click" />
+        <Button Grid.Row="3" Content="取消" Height="23" HorizontalAlignment="Left" Margin="478,15,0,0" Name="button2" VerticalAlignment="Top" Width="75" Click="cancel_Click"/>
+        <TextBlock Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="18,21,0,0" Name="textBlock2" Text="配置文件名:" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <TextBox Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="87,15,0,0" Name="tb_setting_file" VerticalAlignment="Top" Width="175" />
+    </Grid>
+</Window>

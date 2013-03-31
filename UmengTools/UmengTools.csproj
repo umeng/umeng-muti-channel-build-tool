@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7FD6296A-617F-4BC6-9A19-D08F989AF7A2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UmengTools</RootNamespace>
+    <AssemblyName>UmengTools</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="TabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="skin\Button\M.png" />
+    <Resource Include="skin\Button\MAX.png" />
+    <Resource Include="skin\Button\MNI.png" />
+    <Resource Include="skin\Button\x1.png" />
+    <Resource Include="skin\csbt\360AntiVirus.png" />
+    <Resource Include="skin\csbt\360Chrome.png" />
+    <Resource Include="skin\csbt\360Compress.png" />
+    <Resource Include="skin\csbt\360Desktop.png" />
+    <Resource Include="skin\csbt\360EntAdmin.png" />
+    <Resource Include="skin\csbt\360FirstAD.png" />
+    <Resource Include="skin\csbt\360JiShi.png" />
+    <Resource Include="skin\csbt\360se.png" />
+    <Resource Include="skin\csbt\AavanceTools_360Guard.png" />
+    <Resource Include="skin\csbt\AavanceTools_360MobileMgr.png" />
+    <Resource Include="skin\csbt\AavanceTools_360NetRepair.png" />
+    <Resource Include="skin\csbt\AavanceTools_360passwordcheck.png" />
+    <Resource Include="skin\csbt\AavanceTools_360PowerSaver.png" />
+    <Resource Include="skin\csbt\AavanceTools_360QSpeed.png" />
+    <Resource Include="skin\csbt\AavanceTools_360UDiskCheck.png" />
+    <Resource Include="skin\csbt\AavanceTools_360Ys.png" />
+    <Resource Include="skin\csbt\AavanceTools_pic_360cloud.png" />
+    <Resource Include="skin\csbt\AavanceTools_pic_shoujitijian.png" />
+    <Resource Include="skin\csbt\AdvanceTools_NetSpeed.png" />
+    <Resource Include="skin\csbt\AdvanceTool_pic_360LuDaShi.png" />
+    <Resource Include="skin\ico\toolbar_hover.png" />
+    <Resource Include="skin\ico\toolbar_pushed.png" />
+    <Resource Include="skin\kk2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTools\CommonTools.csproj">
+      <Project>{F2EF8B55-26CD-4F97-9C40-BDAFD3E18D14}</Project>
+      <Name>CommonTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UmengMarket\UmengMarket.csproj">
+      <Project>{9C5B35D8-E087-4393-B340-B649F884EE09}</Project>
+      <Name>UmengMarket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UmengPackage\UmengPackage.csproj">
+      <Project>{493DAEDD-9F1F-4747-BBA0-F82A3ECE3865}</Project>
+      <Name>UmengPackage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UmengWidget\UmengWidget.csproj">
+      <Project>{966CD75A-F67F-4BF0-A77C-DE6378A8C5D1}</Project>
+      <Name>UmengWidget</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="skin\ico\_0001_market.png" />
+    <Resource Include="skin\ico\_0002_tool.png" />
+    <Resource Include="skin\ico\_0003_da-bao-copy.png" />
+    <Resource Include="skin\ico\_0004_market-copy.png" />
+    <Resource Include="skin\ico\_0005_tool-copy.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

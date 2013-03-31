@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@android:drawable/status_bar_item_app_background" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <LinearLayout android:orientation="vertical" android:id="@id/umeng_common_app" android:paddingTop="8.0dip" android:focusable="true" android:clickable="true" android:layout_width="40.0dip" android:layout_height="fill_parent">
+            <ImageView android:layout_gravity="center" android:id="@id/umeng_common_appIcon" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="14.0sp" android:textColor="#ff000000" android:layout_gravity="center_horizontal" android:id="@id/umeng_common_progress_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" />
+        </LinearLayout>
+        <RelativeLayout android:orientation="vertical" android:id="@id/umeng_common_app" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <LinearLayout android:orientation="horizontal" android:id="@id/umeng_common_notification" android:paddingTop="10.0dip" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true">
+                <TextView android:textSize="18.0sp" android:textColor="#ff000000" android:id="@id/umeng_common_title" android:paddingLeft="2.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" />
+                <TextView android:textSize="14.0sp" android:textStyle="italic" android:textColor="#ff000000" android:id="@id/umeng_common_description" android:paddingLeft="5.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" />
+            </LinearLayout>
+            <ProgressBar android:id="@id/umeng_common_progress_bar" android:paddingRight="25.0dip" android:paddingBottom="8.0dip" android:layout_width="fill_parent" android:layout_height="12.0dip" android:layout_alignParentBottom="true" style="?android:attr/progressBarStyleHorizontal" />
+        </RelativeLayout>
+    </LinearLayout>
+    <ImageView android:layout_width="fill_parent" android:layout_height="wrap_content" />
+</LinearLayout>

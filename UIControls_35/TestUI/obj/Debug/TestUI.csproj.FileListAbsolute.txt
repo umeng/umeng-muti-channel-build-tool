@@ -1,0 +1,15 @@
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\bin\Debug\TestUI.exe
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\bin\Debug\TestUI.pdb
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\bin\Debug\UIControls.dll
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\bin\Debug\UIControls.pdb
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\Window1.baml
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\Window1.g.cs
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\App.g.cs
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\TestUI_MarkupCompile.cache
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\TestUI.g.resources
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\TestUI.Properties.Resources.resources
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\TestUI.exe
+C:\Users\Administrator.PC-20110804QHVX\Desktop\UIControls_35\TestUI\obj\Debug\TestUI.pdb
