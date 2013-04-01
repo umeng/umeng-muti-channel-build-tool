@@ -103,26 +103,6 @@
     <Resource Include="skin\Button\MAX.png" />
     <Resource Include="skin\Button\MNI.png" />
     <Resource Include="skin\Button\x1.png" />
-    <Resource Include="skin\csbt\360AntiVirus.png" />
-    <Resource Include="skin\csbt\360Chrome.png" />
-    <Resource Include="skin\csbt\360Compress.png" />
-    <Resource Include="skin\csbt\360Desktop.png" />
-    <Resource Include="skin\csbt\360EntAdmin.png" />
-    <Resource Include="skin\csbt\360FirstAD.png" />
-    <Resource Include="skin\csbt\360JiShi.png" />
-    <Resource Include="skin\csbt\360se.png" />
-    <Resource Include="skin\csbt\AavanceTools_360Guard.png" />
-    <Resource Include="skin\csbt\AavanceTools_360MobileMgr.png" />
-    <Resource Include="skin\csbt\AavanceTools_360NetRepair.png" />
-    <Resource Include="skin\csbt\AavanceTools_360passwordcheck.png" />
-    <Resource Include="skin\csbt\AavanceTools_360PowerSaver.png" />
-    <Resource Include="skin\csbt\AavanceTools_360QSpeed.png" />
-    <Resource Include="skin\csbt\AavanceTools_360UDiskCheck.png" />
-    <Resource Include="skin\csbt\AavanceTools_360Ys.png" />
-    <Resource Include="skin\csbt\AavanceTools_pic_360cloud.png" />
-    <Resource Include="skin\csbt\AavanceTools_pic_shoujitijian.png" />
-    <Resource Include="skin\csbt\AdvanceTools_NetSpeed.png" />
-    <Resource Include="skin\csbt\AdvanceTool_pic_360LuDaShi.png" />
     <Resource Include="skin\ico\toolbar_hover.png" />
     <Resource Include="skin\ico\toolbar_pushed.png" />
     <Resource Include="skin\kk2.jpg" />
@@ -149,11 +129,19 @@
     <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="skin\ico\_0001_market.png" />
-    <Resource Include="skin\ico\_0002_tool.png" />
-    <Resource Include="skin\ico\_0003_da-bao-copy.png" />
-    <Resource Include="skin\ico\_0004_market-copy.png" />
-    <Resource Include="skin\ico\_0005_tool-copy.png" />
+    <Resource Include="skin\ico\market_disable.png" />
+    <Resource Include="skin\ico\widget_disable.png" />
+    <Resource Include="skin\ico\package_normal.png" />
+    <Resource Include="skin\ico\market_normal.png" />
+    <Resource Include="skin\ico\widget_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="skin\Button\nav_close_normal.png" />
+    <Resource Include="skin\Button\nav_menu_disabler.png" />
+    <Resource Include="skin\Button\nav_menu_normal.png" />
+    <Resource Include="skin\Button\nav_min_disable.png" />
+    <Resource Include="skin\Button\nav_min_normal_s.png" />
+    <Resource Include="skin\Button\nav__close_disable.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

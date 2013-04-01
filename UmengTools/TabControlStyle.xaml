@@ -29,8 +29,12 @@
 						<Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local" Margin="0">
 							<ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Opacity="1"/>
 						</Border>
-						<Canvas x:Name="HeaderPanel" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" IsItemsHost="True"/>
-					</Grid>
+                        <Border BorderBrush="#0C0710" BorderThickness="1" Background="#242328">
+                            <Border BorderBrush="#2E2935" BorderThickness="1" Background="#242328">
+						        <Canvas x:Name="HeaderPanel" HorizontalAlignment="Stretch" Height="Auto" Width="Auto" IsItemsHost="True"/>
+                            </Border>
+                        </Border>
+                    </Grid>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsEnabled" Value="false">
 							<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
@@ -87,7 +91,23 @@
 								<VisualState x:Name="Focused"/>
 							</VisualStateGroup>
 						</VisualStateManager.VisualStateGroups>
-						<Border x:Name="Bd" BorderThickness="0" CornerRadius="3" BorderBrush="Black" Margin="0" Grid.RowSpan="2" Visibility="Hidden">
+                        <Border x:Name="backgroud" BorderThickness="1,0,1,0" CornerRadius="0" BorderBrush="#47434D" Margin="0" Grid.RowSpan="2" Visibility="Visible">
+                            <Border BorderThickness="1" CornerRadius="1,0,1,0" BorderBrush="#040406" Margin="0" Grid.RowSpan="2" Visibility="Visible"></Border>
+                        </Border>
+
+                        <Border x:Name="mask_selected" BorderThickness="0" CornerRadius="0" Margin="0" Grid.RowSpan="2" Visibility="Visible">
+                            <Border.Background>
+                                <ImageBrush ImageSource="skin/ico/toolbar_hover.png"/>
+                            </Border.Background>
+                        </Border>
+
+                        <Border x:Name="mask_disable" BorderThickness="0" CornerRadius="0" Margin="0" Grid.RowSpan="2" Visibility="Visible">
+                            <Border.Background>
+                                <ImageBrush ImageSource="skin/ico/toolbar_hover.png"/>
+                            </Border.Background>
+                        </Border>
+                        
+                        <Border x:Name="Bd" BorderThickness="0" CornerRadius="3" BorderBrush="Black" Margin="0" Grid.RowSpan="2" Visibility="Hidden">
 							<Border.Background>
 								<ImageBrush ImageSource="skin/ico/toolbar_pushed.png"/>
 							</Border.Background>

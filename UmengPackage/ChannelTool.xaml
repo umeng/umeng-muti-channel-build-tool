@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:UmengPackage"
+             xmlns:common_ui="clr-namespace:UIControls;assembly=UIControls"
              xmlns:converter="clr-namespace:UmengPackage.Source.Model"
              Name="tool"
              Height="480" Width="800">
@@ -13,11 +14,12 @@
        
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="HorizontalListDictionary.xaml"/> 
+                <ResourceDictionary Source="HorizontalListDictionary.xaml"/>
+                <ResourceDictionary Source="/UIControls;component/CommonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
             <converter:StatusToColor x:Key="stateToColor" />
         </ResourceDictionary>
-        
     </UserControl.Resources>
     <Grid Height="442">
         <Canvas Height="150" HorizontalAlignment="Left" Margin="12,278,0,0" Name="image1" VerticalAlignment="Top" Width="200" 
@@ -53,7 +55,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="一键打包" Height="49" HorizontalAlignment="Left" Margin="637,374,0,0" Name="btn_builder" VerticalAlignment="Top" Width="151" Click="btn_builder_Click" />
+        <Button Content="一键打包" Height="49" HorizontalAlignment="Left" Margin="637,374,0,0" Name="btn_builder" VerticalAlignment="Top" Width="151" Click="btn_builder_Click" Style="{StaticResource cyan_button_style}"/>
+       
+        
         <GroupBox Header="Apk Info" Height="132" HorizontalAlignment="Left" Margin="218,298,0,0" Name="groupBox1" VerticalAlignment="Top" Width="239">
             <Grid>
                 <TextBlock Text="{Binding AppName}" Height="23" HorizontalAlignment="Left" Margin="6,13,0,0"  VerticalAlignment="Top" />

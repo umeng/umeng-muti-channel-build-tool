@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("skin/ico/_0002_tool.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("skin/ico/widget.png")]
 
 
