@@ -71,19 +71,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ConfigTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ChannelTool.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="ApkProgressBar.xaml.cs">
       <DependentUpon>ApkProgressBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ConfigTemplate.xaml.cs">
-      <DependentUpon>ConfigTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="ChannelTool.xaml.cs">
       <DependentUpon>ChannelTool.xaml</DependentUpon>
@@ -132,10 +125,6 @@
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">
       <Project>{F2EF8B55-26CD-4F97-9C40-BDAFD3E18D14}</Project>
       <Name>CommonTools</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UIControls_35\UIControls\UIControls.csproj">
-      <Project>{A3082956-9EE4-4B35-9B4E-B07D0C4C8B56}</Project>
-      <Name>UIControls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

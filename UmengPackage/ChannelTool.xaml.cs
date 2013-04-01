@@ -41,28 +41,28 @@ namespace UmengPackage
 
             LoadConfigrationAndBindList();
 
-            InitBackgroundWorker();
+            //InitBackgroundWorker();
 
-            DataContext = mApkInfo;
+            //DataContext = mApkInfo;
         }
 
         private void LoadConfigrationAndBindList()
         {
-            if (CandinateConfigrationFiles.Count > 0)
-            {
-                CandinateConfigrationFiles.Clear();
-            }
+            //if (CandinateConfigrationFiles.Count > 0)
+            //{
+            //    CandinateConfigrationFiles.Clear();
+            //}
 
-            string[] files = ProjectConfigration.GetConfigFileList();
-            if (files != null)
-            {
-                foreach (string file in files)
-                {
-                    CandinateConfigrationFiles.Add(file);
-                }
-            }
+            //string[] files = ProjectConfigration.GetConfigFileList();
+            //if (files != null)
+            //{
+            //    foreach (string file in files)
+            //    {
+            //        CandinateConfigrationFiles.Add(file);
+            //    }
+            //}
 
-            this.settingList.ItemsSource = CandinateConfigrationFiles;
+            //this.settingList.ItemsSource = CandinateConfigrationFiles;
 
             //if (CandinateConfigrationFiles.Count > 0)
             //{
@@ -81,10 +81,10 @@ namespace UmengPackage
 
             this.Channels.ItemsSource = AvailabelChannels;
 
-            this.hint.SetBinding(Label.ContentProperty, new Binding("mApkFile"));
+            //this.hint.SetBinding(Label.ContentProperty, new Binding("mApkFile"));
             
         }
-
+        /*
         private void InitBackgroundWorker()
         {
             bw.WorkerReportsProgress = true;
@@ -200,17 +200,17 @@ namespace UmengPackage
         /// <param name="e"></param>
         private void edit_Click(object sender, RoutedEventArgs e)
         {
-            string configFile = this.settingList.SelectedValue as string;
+            //string configFile = this.settingList.SelectedValue as string;
 
-            var dialog = new ConfigTemplate();
+            //var dialog = new ConfigTemplate();
 
-            dialog.SetConfigTemplateContext( configFile );
-            bool? result = dialog.ShowDialog();
+            //dialog.SetConfigTemplateContext( configFile );
+            //bool? result = dialog.ShowDialog();
 
-            if (result != null)
-            {
-                LoadConfigrationAndBindList();
-            }
+            //if (result != null)
+            //{
+            //    LoadConfigrationAndBindList();
+            //}
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)
@@ -253,6 +253,6 @@ namespace UmengPackage
 
             mConfigFile = configFile;
             return true;
-        }
+        }*/
     }
 }

@@ -91,41 +91,17 @@
 								<VisualState x:Name="Focused"/>
 							</VisualStateGroup>
 						</VisualStateManager.VisualStateGroups>
-                        <Border x:Name="backgroud" BorderThickness="1,0,1,0" CornerRadius="0" BorderBrush="#47434D" Margin="0" Grid.RowSpan="2" Visibility="Visible">
-                            <Border BorderThickness="1" CornerRadius="1,0,1,0" BorderBrush="#040406" Margin="0" Grid.RowSpan="2" Visibility="Visible"></Border>
+                        <Border x:Name="backgroud_out_line" BorderThickness="1,0,1,0" CornerRadius="0" BorderBrush="#47434D" Margin="0" Grid.RowSpan="2" Visibility="Hidden">
+                            <Border x:Name="backgroud_inner_line" BorderThickness="1" CornerRadius="1,0,1,0" BorderBrush="#040406" Margin="0" Grid.RowSpan="2" Visibility="Hidden"></Border>
                         </Border>
 
-                        <Border x:Name="mask_selected" BorderThickness="0" CornerRadius="0" Margin="0" Grid.RowSpan="2" Visibility="Visible">
-                            <Border.Background>
-                                <ImageBrush ImageSource="skin/ico/toolbar_hover.png"/>
-                            </Border.Background>
+                        <Border x:Name="mask_selected" BorderThickness="0" Background="#00AFEA" CornerRadius="0" Margin="30,10,30,30" Grid.RowSpan="2" Visibility="Hidden">
                         </Border>
 
-                        <Border x:Name="mask_disable" BorderThickness="0" CornerRadius="0" Margin="0" Grid.RowSpan="2" Visibility="Visible">
-                            <Border.Background>
-                                <ImageBrush ImageSource="skin/ico/toolbar_hover.png"/>
-                            </Border.Background>
+                        <Border x:Name="mask_disable" BorderThickness="0" Background="#B3B7BA" CornerRadius="0" Margin="30,10,30,30" Grid.RowSpan="2" Visibility="Visible">
                         </Border>
                         
-                        <Border x:Name="Bd" BorderThickness="0" CornerRadius="3" BorderBrush="Black" Margin="0" Grid.RowSpan="2" Visibility="Hidden">
-							<Border.Background>
-								<ImageBrush ImageSource="skin/ico/toolbar_pushed.png"/>
-							</Border.Background>
-						</Border>
-						<Border x:Name="fg" BorderThickness="0" CornerRadius="3" BorderBrush="Black" Margin="0" Grid.RowSpan="2" Visibility="Hidden" RenderTransformOrigin="0.5,0.5">
-							<Border.RenderTransform>
-								<TransformGroup>
-									<ScaleTransform/>
-									<SkewTransform/>
-									<RotateTransform/>
-									<TranslateTransform/>
-								</TransformGroup>
-							</Border.RenderTransform>
-							<Border.Background>
-								<ImageBrush ImageSource="skin/ico/toolbar_hover.png"/>
-							</Border.Background>
-						</Border>
-						<TextBlock Margin="0,0.333,0,3.833" TextWrapping="Wrap" VerticalAlignment="Stretch" d:LayoutOverrides="Height" Grid.Row="1" HorizontalAlignment="Center" Text="{TemplateBinding Header}" Foreground="White"/>
+						<TextBlock x:Name="title" Margin="0,0.333,0,3.833" TextWrapping="Wrap" VerticalAlignment="Stretch" d:LayoutOverrides="Height" Grid.Row="1" HorizontalAlignment="Center" Text="{TemplateBinding Header}" Foreground="#59585D"/>
 						<Border x:Name="ico" BorderThickness="0" CornerRadius="3" BorderBrush="Black" Margin="4,4,4.25,0" Grid.RowSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="48" Height="48" Background="{TemplateBinding Background}" RenderTransformOrigin="0.5,0.5">
 							<Border.RenderTransform>
 								<TransformGroup>
@@ -140,16 +116,23 @@
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver" Value="true"/>
 						<Trigger Property="IsSelected" Value="true">
-							<Setter Property="Visibility" TargetName="Bd" Value="Visible"/>
-							<Setter Property="Panel.ZIndex" TargetName="ico" Value="1"/>
+                            <Setter Property="Visibility" TargetName="backgroud_out_line" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="backgroud_inner_line" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="mask_selected" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="mask_disable" Value="Hidden"/>
+                            <Setter Property="Foreground" TargetName="title" Value="#9B97A6"/>
 						</Trigger>
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
 								<Condition Property="IsSelected" Value="false"/>
 								<Condition Property="IsMouseOver" Value="true"/>
 							</MultiTrigger.Conditions>
-							<Setter Property="Visibility" TargetName="fg" Value="Visible"/>
-							<Setter Property="RenderTransform" TargetName="ico">
+
+                            <Setter Property="Visibility" TargetName="backgroud_out_line" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="backgroud_inner_line" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="mask_selected" Value="Visible"/>
+
+                            <Setter Property="RenderTransform" TargetName="ico">
 								<Setter.Value>
 									<TransformGroup>
 										<ScaleTransform ScaleX="1.05" ScaleY="1.05"/>

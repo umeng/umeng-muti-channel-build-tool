@@ -143,6 +143,11 @@
     <Resource Include="skin\Button\nav_min_normal_s.png" />
     <Resource Include="skin\Button\nav__close_disable.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="skin\ico\market.png" />
+    <Resource Include="skin\ico\package.png" />
+    <Resource Include="skin\ico\widget.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

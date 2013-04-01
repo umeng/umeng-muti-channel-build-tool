@@ -1,10 +1,10 @@
 ﻿<Window x:Class="UmengTools.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        
+        xmlns:mainPage="clr-namespace:UmengPackage;assembly=UmengPackage"
         WindowStyle="None" WindowStartupLocation="CenterScreen" Background="{x:Null}" AllowsTransparency="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Title="MainWindow" Height="600" Width="825" xmlns:my="clr-namespace:System;assembly=mscorlib">
+        Title="MainWindow" Height="600" Width="800" xmlns:my="clr-namespace:System;assembly=mscorlib">
 
     <!--xmlns:mainPage="clr-namespace:UmengPackage;assembly=UmengPackage"
         xmlns:marketPage="clr-namespace:UmengMarket;assembly=UmengMarket"
@@ -222,20 +222,20 @@
 
 
                 <TabControl x:Name="roottab" Margin="0" Grid.RowSpan="2" Grid.Row="1" Style="{DynamicResource TabControlStyle}" Width="800">                   
-                    <TabItem Header="一键打包" Height="83" Margin="5,0,0,0" Width="74" Style="{DynamicResource TabItemStyle}">
+                    <TabItem Header="一键打包" Height="83" Margin="5,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
-                            <ImageBrush ImageSource="skin/ico/package_normal.png" Stretch="None" />
+                            <ImageBrush ImageSource="skin/ico/package.png" Stretch="None" />
                         </TabItem.Background>
                         <Grid Margin="0" Background="#242328" Width="800">
                             <Grid x:Name="index_grid0" Margin="8,12,8,8">
-                                
+                                    <mainPage:ChannelTool/>
                             </Grid>
                         </Grid>
                     </TabItem>
                   
-                    <TabItem Header="SDK市场" Height="83" Margin="80,0,0,0" Width="74" Style="{DynamicResource TabItemStyle}">
+                    <TabItem Header="SDK市场" Height="83" Margin="105,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
-                            <ImageBrush ImageSource="skin/ico/market_normal.png" Stretch="None" />
+                            <ImageBrush ImageSource="skin/ico/market.png" Stretch="None" />
                         </TabItem.Background>
                         <Grid Background="#242328" Width="800">
                             <Grid x:Name="index_grid1" Margin="8,12,8,8">
@@ -243,9 +243,9 @@
                             </Grid>
                         </Grid>
                     </TabItem>
-                    <TabItem Header="小工具" Height="83" Margin="155,0,0,0" Width="74" Style="{DynamicResource TabItemStyle}">
+                    <TabItem Header="小工具" Height="83" Margin="205,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
-                            <ImageBrush ImageSource="skin/ico/widget_normal.png" Stretch="None" />
+                            <ImageBrush ImageSource="skin/ico/widget.png" Stretch="None" />
                         </TabItem.Background>
                         <Grid Background="#242328" Width="816">
                             <Grid x:Name="index_grid2" Margin="8,12,8,8">
@@ -253,8 +253,6 @@
                         </Grid>
                     </TabItem>
                 </TabControl>
-                <!--/Border>
-            </Border-->
            </Grid>
         </Grid>
         </Border>
