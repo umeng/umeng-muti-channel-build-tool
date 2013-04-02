@@ -73,11 +73,14 @@ namespace UmengPackage
             //        AvailabelChannels.Add(new PackageState( item.ChannelName, State.START ));
             //    }
             //}
-          
-            AvailabelChannels.Add(new PackageState("appchina0", State.EMPTY));
-            AvailabelChannels.Add(new PackageState("appchina1", State.EMPTY));
-            AvailabelChannels.Add(new PackageState("appchina2", State.EMPTY));
-            AvailabelChannels.Add(new PackageState("appchina3", State.EMPTY));
+
+            for (int i = 0; i < 10; i++)
+            {
+                AvailabelChannels.Add(new PackageState("appchina0", State.EMPTY));
+                AvailabelChannels.Add(new PackageState("appchina1", State.EMPTY));
+                AvailabelChannels.Add(new PackageState("appchina2", State.EMPTY));
+                AvailabelChannels.Add(new PackageState("appchina3", State.EMPTY));
+            }
 
             this.Channels.ItemsSource = AvailabelChannels;
 

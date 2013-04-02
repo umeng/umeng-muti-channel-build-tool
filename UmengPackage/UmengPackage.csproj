@@ -127,6 +127,16 @@
       <Name>CommonTools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\channel_item.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\button_click.png" />
+    <Resource Include="Images\button_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\progress_bg.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

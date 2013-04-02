@@ -6,7 +6,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:UmengPackage"
              Name="tool"
-             Height="480" Width="800"
+             Height="450" Width="800"
              Background="#242328">
     <UserControl.Resources>
         <Style x:Key="cyan_button_style" TargetType="{x:Type Button}">
@@ -34,42 +34,80 @@
                                 <VisualState x:Name="Disabled"/>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="1" Height="Auto" Margin="0" 
-                                VerticalAlignment="Stretch" Width="40" CornerRadius="5" Opacity="0">
+                        <Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="1" Width="168" Height="62" Margin="0" 
+                                VerticalAlignment="Stretch" CornerRadius="0" Opacity="1">
                             <Border.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#00000000" Offset="1"/>
-                                    <GradientStop Color="#FFD61717"/>
-                                    <GradientStop Color="#81850909" Offset="0.569"/>
-                                </LinearGradientBrush>
+                                    <ImageBrush x:Name="button_bg" ImageSource="Images/button_normal.png"/>
                             </Border.Background>
-                        </Border>
-                        <Border BorderThickness="1" CornerRadius="5" BorderBrush="Black" Background="#23AEEF">
-                            <Border BorderThickness="1" CornerRadius="5" BorderBrush="#54CCFE" Background="Transparent">
-                                <Border BorderThickness="0,0,0,0" CornerRadius="5">
-                                    <Border.BorderBrush>
-                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                            <GradientStop Color="#FF616166" Offset="0"/>
-                                            <GradientStop Color="#004EA4F3" Offset="1"/>
-                                            <GradientStop Color="#FFDAE2EB" Offset="0.522"/>
-                                        </LinearGradientBrush>
-                                    </Border.BorderBrush>
-                                    <Rectangle Margin="-0.2,1,0,0" Height="46" VerticalAlignment="Top" Fill="#FF4999CB"></Rectangle>
-                                </Border>
+                      
+                         </Border>
+
+                            <Border>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="1"  BlurRadius="6"/>
+                                </Border.Effect>
+                                
+                                <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             </Border>
-                        </Border>
                         </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True"/>
-                        <Trigger Property="IsDefaulted" Value="True"/>
-                        <Trigger Property="IsMouseOver" Value="True"/>
-                        <Trigger Property="IsPressed" Value="True"/>
+                        <Trigger Property="IsDefaulted" Value="True"/>        
                         <Trigger Property="IsEnabled" Value="False"/>
-                    </ControlTemplate.Triggers>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false"/>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                            </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="border">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="Images/button_click.png"/>
+                                    </Setter.Value>
+                                </Setter>
+                       
+                                <Setter Property="RenderTransform" TargetName="ButtonContentPresenter">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiTrigger>
+                        </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
+        <Style x:Key="progressbar_style" TargetType="{x:Type ProgressBar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                        <Grid>
+                            <!--bg img-->
+                            <Image Source="Images/progress_bg.png"/>
+            
+                            <DockPanel x:Name="PART_Track" Margin="1" LastChildFill="false">
+                                <!--cyan progress bar-->
+                                <Rectangle  x:Name="PART_Indicator">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                            <GradientStop Color="#114A63" Offset="0"/>
+                                            <GradientStop Color="#2188B7" Offset="0.5"/>
+                                            <GradientStop Color="#2AA7E0" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </DockPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <!--  xmlns:local="clr-namespace:UmengPackage"
              xmlns:common_ui="clr-namespace:UIControls;assembly=UIControls"
@@ -102,10 +140,17 @@
                   >
         </ComboBox>
         <Button Content="Edit" Height="23" HorizontalAlignment="Left" Margin="739,2,0,0" Name="button1" VerticalAlignment="Top" Width="38" Click="edit_Click" /-->
-        <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="740" Height="200" x:Name="Channels" Background="Transparent" Margin="30,1,2,1" >
+        <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="740" Height="200" x:Name="Channels" Background="Transparent" Margin="30,1,2,1" 
+                 HorizontalContentAlignment="Stretch">
+            <ListBox.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+            </ListBox.Resources>
             
             <ListBox.Template>
                 <ControlTemplate>
+                    <Grid>
                     <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
                         <Border Background="Transparent" BorderBrush="#383543" BorderThickness="1" ClipToBounds="True" CornerRadius="5">
                             <Border Background="Transparent" BorderBrush="#26242C" BorderThickness="3,3,3,3" Margin="-3,-3,-3,-3" CornerRadius="5">
@@ -115,24 +160,48 @@
                             </Border>
                         </Border>
                     </Border>
+                    <ScrollViewer Margin="3" Focusable="false" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                            <WrapPanel Margin="2" IsItemsHost="True" Orientation="Horizontal"/>
+                    </ScrollViewer>
+                    </Grid>
                 </ControlTemplate>
             </ListBox.Template>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
             
-            <ListBox.ItemTemplate>
+            <ListBox.ItemTemplate >
                 <DataTemplate >
-                    <Border Width="100" Height="60">
-                        <TextBlock  Text="{Binding ChannelName}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFEB3030" />
-                    </Border>
+                    <!--Grid Width="145" Height="45" ClipToBounds="True"-->
+                       <!--Border BorderThickness="0,0,0,1" BorderBrush="#201E25" Background="#26252A" Margin="15,5,15,5" CornerRadius="5">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="2" BlurRadius="6"/>
+                            </Border.Effect>
+
+                            <Border BorderThickness="0,1,0,0" BorderBrush="#403C45" Background="Transparent" CornerRadius="5">
+                               
+                            </Border>
+                        </Border-->
+                        <!--Border BorderThickness="0" Width="145" Height="40" >
+                            <Border.BorderBrush>
+                                <ImageBrush ImageSource="/UmengPackage;component/Images/channel_item.png" />
+                            </Border.BorderBrush>
+                            <TextBlock  Text="{Binding ChannelName}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#9E9AA4"/>
+                        </Border-->
+ 
+                    <Grid Width="120" Height="43" Margin="0,0,0,0" Background="Transparent"> 
+                        <Rectangle >
+                              
+                            <Rectangle.Fill >
+                            <ImageBrush ImageSource="Images/channel_item.png" Stretch="None" />
+                        </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Text="{Binding ChannelName}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Foreground="#FF9E9AA4" Margin="0,-8,0,0"/>
+                        <ProgressBar Style="{StaticResource progressbar_style}" Width="100" VerticalAlignment="Center" Margin="0,15,0,0" Value="30"/>
+                    </Grid>
+                    <!--/Grid-->
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="一键打包" Height="49" HorizontalAlignment="Left" Margin="585,364,0,0" Name="btn_builder" 
-                VerticalAlignment="Top" Width="151" Style="{StaticResource cyan_button_style}"/>
+        <Button Content="一键打包"  HorizontalAlignment="Left" Margin="585,354,0,0" Name="btn_builder" 
+                VerticalAlignment="Top"  Style="{StaticResource cyan_button_style}" FontSize="20" Foreground="#FFF8F5F5" FontFamily="Microsoft YaHei" FontStyle="Normal" FontWeight="Normal" />
        
         
         <!--GroupBox Header="Apk Info" Height="132" HorizontalAlignment="Left" Margin="218,298,0,0" Name="groupBox1" VerticalAlignment="Top" Width="239">
@@ -142,6 +211,8 @@
                 <TextBlock Text="{Binding AppSize}" Height="23" HorizontalAlignment="Left" Margin="6,66,0,0"  VerticalAlignment="Top" />
             </Grid>
         </GroupBox-->
+        
+ 
 
         <Grid Width="400" Height="180" Margin="10,223,350,19">
             <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
@@ -153,8 +224,16 @@
                 </Border>
                 </Border>
             </Border>
-            
-            
+        </Grid>
+
+        <Grid Width="150" Height="50" Margin="10,223,350,20">
+            <Rectangle>
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="Images/channel_item.png" Stretch="None" />
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock Text="GooglePlay" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Foreground="#FF9E9AA4" Margin="0,-8,0,0"/>
+            <ProgressBar Style="{StaticResource progressbar_style}" Width="100" VerticalAlignment="Center" Margin="0,15,0,0" Value="30"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -197,12 +197,10 @@
         <Grid x:Name="LayoutRoot">
              <Grid x:Name="root_grid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="600">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="22"/>
-                    <RowDefinition Height="83"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-            
+                 
                 <Rectangle x:Name="bg_title" >
                     <Rectangle.Fill>
                         <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
@@ -221,19 +219,16 @@
                 <Button x:Name="menubutton" Content="Button" HorizontalAlignment="Right" Margin="0,1.037,80.704,0.963" Style="{DynamicResource menu_button}" Width="40"/>
 
 
-                <TabControl x:Name="roottab" Margin="0" Grid.RowSpan="2" Grid.Row="1" Style="{DynamicResource TabControlStyle}" Width="800">                   
-                    <TabItem Header="一键打包" Height="83" Margin="5,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
+                <TabControl x:Name="roottab" Margin="0" Grid.Row="1" Style="{DynamicResource TabControlStyle}" Width="800">                   
+                    <TabItem Header="一键打包" Height="83" Margin="20,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
                             <ImageBrush ImageSource="skin/ico/package.png" Stretch="None" />
                         </TabItem.Background>
-                        <Grid Margin="0" Background="#242328" Width="800">
-                            <Grid x:Name="index_grid0" Margin="8,12,8,8">
-                                    <mainPage:ChannelTool/>
-                            </Grid>
+                        <Grid Margin="0,0,0,0" Background="#242328" Width="800" >
+                                <mainPage:ChannelTool/>
                         </Grid>
                     </TabItem>
-                  
-                    <TabItem Header="SDK市场" Height="83" Margin="105,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
+                    <TabItem Header="SDK市场" Height="83" Margin="120,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
                             <ImageBrush ImageSource="skin/ico/market.png" Stretch="None" />
                         </TabItem.Background>
@@ -243,7 +238,7 @@
                             </Grid>
                         </Grid>
                     </TabItem>
-                    <TabItem Header="小工具" Height="83" Margin="205,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
+                    <TabItem Header="小工具" Height="83" Margin="220,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
                             <ImageBrush ImageSource="skin/ico/widget.png" Stretch="None" />
                         </TabItem.Background>
