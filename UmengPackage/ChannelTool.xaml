@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:UmengPackage"
              Name="tool"
@@ -82,7 +83,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
         <Style x:Key="progressbar_style" TargetType="{x:Type ProgressBar}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -108,6 +108,96 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <!--misc scroll bar-->
+        <LinearGradientBrush x:Key="VerticalScrollBarBackground" EndPoint="1,0" StartPoint="0,0">
+            <GradientStop Color="#E1E1E1" Offset="0"/>
+            <GradientStop Color="#EDEDED" Offset="0.20"/>
+            <GradientStop Color="#EDEDED" Offset="0.80"/>
+            <GradientStop Color="#E3E3E3" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <SolidColorBrush x:Key="ScrollBarDisabledBackground" Color="#F4F4F4"/>
+
+        <!--scroll bar thumb-->
+        <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="IsTabStop" Value="false"/>
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Rectangle Height="25" Width="8" Fill="White" SnapsToDevicePixels="True">
+                            <Rectangle.Effect>
+                                <DropShadowEffect ShadowDepth="0" BlurRadius="10" Color="White" />
+                            </Rectangle.Effect>
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- scroll bar style-->
+        <Style x:Key="scroll_bar_style" TargetType="{x:Type ScrollBar}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Width" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
+            <Setter Property="MinWidth" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
+            
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="Bg" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <Border Width="1" Background="#FFFFFF" HorizontalAlignment="Center"/>
+                            <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}">
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource ScrollBarThumb}"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="Bg" Value="{StaticResource ScrollBarDisabledBackground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- scroll viewer style-->
+        <Style TargetType="ScrollViewer" x:Key="scroll_viewer_style">
+
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollViewer">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <ScrollContentPresenter x:Name="ScrollContentPresenter"
+                                Grid.Column="0" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Cursor="{TemplateBinding Cursor}" Margin="{TemplateBinding Padding}" 
+                            />
+                            <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1" 
+                                Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" 
+                                Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" 
+                                Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                ViewportSize="25" 
+                                Style="{DynamicResource scroll_bar_style}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </UserControl.Resources>
     <!--  xmlns:local="clr-namespace:UmengPackage"
              xmlns:common_ui="clr-namespace:UIControls;assembly=UIControls"
@@ -151,16 +241,16 @@
             <ListBox.Template>
                 <ControlTemplate>
                     <Grid>
-                    <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-                        <Border Background="Transparent" BorderBrush="#383543" BorderThickness="1" ClipToBounds="True" CornerRadius="5">
-                            <Border Background="Transparent" BorderBrush="#26242C" BorderThickness="3,3,3,3" Margin="-3,-3,-3,-3" CornerRadius="5">
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="0" BlurRadius="15"/>
-                                </Border.Effect>
+                        <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                            <Border Background="Transparent" BorderBrush="#383543" BorderThickness="1" ClipToBounds="True" CornerRadius="5">
+                                <Border Background="Transparent" BorderBrush="#26242C" BorderThickness="3,3,3,3" Margin="-3,-3,-3,-3" CornerRadius="5">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" BlurRadius="15"/>
+                                    </Border.Effect>
+                                </Border>
                             </Border>
                         </Border>
-                    </Border>
-                    <ScrollViewer Margin="3" Focusable="false" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer Margin="3" Focusable="false" Style="{StaticResource scroll_viewer_style}">
                             <WrapPanel Margin="2" IsItemsHost="True" Orientation="Horizontal"/>
                     </ScrollViewer>
                     </Grid>
@@ -186,9 +276,8 @@
                             <TextBlock  Text="{Binding ChannelName}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#9E9AA4"/>
                         </Border-->
  
-                    <Grid Width="120" Height="43" Margin="0,0,0,0" Background="Transparent"> 
+                    <Grid Width="120" Height="43" Margin="0,0,0,0" Background="Transparent">
                         <Rectangle >
-                              
                             <Rectangle.Fill >
                             <ImageBrush ImageSource="Images/channel_item.png" Stretch="None" />
                         </Rectangle.Fill>
@@ -211,8 +300,6 @@
                 <TextBlock Text="{Binding AppSize}" Height="23" HorizontalAlignment="Left" Margin="6,66,0,0"  VerticalAlignment="Top" />
             </Grid>
         </GroupBox-->
-        
- 
 
         <Grid Width="400" Height="180" Margin="10,223,350,19">
             <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">

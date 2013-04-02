@@ -74,7 +74,7 @@ namespace UmengPackage
             //    }
             //}
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 2; i++)
             {
                 AvailabelChannels.Add(new PackageState("appchina0", State.EMPTY));
                 AvailabelChannels.Add(new PackageState("appchina1", State.EMPTY));
