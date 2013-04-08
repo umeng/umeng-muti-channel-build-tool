@@ -101,19 +101,10 @@
             </Trigger> 
             <MultiTrigger>
               <MultiTrigger.Conditions>
-                <Condition Property="HasText" Value="True" />
-                <Condition Property="SearchMode" Value="Instant" />
-              </MultiTrigger.Conditions>
-              <Setter Property="Source"
-                      TargetName="SearchIcon"
-                      Value="pack://application:,,,/UIControls;component/Images/clear.png" />
-            </MultiTrigger>
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
                 <Condition Property="IsMouseOver"
                            SourceName="PART_SearchIconBorder"
                            Value="True" />
-                <Condition Property="HasText" Value="True" />
+                
               </MultiTrigger.Conditions>
               <Setter Property="BorderBrush"
                       TargetName="PART_SearchIconBorder"

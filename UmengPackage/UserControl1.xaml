@@ -61,7 +61,7 @@
         </ListBox>
 
         <share:SearchTextBox Name="tb_keystore" Margin="81,6,357,88" LabelText="path to keystore " Width="120" Height="25" 
-                         Text="123abc"/>
+                         Text=""/>
         <share:SearchTextBox Width="120" Height="25" Margin="102,235,378,189" />
         <share:UTextBox Width="140" Height="50" Margin="220,129,240,271" EditState="Editable" SharedText="GooglePlay" 
                         ItemEditComplete="UTextBox_ItemEditComplete">
