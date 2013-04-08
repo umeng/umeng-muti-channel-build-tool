@@ -30,8 +30,6 @@ namespace UmengPackage
             var args = e as ItemEditCompleteEventArgs;
 
             System.Diagnostics.Debug.WriteLine("get:" + args.Content);
-        }
-
-        
+        }      
     }
 }

@@ -62,12 +62,15 @@
 
         <share:SearchTextBox Name="tb_keystore" Margin="81,6,357,88" LabelText="path to keystore " Width="120" Height="25" 
                          Text="123abc"/>
-        <share:SearchTextBox Width="120" Height="25"/>
+        <share:SearchTextBox Width="120" Height="25" Margin="102,235,378,189" />
         <share:UTextBox Width="140" Height="50" Margin="220,129,240,271" EditState="Editable" SharedText="GooglePlay" 
                         ItemEditComplete="UTextBox_ItemEditComplete">
             
         </share:UTextBox>
 
+        <share:StateTextBlock SelectedState="NO" Text="123" />
+       
+        
         <TextBox  Margin="356,156,172,254" Text="AppChina" Background="Transparent" BorderBrush="Transparent">
             
         </TextBox>

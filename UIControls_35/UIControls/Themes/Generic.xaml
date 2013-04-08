@@ -198,4 +198,37 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
+    <Style x:Key="{x:Type l:StateTextBlock}" TargetType="{x:Type l:StateTextBlock}">
+        <!--Setter Property="Background" Value="{StaticResource SearchTextBox_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource SearchTextBox_Border}" />
+        <Setter Property="Foreground" Value="{StaticResource SearchTextBox_Foreground}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="LabelText" Value="Search" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="LabelTextColor" Value="{StaticResource SearchTextBox_LabelTextColor}" /-->
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type l:StateTextBlock}">
+
+                    <Grid Width="120" Height="43">
+                        <TextBlock x:Name="ShowText" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                        Path=Text}" Visibility="Visible" Foreground="#9E9AA4" Margin="8,0,8,8"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Image x:Name="HintButton" Visibility="Hidden" Source="/UIControls;component/Images/clear.png" 
+                                Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,6"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="SelectedState" Value="YES">
+                            <Setter Property="Visibility" TargetName="HintButton" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>
