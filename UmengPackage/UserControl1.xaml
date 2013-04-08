@@ -63,7 +63,7 @@
         <share:SearchTextBox Name="tb_keystore" Margin="81,6,357,88" LabelText="path to keystore " Width="120" Height="25" 
                          Text=""/>
         <share:SearchTextBox Width="120" Height="25" Margin="102,235,378,189" />
-        <share:UTextBox Width="140" Height="50" Margin="220,129,240,271" EditState="Editable" SharedText="GooglePlay" 
+        <share:UTextBox Width="140" Height="50" Margin="220,129,240,271" EditState="Normal" SharedText="GooglePlay" 
                         ItemEditComplete="UTextBox_ItemEditComplete">
             
         </share:UTextBox>
@@ -77,7 +77,29 @@
 
         <share:ImageButton FirstImage="/UmengPackage;component/Images/button_normal.png" 
                            SecondImage="/UmengPackage;component/Images/button_click.png" 
-                           Margin="356,247,129,149" Content="123"/>
-        
+                           Margin="356,247,129,149" Content="123" />
+
+        <Grid Width="120" Height="43">
+
+            <TextBox x:Name="EditText" Visibility="Hidden" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                       Path=SharedText}" Background="Transparent" BorderBrush="Transparent">
+            </TextBox>
+
+            <Grid x:Name="NormalPart" Visibility="Visible" >
+                <Image Source="/UIControls;component/Images/channel_item.png" Stretch="None"/>
+                <TextBlock x:Name="ShowText" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                           Path=SharedText}" Visibility="Visible" Foreground="#9E9AA4" Margin="8,0,8,8"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <!--Image x:Name="DeleteButton" Visibility="Hidden" Source="/UIControls;component/Images/clear.png" 
+                                   Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,6"/-->
+
+
+                <share:ImageButton x:Name="DeleteButton" Visibility="Visible" FirstImage="Images/clear.png" 
+                                           SecondImage="Images/clear.png" 
+                                   Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,8,7,11" Height="24" Width="27" />
+            </Grid>
+
+        </Grid>
+
     </Grid>
 </UserControl>

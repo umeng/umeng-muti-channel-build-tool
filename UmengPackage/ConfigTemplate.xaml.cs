@@ -316,6 +316,30 @@ namespace UmengPackage
             return true;
         }
 
+        private void UTextBox_ItemDelete(object sender, RoutedEventArgs e)
+        {
+            var arg = e as ItemEditCompleteEventArgs;
+
+            if (arg != null)
+            {
+                String channel = arg.Content;
+
+                System.Diagnostics.Debug.WriteLine("Delete Channel : " + channel);
+            }
+        }
+
+        private void UTextBox_ItemEditComplete(object sender, RoutedEventArgs e)
+        {
+            var arg = e as ItemEditCompleteEventArgs;
+
+            if (arg != null)
+            {
+                String channel = arg.Content;
+
+                System.Diagnostics.Debug.WriteLine("Add Channel : " + channel );
+            }
+        }
+
 
     }
 

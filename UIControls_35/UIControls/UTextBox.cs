@@ -48,23 +48,21 @@ namespace UIControls
         {
             if (e.Key.Equals(Key.Enter))
             {
-                ItemEditCompleteEventArgs args = new ItemEditCompleteEventArgs(ItemEditCompleteEvent, SharedText);
-                RaiseEvent(args);
+                var tb = GetTemplateChild("EditText") as TextBox;
+
+                if (tb != null)
+                {
+                    SharedText = tb.Text;
+
+                    ItemEditCompleteEventArgs args = new ItemEditCompleteEventArgs(ItemEditCompleteEvent, SharedText);
+                    RaiseEvent(args);
+                }
             }
             else
             {
                 base.OnKeyDown(e);
             }
         }
-
-        //private void OnKeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Key.Equals(Key.Enter))
-        //    {
-        //        RoutedEventArgs args = new RoutedEventArgs(ItemEditCompleteEvent);
-        //        RaiseEvent(args);
-        //    }
-        //}
 
         /// <summary>
         /// DefaultStyleKeyProperty defines the key used to find the theme style of the control. 
@@ -84,6 +82,19 @@ namespace UIControls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+
+            var button = GetTemplateChild("DeleteButton") as Button;
+
+            if (button != null)
+            {
+                button.Click += new RoutedEventHandler(button_Click);
+            }
+        }
+
+        void button_Click(object sender, RoutedEventArgs e)
+        {
+            ItemEditCompleteEventArgs args = new ItemEditCompleteEventArgs(ItemDeleteEvent, SharedText);
+            RaiseEvent(args);
         }
 
         public EditState EditState

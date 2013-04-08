@@ -112,6 +112,10 @@
       <Project>{F2EF8B55-26CD-4F97-9C40-BDAFD3E18D14}</Project>
       <Name>CommonTools</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UIControls_35\UIControls\UIControls.csproj">
+      <Project>{A3082956-9EE4-4B35-9B4E-B07D0C4C8B56}</Project>
+      <Name>UIControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UmengMarket\UmengMarket.csproj">
       <Project>{9C5B35D8-E087-4393-B340-B649F884EE09}</Project>
       <Name>UmengMarket</Name>

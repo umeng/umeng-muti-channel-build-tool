@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Media;
 
 namespace UIControls
 {
@@ -21,10 +22,10 @@ namespace UIControls
                 typeof(String),
                 typeof(ImageButton));
 
-        public static DependencyProperty TextProperty =
+        public static DependencyProperty StretchProperty =
             DependencyProperty.Register(
-                "Text",
-                typeof(String),
+                "Stretch",
+                typeof(System.Windows.Media.Stretch),
                 typeof(ImageButton));
 
         static ImageButton()
@@ -46,10 +47,10 @@ namespace UIControls
             set { SetValue(SecondImageProperty, value); }
         }
 
-        public String Text
+        public Stretch Stretch
         {
-            get { return (String)GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get { return (Stretch)GetValue(StretchProperty); }
+            set { SetValue(StretchProperty, value); }
         }
     }
 }

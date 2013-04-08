@@ -5,160 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:shared="clr-namespace:UIControls;assembly=UIControls"
              xmlns:local="clr-namespace:UmengPackage"
              Name="tool"
              Height="450" Width="800"
              Background="#242328">
     <UserControl.Resources>
-        <Style x:Key="cyan_button_style" TargetType="{x:Type Button}">
-            <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
-                                <VisualState x:Name="MouseOver">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.8"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled"/>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="1" Width="168" Height="62" Margin="0" 
-                                VerticalAlignment="Stretch" CornerRadius="0" Opacity="1">
-                            <Border.Background>
-                                    <ImageBrush x:Name="button_bg" ImageSource="Images/button_normal.png"/>
-                            </Border.Background>
-                      
-                         </Border>
-
-                            <Border>
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="1"  BlurRadius="6"/>
-                                </Border.Effect>
-                                
-                                <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsFocused" Value="True"/>
-                        <Trigger Property="IsDefaulted" Value="True"/>        
-                        <Trigger Property="IsEnabled" Value="False"/>
-
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="false"/>
-                                <Condition Property="IsMouseOver" Value="true"/>
-                            </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="border">
-                                    <Setter.Value>
-                                        <ImageBrush ImageSource="Images/button_click.png"/>
-                                    </Setter.Value>
-                                </Setter>
-                       
-                                <Setter Property="RenderTransform" TargetName="ButtonContentPresenter">
-                                <Setter.Value>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Setter.Value>
-                            </Setter>
-                        </MultiTrigger>
-                        </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        </Style>
-
-        <Style x:Key="setting_button_style" TargetType="{x:Type Button}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="MouseOver">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                                <EasingDoubleKeyFrame KeyTime="0" Value="0.8"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled"/>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="1" Width="20" Height="20" Margin="0"
-                                VerticalAlignment="Stretch" CornerRadius="0" Opacity="1">
-                                <Border.Background>
-                                    <ImageBrush x:Name="button_bg" ImageSource="Images/setting.png" Stretch="None"/>
-                                </Border.Background>
-
-                            </Border>
-
-                            <Border>
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="1"  BlurRadius="6"/>
-                                </Border.Effect>
-
-                                <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True"/>
-                            <Trigger Property="IsDefaulted" Value="True"/>
-                            <Trigger Property="IsEnabled" Value="False"/>
-
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsPressed" Value="false"/>
-                                    <Condition Property="IsMouseOver" Value="true"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="border">
-                                    <Setter.Value>
-                                        <ImageBrush ImageSource="Images/setting.png"/>
-                                    </Setter.Value>
-                                </Setter>
-
-                                <Setter Property="RenderTransform" TargetName="ButtonContentPresenter">
-                                    <Setter.Value>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform/>
-                                        </TransformGroup>
-                                    </Setter.Value>
-                                </Setter>
-                            </MultiTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-
         <Style x:Key="progressbar_style" TargetType="{x:Type ProgressBar}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -305,8 +157,8 @@
                   SelectedIndex="0"
                   >
         </ComboBox-->
-
-        <Button Margin="599,7,162,413"  Style="{StaticResource setting_button_style}" Click="OnEdit" />
+        <shared:ImageButton FirstImage="/UmengPackage;component/Images/setting.png" SecondImage="/UmengPackage;component/Images/setting.png" Margin="390,7,391,413" 
+                            Stretch="None" Click="OnEdit"/>
         
         <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="740" Height="200" x:Name="Channels" Background="Transparent" Margin="30,30,2,1" 
                  HorizontalContentAlignment="Stretch">
@@ -367,10 +219,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="一键打包"  HorizontalAlignment="Left" Margin="585,354,0,0" Name="btn_builder" 
-                VerticalAlignment="Top"  Style="{StaticResource cyan_button_style}" FontSize="20" Foreground="#FFF8F5F5" FontFamily="Microsoft YaHei" FontStyle="Normal" FontWeight="Normal" />
-       
         
+        <shared:ImageButton Content="一键打包" HorizontalAlignment="Left" Margin="585,349,0,26" FirstImage="/UmengPackage;component/Images/button_normal.png" 
+                           SecondImage="/UmengPackage;component/Images/button_click.png" FontSize="20" Foreground="#FFF8F5F5" Width="168" Stretch="Fill"/>
+
         <!--GroupBox Header="Apk Info" Height="132" HorizontalAlignment="Left" Margin="218,298,0,0" Name="groupBox1" VerticalAlignment="Top" Width="239">
             <Grid>
                 <TextBlock Text="{Binding AppName}" Height="23" HorizontalAlignment="Left" Margin="6,13,0,0"  VerticalAlignment="Top" />

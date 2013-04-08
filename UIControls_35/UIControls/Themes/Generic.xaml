@@ -4,7 +4,86 @@
   xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
   xmlns:l="clr-namespace:UIControls">
 
-  <SolidColorBrush x:Key="SearchTextBox_Background" Color="White" />
+
+    <Style x:Key="{x:Type l:ImageButton}" TargetType="{x:Type l:ImageButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type l:ImageButton}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.8"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Margin="0" 
+                                VerticalAlignment="Stretch" CornerRadius="0" Opacity="1">
+                            <Border.Background>
+                                <ImageBrush x:Name="button_bg" ImageSource="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                        Path=FirstImage}" Stretch="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                        Path=Stretch}"/>
+                            </Border.Background>
+
+                        </Border>
+
+                        <Border>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="1"  BlurRadius="6"/>
+                            </Border.Effect>
+
+                            <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True"/>
+                        <Trigger Property="IsDefaulted" Value="True"/>
+                        <Trigger Property="IsEnabled" Value="False"/>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false"/>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                        Path=SecondImage}"/>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="RenderTransform" TargetName="ButtonContentPresenter">
+                                <Setter.Value>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <SolidColorBrush x:Key="SearchTextBox_Background" Color="White" />
   <SolidColorBrush x:Key="SearchTextBox_Foreground" Color="Black" />
   <LinearGradientBrush x:Key="SearchTextBox_Border" StartPoint="0,0" EndPoint="0,1">
     <GradientStop Color="#FFABADB3" Offset="0.05" />
@@ -134,16 +213,8 @@
       </Setter.Value>
     </Setter>
   </Style>
-
+    
     <Style x:Key="{x:Type l:UTextBox}" TargetType="{x:Type l:UTextBox}">
-        <!--Setter Property="Background" Value="{StaticResource SearchTextBox_Background}" />
-        <Setter Property="BorderBrush" Value="{StaticResource SearchTextBox_Border}" />
-        <Setter Property="Foreground" Value="{StaticResource SearchTextBox_Foreground}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="LabelText" Value="Search" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="LabelTextColor" Value="{StaticResource SearchTextBox_LabelTextColor}" /-->
         
         <Setter Property="Template">
             <Setter.Value>
@@ -152,17 +223,19 @@
                     <Grid Width="120" Height="43">
                         
                         <TextBox x:Name="EditText" Visibility="Hidden" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
-                                       Path=SharedText}" Background="Transparent" BorderBrush="Transparent">
+                                       Path=SharedText,Mode=TwoWay}" Background="Transparent" BorderBrush="Transparent">
                         </TextBox>
                         
                         <Grid x:Name="NormalPart" Visibility="Visible" >
                             <Image Source="/UIControls;component/Images/channel_item.png" Stretch="None"/>
                             <TextBlock x:Name="ShowText" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
-                                           Path=SharedText}" Visibility="Visible" Foreground="#9E9AA4" Margin="8,0,8,8"
+                                           Path=SharedText,Mode=TwoWay}" Visibility="Visible" Foreground="#9E9AA4" Margin="8,0,8,8"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <Image x:Name="DeleteButton" Visibility="Hidden" Source="/UIControls;component/Images/clear.png" 
-                                   Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,6"/>
+                            <l:ImageButton x:Name="DeleteButton" Visibility="Hidden" FirstImage="/UIControls;component/Images/clear.png" 
+                                           SecondImage="/UIControls;component/Images/clear.png"
+                                   Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Center" Height="14" Width="14" Margin="0,0,8,0"/>
                         </Grid>
+                       
                        
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -220,81 +293,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style x:Key="{x:Type l:ImageButton}" TargetType="{x:Type l:ImageButton}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type l:ImageButton}">
-                    <Grid>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
-                                <VisualState x:Name="MouseOver">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.8"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled"/>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Margin="0" 
-                                VerticalAlignment="Stretch" CornerRadius="0" Opacity="1">
-                            <Border.Background>
-                                <ImageBrush x:Name="button_bg" ImageSource="{Binding RelativeSource={RelativeSource TemplatedParent},
-                                        Path=FirstImage}"/>
-                            </Border.Background>
-
-                        </Border>
-
-                        <Border>
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="1"  BlurRadius="6"/>
-                            </Border.Effect>
-
-                            <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Border>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsFocused" Value="True"/>
-                        <Trigger Property="IsDefaulted" Value="True"/>
-                        <Trigger Property="IsEnabled" Value="False"/>
-
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="false"/>
-                                <Condition Property="IsMouseOver" Value="true"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="border">
-                                <Setter.Value>
-                                    <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource TemplatedParent},
-                                        Path=SecondImage}"/>
-                                </Setter.Value>
-                            </Setter>
-
-                            <Setter Property="RenderTransform" TargetName="ButtonContentPresenter">
-                                <Setter.Value>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform/>
-                                    </TransformGroup>
-                                </Setter.Value>
-                            </Setter>
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
 </ResourceDictionary>
