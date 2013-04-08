@@ -74,5 +74,10 @@
         <TextBox  Margin="356,156,172,254" Text="AppChina" Background="Transparent" BorderBrush="Transparent">
             
         </TextBox>
+
+        <share:ImageButton FirstImage="/UmengPackage;component/Images/button_normal.png" 
+                           SecondImage="/UmengPackage;component/Images/button_click.png" 
+                           Margin="356,247,129,149" Content="123"/>
+        
     </Grid>
 </UserControl>
