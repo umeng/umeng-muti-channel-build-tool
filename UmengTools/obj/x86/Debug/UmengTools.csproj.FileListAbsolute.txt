@@ -47,3 +47,5 @@ D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\UmengMarket.p
 D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\UmengPackage.pdb
 D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\UmengWidget.pdb
 D:\Developer\workspace_silverlight\UmengTools\UmengTools\obj\x86\Debug\UmengTools.pdb
+D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\UIControls.dll
+D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\UIControls.pdb

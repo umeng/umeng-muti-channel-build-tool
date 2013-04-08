@@ -25,7 +25,7 @@ namespace UmengPackage.Source.Model
         //Directory of config file
         public static string Config_Path { get; set; }
         //Channels List
-        public ObservableCollection<ChannelItem> Candinate = new ObservableCollection<ChannelItem>();
+        public ObservableCollection<EditItem> Candinate = new ObservableCollection<EditItem>();
 
 
         private string android_path;
@@ -123,7 +123,7 @@ namespace UmengPackage.Source.Model
 
         
 
-        public bool addChannel(ChannelItem new_channel)
+        public bool addChannel(EditItem new_channel)
         {
             if (Candinate.Contains(new_channel))
             {
@@ -136,7 +136,7 @@ namespace UmengPackage.Source.Model
             }
         }
 
-        public bool removeChannle(ChannelItem channel)
+        public bool removeChannle(EditItem channel)
         {
             return Candinate.Remove(channel);
         }

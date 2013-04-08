@@ -45,7 +45,7 @@ namespace UmengPackage.Source
             int per = 0;
             PackageState state = new PackageState();
 
-            foreach (ChannelItem channel in Config.Candinate )
+            foreach (EditItem channel in Config.Candinate )
             {
                 i++;
                 per = i*100/count;

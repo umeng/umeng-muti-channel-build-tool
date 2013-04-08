@@ -143,4 +143,59 @@
       </Setter.Value>
     </Setter>
   </Style>
+
+    <Style x:Key="{x:Type l:UTextBox}" TargetType="{x:Type l:UTextBox}">
+        <!--Setter Property="Background" Value="{StaticResource SearchTextBox_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource SearchTextBox_Border}" />
+        <Setter Property="Foreground" Value="{StaticResource SearchTextBox_Foreground}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="LabelText" Value="Search" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="LabelTextColor" Value="{StaticResource SearchTextBox_LabelTextColor}" /-->
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type l:UTextBox}">
+                   
+                    <Grid Width="120" Height="43">
+                        
+                        <TextBox x:Name="EditText" Visibility="Hidden" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                       Path=SharedText}" Background="Transparent" BorderBrush="Transparent">
+                        </TextBox>
+                        
+                        <Grid x:Name="NormalPart" Visibility="Visible" >
+                            <Image Source="/UIControls;component/Images/channel_item.png" Stretch="None"/>
+                            <TextBlock x:Name="ShowText" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                           Path=SharedText}" Visibility="Visible" Foreground="#9E9AA4" Margin="8,0,8,8"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Image x:Name="DeleteButton" Visibility="Hidden" Source="/UIControls;component/Images/clear.png" 
+                                   Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,6"/>
+                        </Grid>
+                       
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="EditState" Value="Normal"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            
+                            <Setter Property="Visibility" Value="Visible" TargetName="DeleteButton"/>
+                            
+                        </MultiTrigger>
+                        
+                        <Trigger Property="EditState" Value="Normal">
+                            <Setter Property="Visibility" TargetName="ShowText" Value="Visible" />
+                        </Trigger>
+                        
+                        <Trigger Property="EditState" Value="Editable">
+                            <Setter Property="Visibility" TargetName="EditText" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="NormalPart" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

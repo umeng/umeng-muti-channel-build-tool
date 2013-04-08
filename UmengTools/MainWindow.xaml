@@ -234,7 +234,7 @@
                         </TabItem.Background>
                         <Grid Background="#242328" Width="800">
                             <Grid x:Name="index_grid1" Margin="8,12,8,8">
-                                   
+                                  <mainPage:UserControl1/>
                             </Grid>
                         </Grid>
                     </TabItem>

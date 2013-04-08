@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Collections.ObjectModel;
 
 namespace UmengPackage.Source.Common
 {
@@ -68,5 +69,8 @@ namespace UmengPackage.Source.Common
         {
             return apkFile.ToLower().EndsWith(".apk");
         }
+
+        //List
+     
     }
 }

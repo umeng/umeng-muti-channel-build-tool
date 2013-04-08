@@ -24,7 +24,8 @@ namespace UmengPackage
     public partial class ConfigTemplate : Window
     {
         ProjectConfigration config = null;
-        ObservableCollection<ChannelItem> Template = new ObservableCollection<ChannelItem>();
+        //ObservableCollection<EditItem> Template = new ObservableCollection<EditItem>();
+        //ObservableCollection<EditItem> Candinate = new ObservableCollection<EditItem>();
 
         public ConfigTemplate()
         {
@@ -45,33 +46,32 @@ namespace UmengPackage
             }
             //load template
             LoadTemplate();
-
             //bind context
             this.DataContext = config;
-            this.Channels.ItemsSource = config.Candinate;
-            this.StandardChannelTemplate.ItemsSource = Template;
+            //this.Channels.ItemsSource = Candinate;
+            //this.StandardChannelTemplate.ItemsSource = Template;
         }
 
         public void LoadTemplate()
         {
-            Template.Add(new ChannelItem("Images/icon.png", "Images/add.png", "GooglePlay"));
-            Template.Add(new ChannelItem("Images/icon.png", "Images/add.png", "Anzhi"));
-            Template.Add(new ChannelItem("Images/icon.png", "Images/add.png", "Anzhuo"));
-            Template.Add(new ChannelItem("Images/icon.png", "Images/add.png", "Appchina"));
-            Template.Add(new ChannelItem("Images/icon.png", "Images/add.png", "GooglePlay1"));
-            Template.Add(new ChannelItem("Images/icon.png", "Images/add.png", "GooglePlay2"));
-            Template.Add(new ChannelItem("Images/icon.png", "Images/add.png", "GooglePlay3"));
-            Template.Add(new ChannelItem("Images/icon.png", "Images/add.png", "GooglePlay4"));
+            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay"));
+            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "Anzhi"));
+            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "Anzhuo"));
+            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "Appchina"));
+            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay1"));
+            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay2"));
+            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay3"));
+            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay4"));
 
-            var coincide = from A in Template
-                           from B in config.Candinate
-                           where A.ChannelName.Equals(B.ChannelName)
-                           select A;
+            //var coincide = from A in Template
+            //               from B in config.Candinate
+            //               where A.ChannelName.Equals(B.ChannelName)
+            //               select A;
 
-            foreach (ChannelItem item in coincide)
-            {
-                item.EditorImage = "Images/ready.png";
-            }
+            //foreach (EditItem item in coincide)
+            //{
+            //    item.EditorImage = "Images/ready.png";
+            //}
         }
 
         /// <summary>
@@ -82,28 +82,28 @@ namespace UmengPackage
         private void Button_Add(object sender, RoutedEventArgs e)
         {
             // cast the sender to a button
-            Button button = e.OriginalSource as Button;
+            //Button button = e.OriginalSource as Button;
 
-            // find the item that is the datacontext for this button
-            ChannelItem channel = (ChannelItem)button.DataContext;
+            //// find the item that is the datacontext for this button
+            //EditItem channel = (EditItem)button.DataContext;
 
-            System.Diagnostics.Debug.WriteLine(string.Format("Template add {0} button is clicked !", channel.ChannelName));
+            //System.Diagnostics.Debug.WriteLine(string.Format("Template add {0} button is clicked !", channel.ChannelName));
 
 
-            foreach (ChannelItem channelItem in config.Candinate.Where(T => T.ChannelName.Equals(channel.ChannelName)))
-            {
-                System.Diagnostics.Debug.WriteLine("已经添加过了");
-                return;
-            }
+            //foreach (EditItem channelItem in config.Candinate.Where(T => T.ChannelName.Equals(channel.ChannelName)))
+            //{
+            //    System.Diagnostics.Debug.WriteLine("已经添加过了");
+            //    return;
+            //}
 
-            channel.EditorImage = "Images/ready.png";
+            //channel.EditorImage = "Images/ready.png";
 
-            config.Candinate.Add(new ChannelItem()
-            {
-                ChannelIcon = channel.ChannelIcon,
-                EditorImage = "Images/remove.png",
-                ChannelName = channel.ChannelName
-            });
+            //config.Candinate.Add(new EditItem()
+            //{
+            //    ChannelIcon = channel.ChannelIcon,
+            //    EditorImage = "Images/remove.png",
+            //    ChannelName = channel.ChannelName
+            //});
 
 
         }
@@ -115,17 +115,17 @@ namespace UmengPackage
             Button button = e.OriginalSource as Button;
 
             // find the item that is the datacontext for this button
-            ChannelItem channel = button.DataContext as ChannelItem;
+            EditItem channel = button.DataContext as EditItem;
 
             System.Diagnostics.Debug.WriteLine(string.Format("Template remove {0} button is clicked !", channel.ChannelName));
 
-            foreach (ChannelItem channelItem in Template.Where(T => T.ChannelName.Equals(channel.ChannelName)))
-            {
-                System.Diagnostics.Debug.WriteLine("Reset template state");
+            //foreach (EditItem channelItem in Template.Where(T => T.ChannelName.Equals(channel.ChannelName)))
+            //{
+            //    System.Diagnostics.Debug.WriteLine("Reset template state");
 
-                channelItem.EditorImage = "Images/add.png";
-                break;
-            }
+            //    channelItem.EditorImage = "Images/add.png";
+            //    break;
+            //}
 
             config.Candinate.Remove(channel);
         }
@@ -143,7 +143,7 @@ namespace UmengPackage
 
                 foreach (string channel in channels)
                 {
-                    config.Candinate.Add(new ChannelItem("Images/icon.png", "Images/remove.png", channel));
+                    //config.Candinate.Add(new EditItem("Images/icon.png", "Images/remove.png", channel));
                 }
             }
         }
@@ -306,4 +306,10 @@ namespace UmengPackage
             return true;
         }
     }
+
+    //public class EditItem
+    //{
+    //    public String EditItem;
+    //    public String State;//="InEdit" or not
+    //}
 }

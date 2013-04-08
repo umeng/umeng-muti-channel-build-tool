@@ -54,16 +54,23 @@
     <Compile Include="ChannelEditorWindow.xaml.cs">
       <DependentUpon>ChannelEditorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConfigTemplate.xaml.cs">
+      <DependentUpon>ConfigTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Source\Builder\ApkBuilder.cs" />
     <Compile Include="Source\Builder\Builder.cs" />
     <Compile Include="Source\Common\UmengExtention.cs" />
     <Compile Include="Source\Common\Log.cs" />
     <Compile Include="Source\Model\ApkInfo.cs" />
-    <Compile Include="Source\Model\ChannelItem.cs" />
+    <Compile Include="Source\Model\EditItem.cs" />
+    <Compile Include="Source\Model\ObservableCollection.cs" />
     <Compile Include="Source\Model\PackageState.cs" />
     <Compile Include="Source\Model\ProjectConfigration.cs" />
     <Compile Include="Source\Builder\SourceBuilder.cs" />
     <Compile Include="Source\Worker.cs" />
+    <Compile Include="UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Page Include="ApkProgressBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,7 +90,15 @@
       <DependentUpon>ChannelTool.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ConfigTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="HorizontalListDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -126,6 +141,10 @@
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">
       <Project>{F2EF8B55-26CD-4F97-9C40-BDAFD3E18D14}</Project>
       <Name>CommonTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIControls_35\UIControls\UIControls.csproj">
+      <Project>{A3082956-9EE4-4B35-9B4E-B07D0C4C8B56}</Project>
+      <Name>UIControls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

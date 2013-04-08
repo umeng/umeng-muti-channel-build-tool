@@ -43,3 +43,9 @@ D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\GenerateRes
 D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\GenerateResource.write.1.tlog
 D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\UmengPackage.pdb
 D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\UmengPackage_MarkupCompile.lref
+D:\Developer\workspace_silverlight\UmengTools\UmengPackage\bin\Debug\UIControls.dll
+D:\Developer\workspace_silverlight\UmengTools\UmengPackage\bin\Debug\UIControls.pdb
+D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ConfigTemplate.baml
+D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ConfigTemplate.g.cs
+D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\UserControl1.baml
+D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\UserControl1.g.cs
