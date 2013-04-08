@@ -190,7 +190,6 @@
         </Setter>
     </Style>
 
-
     <Style x:Key="{x:Type l:StateTextBlock}" TargetType="{x:Type l:StateTextBlock}">
         <!--Setter Property="Background" Value="{StaticResource SearchTextBox_Background}" />
         <Setter Property="BorderBrush" Value="{StaticResource SearchTextBox_Border}" />

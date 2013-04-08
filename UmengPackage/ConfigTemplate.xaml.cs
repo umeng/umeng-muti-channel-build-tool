@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using UIControls;
 
 using UmengPackage.Source.Model;
 
@@ -25,29 +26,38 @@ namespace UmengPackage
     {
         ProjectConfigration config = null;
         //ObservableCollection<EditItem> Template = new ObservableCollection<EditItem>();
-        //ObservableCollection<EditItem> Candinate = new ObservableCollection<EditItem>();
+        ObservableCollection<EditItem> Candinate = new ObservableCollection<EditItem>();
 
         public ConfigTemplate()
         {
-            InitializeComponent();  
+            InitializeComponent();
+
+            for (int i = 0; i < 2; i++)
+            {
+                Candinate.Add(new EditItem("GooglePlay", EditState.Normal));
+            }
+
+            Candinate.Add(new EditItem("",EditState.Editable));
+
+            this.Channels.ItemsSource = Candinate;
         }
 
         public void SetConfigTemplateContext(string fileName)
         {
             //load configration
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                config = ProjectConfigration.readSettingFromFile(fileName);
-                this.tb_setting_file.Text = fileName;
-            }
-            else
-            {
-                config = new ProjectConfigration();
-            }
+            //if (!string.IsNullOrEmpty(fileName))
+            //{
+            //    config = ProjectConfigration.readSettingFromFile(fileName);
+            //    this.tb_setting_file.Text = fileName;
+            //}
+            //else
+            //{
+            //    config = new ProjectConfigration();
+            //}
             //load template
-            LoadTemplate();
+            //LoadTemplate();
             //bind context
-            this.DataContext = config;
+            //this.DataContext = config;
             //this.Channels.ItemsSource = Candinate;
             //this.StandardChannelTemplate.ItemsSource = Template;
         }
@@ -110,14 +120,14 @@ namespace UmengPackage
 
         private void Button_Remove(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Candinate channel remove button is clicked!");
+            //System.Diagnostics.Debug.WriteLine("Candinate channel remove button is clicked!");
             // cast the sender to a button
-            Button button = e.OriginalSource as Button;
+            //Button button = e.OriginalSource as Button;
 
             // find the item that is the datacontext for this button
-            EditItem channel = button.DataContext as EditItem;
+            //EditItem channel = button.DataContext as EditItem;
 
-            System.Diagnostics.Debug.WriteLine(string.Format("Template remove {0} button is clicked !", channel.ChannelName));
+            //System.Diagnostics.Debug.WriteLine(string.Format("Template remove {0} button is clicked !", channel.ChannelName));
 
             //foreach (EditItem channelItem in Template.Where(T => T.ChannelName.Equals(channel.ChannelName)))
             //{
@@ -127,25 +137,25 @@ namespace UmengPackage
             //    break;
             //}
 
-            config.Candinate.Remove(channel);
+            //config.Candinate.Remove(channel);
         }
         //add channel
         private void AddChannel_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new ChannelEditorWindow();
-            bool? result = dialog.ShowDialog();
-            string value = dialog.getChannels();
+            //var dialog = new ChannelEditorWindow();
+            //bool? result = dialog.ShowDialog();
+            //string value = dialog.getChannels();
 
-            if (result != null && value != null)
-            {
-                System.Diagnostics.Debug.WriteLine("value:" + result.Value + " result:" + result);
-                string[] channels = value.Split(new char[] { ',',';',':'});
+            //if (result != null && value != null)
+            //{
+            //    System.Diagnostics.Debug.WriteLine("value:" + result.Value + " result:" + result);
+            //    string[] channels = value.Split(new char[] { ',',';',':'});
 
-                foreach (string channel in channels)
-                {
-                    //config.Candinate.Add(new EditItem("Images/icon.png", "Images/remove.png", channel));
-                }
-            }
+            //    foreach (string channel in channels)
+            //    {
+            //        //config.Candinate.Add(new EditItem("Images/icon.png", "Images/remove.png", channel));
+            //    }
+            //}
         }
 
         private void SearchTextBox_FindJava(object sender, RoutedEventArgs e)
@@ -305,11 +315,27 @@ namespace UmengPackage
 
             return true;
         }
+
+
     }
 
-    //public class EditItem
-    //{
-    //    public String EditItem;
-    //    public String State;//="InEdit" or not
-    //}
+    public class EditItem
+    {
+        public EditItem(String name, EditState state)
+        {
+            ItemName = name;
+            State = state;
+        }
+
+        public String ItemName
+        {
+            get;
+            set;
+        }
+        public EditState State
+        {
+            get;
+            set;
+        }
+    }
 }

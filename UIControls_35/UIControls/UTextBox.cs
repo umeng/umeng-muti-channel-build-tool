@@ -37,6 +37,13 @@ namespace UIControls
                 typeof(RoutedEventHandler),
                 typeof(UTextBox));
 
+        public static readonly RoutedEvent ItemDeleteEvent =
+            EventManager.RegisterRoutedEvent(
+                "ItemDelete",
+                RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler),
+                typeof(UTextBox));
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key.Equals(Key.Enter))
@@ -95,6 +102,12 @@ namespace UIControls
         {
             add { AddHandler(ItemEditCompleteEvent, value); }
             remove { RemoveHandler(ItemEditCompleteEvent, value); }
+        }
+
+        public event RoutedEventHandler ItemDelete
+        {
+            add { AddHandler(ItemDeleteEvent, value); }
+            remove { RemoveHandler(ItemDeleteEvent, value); }
         }
     }
 

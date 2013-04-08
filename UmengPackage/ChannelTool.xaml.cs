@@ -87,6 +87,19 @@ namespace UmengPackage
             //this.hint.SetBinding(Label.ContentProperty, new Binding("mApkFile"));
             
         }
+
+        private void OnEdit(object sender, RoutedEventArgs e)
+        {
+            var dialog = new ConfigTemplate();
+
+            //dialog.SetConfigTemplateContext( configFile );
+            bool? result = dialog.ShowDialog();
+
+            if (result != null)
+            {
+                //LoadConfigrationAndBindList();
+            }
+        }
         /*
         private void InitBackgroundWorker()
         {

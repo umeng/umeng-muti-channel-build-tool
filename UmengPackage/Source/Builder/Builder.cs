@@ -45,33 +45,33 @@ namespace UmengPackage.Source
             int per = 0;
             PackageState state = new PackageState();
 
-            foreach (EditItem channel in Config.Candinate )
-            {
-                i++;
-                per = i*100/count;
-                state.setChannel(channel.ChannelName);
-                //start
-                monitor.ReportProgress(per, state.setState(State.START));
-                try
-                {
-                    ReplaceChannle(channel.ChannelName);
+            //foreach (EditItem channel in Config.Candinate )
+            //{
+            //    i++;
+            //    per = i*100/count;
+            //    state.setChannel(channel.ChannelName);
+            //    //start
+            //    monitor.ReportProgress(per, state.setState(State.START));
+            //    try
+            //    {
+            //        ReplaceChannle(channel.ChannelName);
 
-                    BuildUnsignedApk();
+            //        BuildUnsignedApk();
 
-                    SignAPK(channel.ChannelName);
-                    ZipAlign(channel.ChannelName);
+            //        SignAPK(channel.ChannelName);
+            //        ZipAlign(channel.ChannelName);
 
-                    CopyToWorkspace(channel.ChannelName);
+            //        CopyToWorkspace(channel.ChannelName);
 
-                    monitor.ReportProgress(per, state.setState( State.END));
-                }
-                catch (Exception e)
-                {
-                    monitor.ReportProgress(per, state.setState( State.FAILURE));
-                    throw e;
-                }
+            //        monitor.ReportProgress(per, state.setState( State.END));
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        monitor.ReportProgress(per, state.setState( State.FAILURE));
+            //        throw e;
+            //    }
                 //end
-            }
+            //}
         }
         public abstract void Restore();
 
