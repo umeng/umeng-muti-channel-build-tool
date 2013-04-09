@@ -11,6 +11,7 @@
              Height="450" Width="800"
              Background="#242328">
     <UserControl.Resources>
+        <ResourceDictionary>
         <Style x:Key="progressbar_style" TargetType="{x:Type ProgressBar}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -126,6 +127,12 @@
             </Setter>
         </Style>
 
+        
+        
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UIControls;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <!--  xmlns:local="clr-namespace:UmengPackage"
              xmlns:common_ui="clr-namespace:UIControls;assembly=UIControls"
@@ -153,11 +160,11 @@
             <Label Name="hint" Canvas.Left="40" Canvas.Top="50"/>
             <Image Source="{Binding AppIcon}" Canvas.Left="40" Canvas.Top="50"/>
         </Canvas-->
-        <!--ComboBox Name="settingList"  Height="23" HorizontalAlignment="Left" Margin="611,2,0,0" VerticalAlignment="Top" Width="120"
+        <ComboBox Name="settingList"  Height="28" HorizontalAlignment="Left" Margin="630,3,0,0" VerticalAlignment="Top" Width="140"
                   SelectedIndex="0"
                   >
-        </ComboBox-->
-        <shared:ImageButton FirstImage="/UmengPackage;component/Images/setting.png" SecondImage="/UmengPackage;component/Images/setting.png" Margin="390,7,391,413" 
+        </ComboBox>
+        <shared:ImageButton FirstImage="/UmengPackage;component/Images/setting.png" SecondImage="/UmengPackage;component/Images/setting.png" Margin="605,7,176,413" 
                             Stretch="None" Click="OnEdit"/>
         
         <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="740" Height="200" x:Name="Channels" Background="Transparent" Margin="30,30,2,1" 
@@ -173,7 +180,7 @@
                     <Grid>
                         <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
                             <Border Background="Transparent" BorderBrush="#383543" BorderThickness="1" ClipToBounds="True" CornerRadius="5">
-                                <Border Background="Transparent" BorderBrush="#26242C" BorderThickness="3,3,3,3" Margin="-3,-3,-3,-3" CornerRadius="5">
+                                <Border Background="Transparent" BorderBrush="#26242C" BorderThickness="3,3,3,3" Margin="-3,-3,-3,-3" CornerRadius="5" ClipToBounds="True">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" BlurRadius="15"/>
                                     </Border.Effect>
@@ -238,19 +245,14 @@
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0" BlurRadius="15"/>
                     </Border.Effect>
-                </Border>
+                        <Grid Width="400" Height="180" Margin="10">
+                            <Image Source="Images/add_apk.png" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Label x:Name="apk_name" Content="winxin" Foreground="White" FontSize="20" Visibility="Visible" Margin="260,50,0,0"/>
+                            <Label x:Name="apk_size" Content="123.k" Foreground="LightGray" FontSize="16" Visibility="Visible" Margin="260,80,0,0"/>
+                        </Grid>  
+                    </Border>
                 </Border>
             </Border>
-        </Grid>
-
-        <Grid Width="150" Height="50" Margin="10,223,350,20">
-            <Rectangle>
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Images/channel_item.png" Stretch="None" />
-                </Rectangle.Fill>
-            </Rectangle>
-            <TextBlock Text="GooglePlay" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Foreground="#FF9E9AA4" Margin="0,-8,0,0"/>
-            <ProgressBar Style="{StaticResource progressbar_style}" Width="100" VerticalAlignment="Center" Margin="0,15,0,0" Value="30"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -44,6 +44,8 @@ namespace UmengPackage
             //InitBackgroundWorker();
 
             //DataContext = mApkInfo;
+
+
         }
 
         private void LoadConfigrationAndBindList()
@@ -52,6 +54,13 @@ namespace UmengPackage
             //{
             //    CandinateConfigrationFiles.Clear();
             //}
+
+            for (int i = 0; i < 5; i++)
+            {
+                CandinateConfigrationFiles.Add("configure file A");
+            }
+
+            this.settingList.ItemsSource = CandinateConfigrationFiles;
 
             //string[] files = ProjectConfigration.GetConfigFileList();
             //if (files != null)
