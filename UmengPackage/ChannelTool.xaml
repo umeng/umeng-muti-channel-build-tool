@@ -245,8 +245,24 @@
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0" BlurRadius="15"/>
                     </Border.Effect>
-                        <Grid Width="400" Height="180" Margin="10">
-                            <Image Source="Images/add_apk.png" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Grid Width="400" Height="180" Margin="10"
+                              AllowDrop="True"
+                              DragDrop.DragEnter="dragDrop_Event" 
+                              DragDrop.Drop="dragDrop_Event"
+                              DragDrop.DragOver="dragDrop_Event"
+                              DragDrop.DragLeave="dragDrop_Event">
+                            <Image Name="apk_holder" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Image.Style>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Setter Property="Source" Value="Images/add_apk.png"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Source" Value="Images/add_apk_hover.png"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                             <Label x:Name="apk_name" Content="winxin" Foreground="White" FontSize="20" Visibility="Visible" Margin="260,50,0,0"/>
                             <Label x:Name="apk_size" Content="123.k" Foreground="LightGray" FontSize="16" Visibility="Visible" Margin="260,80,0,0"/>
                         </Grid>  

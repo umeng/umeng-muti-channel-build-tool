@@ -68,7 +68,7 @@
             
         </share:UTextBox>
 
-        <share:StateTextBlock SelectedState="NO" Text="123" />
+        <share:StateTextBlock SelectedState="NO" Text="123" Width="80" Height="20" />
        
         
         <TextBox  Margin="356,156,172,254" Text="AppChina" Background="Transparent" BorderBrush="Transparent">
@@ -86,7 +86,6 @@
             </TextBox>
 
             <Grid x:Name="NormalPart" Visibility="Visible" >
-                <Image Source="/UIControls;component/Images/channel_item.png" Stretch="None"/>
                 <TextBlock x:Name="ShowText" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
                                            Path=SharedText}" Visibility="Visible" Foreground="#9E9AA4" Margin="8,0,8,8"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -100,6 +99,6 @@
             </Grid>
 
         </Grid>
-
+        <Image Source="/UIControls;component/Images/channel_item.png" Stretch="None" Margin="0,197,480,210" />
     </Grid>
 </UserControl>

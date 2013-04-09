@@ -58,8 +58,8 @@ namespace UmengPackage
             for (int i = 0; i < 5; i++)
             {
                 CandinateConfigrationFiles.Add("configure file A");
+               
             }
-
             this.settingList.ItemsSource = CandinateConfigrationFiles;
 
             //string[] files = ProjectConfigration.GetConfigFileList();
@@ -182,7 +182,7 @@ namespace UmengPackage
             }
         }
 
-
+        */
         private void dragDrop_Event(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -212,7 +212,7 @@ namespace UmengPackage
         {
             System.Diagnostics.Debug.WriteLine( path );
 
-            this.hint.Content = System.IO.Path.GetFileName( path );
+            //this.hint.Content = System.IO.Path.GetFileName( path );
 
             // About apk file
             mApkInfo.parseApk(path); 
@@ -278,6 +278,6 @@ namespace UmengPackage
 
             mConfigFile = configFile;
             return true;
-        }*/
+        }
     }
 }

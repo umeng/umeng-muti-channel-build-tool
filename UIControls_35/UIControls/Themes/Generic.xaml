@@ -275,7 +275,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type l:StateTextBlock}">
 
-                    <Grid Width="120" Height="43">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                         <TextBlock x:Name="ShowText" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
                                         Path=Text}" Visibility="Visible" Foreground="#9E9AA4" Margin="8,0,8,8"
                                     VerticalAlignment="Center" HorizontalAlignment="Center"/>

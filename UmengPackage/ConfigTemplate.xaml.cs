@@ -27,19 +27,23 @@ namespace UmengPackage
         ProjectConfigration config = null;
         //ObservableCollection<EditItem> Template = new ObservableCollection<EditItem>();
         ObservableCollection<EditItem> Candinate = new ObservableCollection<EditItem>();
-
+        ObservableCollection<CandinateItem> ChannelTemplate = new ObservableCollection<CandinateItem>();
+       
         public ConfigTemplate()
         {
             InitializeComponent();
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 10; i++)
             {
                 Candinate.Add(new EditItem("GooglePlay", EditState.Normal));
+                ChannelTemplate.Add(new CandinateItem("GooglePlay", SelectedState.NO));
+
             }
 
             Candinate.Add(new EditItem("",EditState.Editable));
 
             this.Channels.ItemsSource = Candinate;
+            this.lb_template.ItemsSource = ChannelTemplate;
         }
 
         public void SetConfigTemplateContext(string fileName)
@@ -361,5 +365,17 @@ namespace UmengPackage
             get;
             set;
         }
+    }
+
+    public class CandinateItem
+    {
+        public CandinateItem(String name, SelectedState state)
+        {
+            ItemName = name;
+            State = state;
+        }
+
+        public String ItemName { get;set;}
+        public SelectedState State { get; set; }
     }
 }
