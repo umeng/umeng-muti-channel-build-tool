@@ -12,6 +12,8 @@
              Background="#242328">
     <UserControl.Resources>
         <ResourceDictionary>
+        
+            
         <Style x:Key="progressbar_style" TargetType="{x:Type ProgressBar}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -38,128 +40,14 @@
             </Setter>
         </Style>
         
-        <!--misc scroll bar-->
-        <LinearGradientBrush x:Key="VerticalScrollBarBackground" EndPoint="1,0" StartPoint="0,0">
-            <GradientStop Color="#E1E1E1" Offset="0"/>
-            <GradientStop Color="#EDEDED" Offset="0.20"/>
-            <GradientStop Color="#EDEDED" Offset="0.80"/>
-            <GradientStop Color="#E3E3E3" Offset="1"/>
-        </LinearGradientBrush>
-        
+   
         <SolidColorBrush x:Key="ScrollBarDisabledBackground" Color="#F4F4F4"/>
-
-        <!--scroll bar thumb-->
-        <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="IsTabStop" Value="false"/>
-            
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Thumb}">
-                        <Rectangle Height="25" Width="8" Fill="White" SnapsToDevicePixels="True">
-                            <Rectangle.Effect>
-                                <DropShadowEffect ShadowDepth="0" BlurRadius="10" Color="White" />
-                            </Rectangle.Effect>
-                        </Rectangle>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <!-- scroll bar style-->
-        <Style x:Key="scroll_bar_style" TargetType="{x:Type ScrollBar}">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="Width" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
-            <Setter Property="MinWidth" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
-            
-            
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ScrollBar}">
-                        <Grid x:Name="Bg" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <Border Width="1" Background="#FFFFFF" HorizontalAlignment="Center"/>
-                            <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}">
-                                <Track.Thumb>
-                                    <Thumb Style="{StaticResource ScrollBarThumb}"/>
-                                </Track.Thumb>
-                            </Track>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="Bg" Value="{StaticResource ScrollBarDisabledBackground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <!-- scroll viewer style-->
-        <Style TargetType="ScrollViewer" x:Key="scroll_viewer_style">
-
-            <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
-            
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ScrollViewer">
-                        <Grid Background="{TemplateBinding Background}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <ScrollContentPresenter x:Name="ScrollContentPresenter"
-                                Grid.Column="0" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
-                                Cursor="{TemplateBinding Cursor}" Margin="{TemplateBinding Padding}" 
-                            />
-                            <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1" 
-                                Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" 
-                                Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" 
-                                Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
-                                ViewportSize="25" 
-                                Style="{DynamicResource scroll_bar_style}"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        
-        
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UIControls;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <!--  xmlns:local="clr-namespace:UmengPackage"
-             xmlns:common_ui="clr-namespace:UIControls;assembly=UIControls"
-             xmlns:converter="clr-namespace:UmengPackage.Source.Model"-->
-
-    <!--UserControl.Resources>
-       
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="HorizontalListDictionary.xaml"/>
-                <ResourceDictionary Source="/UIControls;component/CommonStyle.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-            
-            <converter:StatusToColor x:Key="stateToColor" />
-        </ResourceDictionary>
-    </UserControl.Resources-->
     <Grid Height="442">
-        <!--Canvas Height="150" HorizontalAlignment="Left" Margin="12,278,0,0" Name="image1" VerticalAlignment="Top" Width="200" 
-                AllowDrop="True" Background="#FF89ADD1"
-                DragDrop.DragEnter="dragDrop_Event" 
-                DragDrop.Drop="dragDrop_Event"
-                DragDrop.DragOver="dragDrop_Event"
-                DragDrop.DragLeave="dragDrop_Event">
-
-            <Label Name="hint" Canvas.Left="40" Canvas.Top="50"/>
-            <Image Source="{Binding AppIcon}" Canvas.Left="40" Canvas.Top="50"/>
-        </Canvas-->
         <ComboBox Name="settingList"  Height="28" HorizontalAlignment="Left" Margin="630,3,0,0" VerticalAlignment="Top" Width="140"
                   SelectedIndex="0"
                   >
@@ -169,50 +57,9 @@
         
         <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="740" Height="200" x:Name="Channels" Background="Transparent" Margin="30,30,2,1" 
                  HorizontalContentAlignment="Stretch">
-            <ListBox.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-            </ListBox.Resources>
-            
-            <ListBox.Template>
-                <ControlTemplate>
-                    <Grid>
-                        <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-                            <Border Background="Transparent" BorderBrush="#383543" BorderThickness="1" ClipToBounds="True" CornerRadius="5">
-                                <Border Background="Transparent" BorderBrush="#26242C" BorderThickness="3,3,3,3" Margin="-3,-3,-3,-3" CornerRadius="5" ClipToBounds="True">
-                                    <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="0" BlurRadius="15"/>
-                                    </Border.Effect>
-                                </Border>
-                            </Border>
-                        </Border>
-                    <ScrollViewer Margin="3" Focusable="false" Style="{StaticResource scroll_viewer_style}">
-                            <WrapPanel Margin="2" IsItemsHost="True" Orientation="Horizontal"/>
-                    </ScrollViewer>
-                    </Grid>
-                </ControlTemplate>
-            </ListBox.Template>
             
             <ListBox.ItemTemplate >
                 <DataTemplate >
-                    <!--Grid Width="145" Height="45" ClipToBounds="True"-->
-                       <!--Border BorderThickness="0,0,0,1" BorderBrush="#201E25" Background="#26252A" Margin="15,5,15,5" CornerRadius="5">
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="2" BlurRadius="6"/>
-                            </Border.Effect>
-
-                            <Border BorderThickness="0,1,0,0" BorderBrush="#403C45" Background="Transparent" CornerRadius="5">
-                               
-                            </Border>
-                        </Border-->
-                        <!--Border BorderThickness="0" Width="145" Height="40" >
-                            <Border.BorderBrush>
-                                <ImageBrush ImageSource="/UmengPackage;component/Images/channel_item.png" />
-                            </Border.BorderBrush>
-                            <TextBlock  Text="{Binding ChannelName}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#9E9AA4"/>
-                        </Border-->
- 
                     <Grid Width="120" Height="43" Margin="0,0,0,0" Background="Transparent">
                         <Rectangle >
                             <Rectangle.Fill >
@@ -229,14 +76,6 @@
         
         <shared:ImageButton Content="一键打包" HorizontalAlignment="Left" Margin="585,349,0,26" FirstImage="/UmengPackage;component/Images/button_normal.png" 
                            SecondImage="/UmengPackage;component/Images/button_click.png" FontSize="20" Foreground="#FFF8F5F5" Width="168" Stretch="Fill"/>
-
-        <!--GroupBox Header="Apk Info" Height="132" HorizontalAlignment="Left" Margin="218,298,0,0" Name="groupBox1" VerticalAlignment="Top" Width="239">
-            <Grid>
-                <TextBlock Text="{Binding AppName}" Height="23" HorizontalAlignment="Left" Margin="6,13,0,0"  VerticalAlignment="Top" />
-                <TextBlock Text="{Binding AppVersionName}" Height="23" HorizontalAlignment="Left" Margin="6,42,0,0"  VerticalAlignment="Top" />
-                <TextBlock Text="{Binding AppSize}" Height="23" HorizontalAlignment="Left" Margin="6,66,0,0"  VerticalAlignment="Top" />
-            </Grid>
-        </GroupBox-->
 
         <Grid Width="400" Height="180" Margin="10,253,350,19">
             <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">

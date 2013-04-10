@@ -511,4 +511,137 @@
         </Style.Triggers>
     </Style>
 
+    <!--ListBox-->
+
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+
+    <!--misc scroll bar-->
+    <LinearGradientBrush x:Key="VerticalScrollBarBackground" EndPoint="1,0" StartPoint="0,0">
+        <GradientStop Color="#E1E1E1" Offset="0"/>
+        <GradientStop Color="#EDEDED" Offset="0.20"/>
+        <GradientStop Color="#EDEDED" Offset="0.80"/>
+        <GradientStop Color="#E3E3E3" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="ScrollBarDisabledBackground" Color="#F4F4F4"/>
+
+    <!--scroll bar thumb-->
+    <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Rectangle Height="25" Width="8" Fill="White" SnapsToDevicePixels="True">
+                        <Rectangle.Effect>
+                            <DropShadowEffect ShadowDepth="0" BlurRadius="10" Color="White" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- scroll bar style-->
+    <Style x:Key="scroll_bar_style" TargetType="{x:Type ScrollBar}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Width" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
+        <Setter Property="MinWidth" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
+
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                    <Grid x:Name="Bg" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <Border Width="1" Background="#FFFFFF" HorizontalAlignment="Center"/>
+                        <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}">
+                            <Track.Thumb>
+                                <Thumb Style="{StaticResource ScrollBarThumb}"/>
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="Bg" Value="{StaticResource ScrollBarDisabledBackground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- scroll viewer style-->
+    <Style TargetType="ScrollViewer" x:Key="scroll_viewer_style">
+
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollViewer">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ScrollContentPresenter x:Name="ScrollContentPresenter"
+                                Grid.Column="0" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Cursor="{TemplateBinding Cursor}" Margin="{TemplateBinding Padding}" 
+                            />
+                        <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1" 
+                                Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" 
+                                Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" 
+                                Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                ViewportSize="25" 
+                                Style="{DynamicResource scroll_bar_style}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="{x:Type ListBox}" TargetType="{x:Type ListBox}">
+        <!--Setter Property="Background" Value="{StaticResource SearchTextBox_Background}" />
+        <Setter Property="BorderBrush" Value="{StaticResource SearchTextBox_Border}" />
+        <Setter Property="Foreground" Value="{StaticResource SearchTextBox_Foreground}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="LabelText" Value="Search" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="LabelTextColor" Value="{StaticResource SearchTextBox_LabelTextColor}" /-->
+
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+
+                    <Grid>
+                        <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                            <Border Background="Transparent" BorderBrush="#383543" BorderThickness="1" ClipToBounds="True" CornerRadius="5">
+                                <Border Background="Transparent" BorderBrush="#26242C" BorderThickness="3,3,3,3" Margin="-3,-3,-3,-3" CornerRadius="5" ClipToBounds="True">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="0" BlurRadius="15"/>
+                                    </Border.Effect>
+                                </Border>
+                            </Border>
+                        </Border>
+                        <ScrollViewer Margin="3" Focusable="false" Style="{StaticResource scroll_viewer_style}">
+                            <WrapPanel Margin="2" IsItemsHost="True" Orientation="Horizontal"/>
+                        </ScrollViewer>
+                    </Grid>
+                        
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
+    
 </ResourceDictionary>

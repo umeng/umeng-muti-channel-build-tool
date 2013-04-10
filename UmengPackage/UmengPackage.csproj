@@ -51,9 +51,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChannelEditorWindow.xaml.cs">
-      <DependentUpon>ChannelEditorWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ConfigTemplate.xaml.cs">
       <DependentUpon>ConfigTemplate.xaml</DependentUpon>
     </Compile>
@@ -71,21 +68,10 @@
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
-    <Page Include="ApkProgressBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ChannelEditorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ChannelTool.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ApkProgressBar.xaml.cs">
-      <DependentUpon>ApkProgressBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ChannelTool.xaml.cs">
       <DependentUpon>ChannelTool.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -93,10 +79,6 @@
     <Page Include="ConfigTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="HorizontalListDictionary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControl1.xaml">
       <SubType>Designer</SubType>

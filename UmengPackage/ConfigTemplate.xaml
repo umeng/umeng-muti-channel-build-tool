@@ -5,25 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:shared="clr-namespace:UIControls;assembly=UIControls"
              WindowStyle="None" WindowStartupLocation="CenterOwner" Background="{x:Null}" AllowsTransparency="True"
-             mc:Ignorable="d" 
              Height="520" Width="680" ResizeMode="NoResize"
             >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="HorizontalListDictionary.xaml"/>
+                <ResourceDictionary Source="/UIControls;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    
     <Border BorderBrush="#0C0710" BorderThickness="1" CornerRadius="5" Background="#242328">
         <Border BorderBrush="#2E2935" BorderThickness="1" CornerRadius="5" Background="Transparent">
-            <Grid x:Name="LayoutRoot">
-                <Grid x:Name="root_grid" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="656">
+                <Grid x:Name="root_grid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="100"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="25"/> <!--Title-->
+                        <RowDefinition Height="100"/><!--Top-->
+                        <RowDefinition Height="*"/>  <!--Content-->
+                        <RowDefinition Height="70"/><!--Bottom-->
                     </Grid.RowDefinitions>
 
                     <Rectangle x:Name="bg_title" >
@@ -51,56 +50,38 @@
                              Text="{Binding Alias}"/>
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="466,55,0,0" Name="tb_alias_pw" VerticalAlignment="Top" Width="157" 
                              Text="{Binding Key_Pw}"/>
-                                <shared:SearchTextBox Search="SearchTextBox_FindKeyStore" Name="tb_keystore" Margin="165,13,334,62" LabelText="path to keystore "
+                                <shared:SearchTextBox Search="SearchTextBox_FindKeyStore" Name="tb_keystore" Margin="165,12,0,0" LabelText="path to keystore "
+                                                      Width="157" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top"
                                         Text="{Binding Keystore_File_Path}"/>
                             </Grid>
                         </Border>
                     </Border>
                     
-                    <Border x:Name="bg_content" Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0">
+                    <Border x:Name="bg_content" Grid.Row="2" BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0,0,0,0">
                         <Border BorderBrush="#2F2A36" BorderThickness="0,1,0,0"></Border>
                     </Border>
 
-                    <Grid Grid.Row="2" Margin="0,0,0,0" Grid.RowSpan="2">
+            
+                    <Grid Grid.Row="2" Margin="0,0,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
-                            <RowDefinition Height="160" />
-                            <RowDefinition Height="194" />
+                            <RowDefinition Height="160*" />
+                            <RowDefinition Height="80*" />
                         </Grid.RowDefinitions>
-                        <Label Content="渠道" Foreground="AliceBlue" Margin="29,0,594,0" Width="33" />
-                        <ListBox Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="609" Height="160" MinHeight="160"
-                                 x:Name="Channels" Background="Transparent" Margin="22,0,0,0" HorizontalContentAlignment="Stretch">
-                            <ListBox.Resources>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                            </ListBox.Resources>
-                            <ListBox.Template>
-                                <ControlTemplate>
-                                    <Grid>
-                                        <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-                                            <Border Background="Transparent" BorderBrush="#383543" BorderThickness="1" ClipToBounds="True" CornerRadius="5">
-                                                <Border Background="Transparent" BorderBrush="#26242C" BorderThickness="3,3,3,3" Margin="-3,-3,-3,-3" CornerRadius="5">
-                                                    <Border.Effect>
-                                                        <DropShadowEffect ShadowDepth="0" BlurRadius="15" />
-                                                    </Border.Effect>
-                                                </Border>
-                                            </Border>
-                                        </Border>
-                                        <ScrollViewer Margin="3" Focusable="false">
-                                            <WrapPanel Margin="2" IsItemsHost="True" Orientation="Horizontal" />
-                                        </ScrollViewer>
-                                    </Grid>
-                                </ControlTemplate>
-                            </ListBox.Template>
+                        <Label Content="渠    道" Foreground="AliceBlue" Margin="13,0,594,0" Width="49" />
+                        <ListBox Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Width="609"
+                                 x:Name="Channels" Background="Transparent" Margin="22,0,0,0" HorizontalContentAlignment="Stretch"
+                                 >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <shared:UTextBox SharedText="{Binding ItemName}" EditState="{Binding State}" Width="120" Height="43" ItemDelete="UTextBox_ItemDelete" ItemEditComplete="UTextBox_ItemEditComplete" />
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <Label Grid.Row="2" Content="常用渠道" Foreground="AliceBlue" Margin="13,7,575,156" />
-                        <ListBox Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="548" Height="88" Background="Transparent" Margin="83,2,0,0" x:Name="lb_template" HorizontalContentAlignment="Stretch">
+                        <Label Grid.Row="2" Content="常用渠道" Foreground="AliceBlue" Margin="13,7,0,0" Height="30" Width="64" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <ListBox Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Width="548" Background="Transparent" 
+                                 Margin="83,2,0,0" x:Name="lb_template" HorizontalContentAlignment="Stretch"
+                                 >
                             <ListBox.Resources>
                                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
                                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
@@ -108,7 +89,7 @@
                             </ListBox.Resources>
                             <ListBox.Template>
                                 <ControlTemplate>
-                                    <ScrollViewer Margin="3" Focusable="false" HorizontalScrollBarVisibility="Disabled">
+                                    <ScrollViewer Margin="3" Focusable="false" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
                                         <WrapPanel Margin="2" IsItemsHost="True" Orientation="Horizontal" />
                                     </ScrollViewer>
                                 </ControlTemplate>
@@ -125,29 +106,25 @@
                         </ListBox>
                     </Grid>
 
+                <Border x:Name="bg_bottom" Grid.Row="3" BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0,0,0,0">
+                    <Border BorderBrush="#2F2A36" BorderThickness="0,1,0,0"></Border>
+                </Border>
 
-                    <Border x:Name="bg_bottom" Grid.Row="3" BorderBrush="Black" BorderThickness="0,1,0,0">
-                        <Border BorderBrush="#2F2A36" BorderThickness="0,1,0,0">
-                            <Grid Height="69">
-                                <Label Content="配置文件名称" Foreground="White" Margin="0,11,572,33" Width="80" Height="25"/>
-                                <TextBox x:Name="tb_setting_file" Margin="89,13,367,31" Width="200" Height="25" />
-                                <Button  Content="保存" Height="23" HorizontalAlignment="Left" Margin="556,13,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="save_Click" />
-                                <Button  Content="取消" Height="23" HorizontalAlignment="Left" Margin="478,14,0,0" Name="button2" VerticalAlignment="Top" Width="75" Click="cancel_Click"/>
-                            </Grid>
-                        </Border>
-                    </Border>
+                <Label Content="友盟打包工具" HorizontalAlignment="Left" Margin="10,0,0,0" Width="80" Foreground="#FF59585D" Height="26" FontSize="11" />
 
-                    <Label Content="友盟打包工具" HorizontalAlignment="Left" Margin="10,0,0,0" Width="80" Foreground="#FF59585D" Height="26" FontSize="11" />
+                <Grid Grid.Row="3" Margin="0,0,0,0">
+                    <Label Content="配置文件名称 " Foreground="White" Width="89" Height="30" HorizontalAlignment="Left" />
+                    <TextBox x:Name="tb_setting_file" Margin="100,0,0,0" Width="200" Height="30" HorizontalAlignment="Left" />
+                    
+                    <shared:ImageButton FirstImage="UmengPackage;component/Images/button_normal.png" 
+                                        SecondImage="UmengPackage;component/Images/button_click.png"
+                                        Content="保存" Height="40" HorizontalAlignment="Left" Margin="529,13,0,0" VerticalAlignment="Top" Width="120" Click="save_Click"
+                                        FontSize="16" Foreground="White"/>
+
+                    <shared:ImageButton Content="取消" Height="40" HorizontalAlignment="Left" Margin="437,14,0,0" VerticalAlignment="Top" Width="80" Click="cancel_Click"
+                                        FontSize="16" Foreground="LightGray"/>
                 </Grid>
-           </Grid>
-                <!--GroupBox Grid.Row="1" Header="常用渠道" Height="100" Margin="18,7,0,0" Name="groupBox3" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600">
-                    <ListBox x:Name="StandardChannelTemplate" Width="Auto" Style="{StaticResource ListBoxControlStyle}" Grid.Row="1" ButtonBase.Click="Button_Add" Background="Transparent" 
-                     />
-                <Button Grid.Row="3" Content="保存" Height="23" HorizontalAlignment="Left" Margin="556,15,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="save_Click" />
-                <Button Grid.Row="3" Content="取消" Height="23" HorizontalAlignment="Left" Margin="478,15,0,0" Name="button2" VerticalAlignment="Top" Width="75" Click="cancel_Click"/>
-                <TextBlock Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="18,21,0,0" Name="textBlock2" Text="配置文件名:" VerticalAlignment="Top" Grid.RowSpan="2" />
-                <TextBox Grid.Row="3" Height="23" HorizontalAlignment="Left" Margin="87,15,0,0" Name="tb_setting_file" VerticalAlignment="Top" Width="175" />
-            </Grid-->
+            </Grid>   
         </Border>
      </Border>
 </Window>

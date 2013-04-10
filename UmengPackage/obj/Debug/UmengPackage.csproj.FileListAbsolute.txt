@@ -23,13 +23,7 @@ D:\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ChannelEditorWindow.b
 D:\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ChannelEditorWindow.g.cs
 D:\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\GeneratedInternalTypeHelper.g.cs
 D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ResolveAssemblyReference.cache
-D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ApkProgressBar.baml
-D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ChannelEditorWindow.baml
-D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\HorizontalListDictionary.baml
-D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ApkProgressBar.g.cs
-D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ChannelEditorWindow.g.cs
 D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\ChannelTool.g.cs
-D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\HorizontalListDictionary.g.cs
 D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\UmengPackage_MarkupCompile.cache
 D:\Developer\workspace_silverlight\UmengTools\UmengPackage\obj\Debug\UmengPackage.dll
 D:\Developer\workspace_silverlight\UmengTools\UmengPackage\bin\Debug\UmengPackage.dll
