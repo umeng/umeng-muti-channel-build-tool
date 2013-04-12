@@ -70,7 +70,57 @@ namespace UmengPackage.Source.Common
             return apkFile.ToLower().EndsWith(".apk");
         }
 
-        //List
+        public static ChannelItem find(this ObservableCollection<ChannelItem> list, string name)
+        {
+            ChannelItem target = null;
+
+            foreach (ChannelItem item in list)
+            {
+                if( item.ItemName.Equals( name ))
+                {
+                    target = item;
+                    break;
+                }
+            }
+
+            return target;
+        }
+
+        public static int findIndex(this ObservableCollection<ChannelItem> list, string name)
+        {
+            int index = -1 ;
+            
+            for(int i =0; i < list.Count; i++)
+            {
+                var item = list[i];
+
+                if (item.ItemName.Equals(name))
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        }
+
+        public static bool deleteByName(this ObservableCollection<ChannelItem> list, string name)
+        {
+            bool isSuccess = false;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                var item = list[i];
+
+                if (item.ItemName.Equals(name))
+                {
+                    isSuccess = true;
+                    list.RemoveAt(i);
+                    break;
+                }
+            }
+            return isSuccess;
+        }
      
     }
 }

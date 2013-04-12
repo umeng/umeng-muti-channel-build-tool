@@ -56,6 +56,8 @@ namespace UIControls
 
                     ItemEditCompleteEventArgs args = new ItemEditCompleteEventArgs(ItemEditCompleteEvent, SharedText);
                     RaiseEvent(args);
+
+                    tb.Text = "";
                 }
             }
             else

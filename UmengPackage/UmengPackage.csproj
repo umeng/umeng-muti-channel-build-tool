@@ -59,9 +59,9 @@
     <Compile Include="Source\Common\UmengExtention.cs" />
     <Compile Include="Source\Common\Log.cs" />
     <Compile Include="Source\Model\ApkInfo.cs" />
+    <Compile Include="Source\Common\Preferences.cs" />
     <Compile Include="Source\Model\EditItem.cs" />
     <Compile Include="Source\Model\ObservableCollection.cs" />
-    <Compile Include="Source\Model\PackageState.cs" />
     <Compile Include="Source\Model\ProjectConfigration.cs" />
     <Compile Include="Source\Builder\SourceBuilder.cs" />
     <Compile Include="Source\Worker.cs" />

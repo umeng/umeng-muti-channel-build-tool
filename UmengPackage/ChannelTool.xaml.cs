@@ -29,7 +29,8 @@ namespace UmengPackage
         private string mConfigFile = null;
 
         private ObservableCollection<string> CandinateConfigrationFiles = new ObservableCollection<string>();
-        private ObservableCollection<PackageState> AvailabelChannels = new ObservableCollection<PackageState>();
+        private ObservableCollection<ShowItem> AvailabelChannels = new ObservableCollection<ShowItem>();
+        
         private ApkInfo mApkInfo = new ApkInfo();
 
 
@@ -41,72 +42,53 @@ namespace UmengPackage
 
             LoadConfigrationAndBindList();
 
-            //InitBackgroundWorker();
-
-            //DataContext = mApkInfo;
-
-
         }
 
         private void LoadConfigrationAndBindList()
         {
-            //if (CandinateConfigrationFiles.Count > 0)
-            //{
-            //    CandinateConfigrationFiles.Clear();
-            //}
-
-            for (int i = 0; i < 5; i++)
+            if (CandinateConfigrationFiles.Count > 0)
             {
-                CandinateConfigrationFiles.Add("configure file A");
-               
+                CandinateConfigrationFiles.Clear();
             }
+
+            string[] files = ProjectConfigration.GetConfigFileList();
+            if (files != null)
+            {
+                foreach (string file in files)
+                {
+                    CandinateConfigrationFiles.Add(file);
+                }
+            }
+
             this.settingList.ItemsSource = CandinateConfigrationFiles;
 
-            //string[] files = ProjectConfigration.GetConfigFileList();
-            //if (files != null)
-            //{
-            //    foreach (string file in files)
-            //    {
-            //        CandinateConfigrationFiles.Add(file);
-            //    }
-            //}
-
-            //this.settingList.ItemsSource = CandinateConfigrationFiles;
-
-            //if (CandinateConfigrationFiles.Count > 0)
-            //{
-            //    var config = ProjectConfigration.readSettingFromFile(CandinateConfigrationFiles[0]);
-
-            //    foreach (ChannelItem item in config.Candinate)
-            //    {
-            //        AvailabelChannels.Add(new PackageState( item.ChannelName, State.START ));
-            //    }
-            //}
-
-            for (int i = 0; i < 2; i++)
+            if (CandinateConfigrationFiles.Count > 0)
             {
-                AvailabelChannels.Add(new PackageState("appchina0", State.EMPTY));
-                AvailabelChannels.Add(new PackageState("appchina1", State.EMPTY));
-                AvailabelChannels.Add(new PackageState("appchina2", State.EMPTY));
-                AvailabelChannels.Add(new PackageState("appchina3", State.EMPTY));
+                var config = ProjectConfigration.readSettingFromFile(CandinateConfigrationFiles[0]);
+                
+                AvailabelChannels.Clear();
+
+                foreach (string item in config.Candinate)
+                {
+                    AvailabelChannels.Add(new ShowItem(item,0));
+                }
             }
 
             this.Channels.ItemsSource = AvailabelChannels;
-
-            //this.hint.SetBinding(Label.ContentProperty, new Binding("mApkFile"));
-            
         }
 
         private void OnEdit(object sender, RoutedEventArgs e)
         {
-            var dialog = new ConfigTemplate();
 
-            //dialog.SetConfigTemplateContext( configFile );
+            var filename = this.settingList.SelectedValue as string;
+
+            var dialog = new ConfigTemplate( filename );
+
             bool? result = dialog.ShowDialog();
 
             if (result != null)
             {
-                //LoadConfigrationAndBindList();
+                LoadConfigrationAndBindList();
             }
         }
         /*
@@ -218,26 +200,6 @@ namespace UmengPackage
             mApkInfo.parseApk(path); 
         }
 
-        /// <summary>
-        /// Edit setting file
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void edit_Click(object sender, RoutedEventArgs e)
-        {
-            //string configFile = this.settingList.SelectedValue as string;
-
-            //var dialog = new ConfigTemplate();
-
-            //dialog.SetConfigTemplateContext( configFile );
-            //bool? result = dialog.ShowDialog();
-
-            //if (result != null)
-            //{
-            //    LoadConfigrationAndBindList();
-            //}
-        }
-
         private void button3_Click(object sender, RoutedEventArgs e)
         {
 
@@ -278,6 +240,28 @@ namespace UmengPackage
 
             mConfigFile = configFile;
             return true;
+        }
+
+    }
+
+    public class ShowItem : ChannelItem
+    {
+        private int progress;
+        public int Progress 
+        {
+            get { return progress; }
+            set
+            {
+                if (value != progress)
+                {
+                    NotifyPropertyChanged("Progress");
+                }
+            }
+        }
+
+        public ShowItem(string name, int progress):base( name)
+        {
+            this.progress = progress;
         }
     }
 }

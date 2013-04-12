@@ -13,189 +13,128 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Collections;
 using UIControls;
 
 using UmengPackage.Source.Model;
+using UmengPackage.Source.Common;
+using System.Windows.Controls.Primitives;
 
 namespace UmengPackage
 {
     /// <summary>
     /// Interaction logic for ChannelTemplate.xaml
     /// </summary>
-    public partial class ConfigTemplate : Window
+    public partial class ConfigTemplate : Window, INotifyPropertyChanged
     {
         ProjectConfigration config = null;
-        //ObservableCollection<EditItem> Template = new ObservableCollection<EditItem>();
-        ObservableCollection<EditItem> Candinate = new ObservableCollection<EditItem>();
-        ObservableCollection<CandinateItem> ChannelTemplate = new ObservableCollection<CandinateItem>();
-       
+
+        ObservableCollection<ChannelItem> Candinate = new ObservableCollection<ChannelItem>();
+        ObservableCollection<ChannelItem> ChannelTemplate = new ObservableCollection<ChannelItem>();
+
         public ConfigTemplate()
         {
             InitializeComponent();
-
-            for (int i = 0; i < 10; i++)
-            {
-                Candinate.Add(new EditItem("GooglePlay", EditState.Normal));
-                ChannelTemplate.Add(new CandinateItem("GooglePlay", SelectedState.NO));
-
-            }
-
-            Candinate.Add(new EditItem("",EditState.Editable));
-
-            this.Channels.ItemsSource = Candinate;
-            this.lb_template.ItemsSource = ChannelTemplate;
         }
 
-        public void SetConfigTemplateContext(string fileName)
+        public ConfigTemplate(String configFile):this()
         {
+            //bind
+            DataContext = this;
             //load configration
-            //if (!string.IsNullOrEmpty(fileName))
-            //{
-            //    config = ProjectConfigration.readSettingFromFile(fileName);
-            //    this.tb_setting_file.Text = fileName;
-            //}
-            //else
-            //{
-            //    config = new ProjectConfigration();
-            //}
-            //load template
-            //LoadTemplate();
-            //bind context
-            //this.DataContext = config;
-            //this.Channels.ItemsSource = Candinate;
-            //this.StandardChannelTemplate.ItemsSource = Template;
+            if (!string.IsNullOrEmpty(configFile))
+            {
+                config = ProjectConfigration.readSettingFromFile(configFile);
+
+                SettingFile = configFile;
+
+                KeystoreFilePath = config.KeystoreFilePath;
+                KeyStorePw = config.KeystorePassword;
+                Alias = config.Alias;
+                AliasPw = config.AliasPassword;
+
+                foreach (string item in config.Candinate)
+                {
+                    Candinate.Add(new EditItem(item, EditState.Normal));
+                }
+            }
+            else
+            {
+                config = new ProjectConfigration();
+            }
+
+            Candinate.Add(new EditItem("", EditState.Editable));
+            Channels.ItemsSource = Candinate;
+
+            LoadTemplate();
         }
 
         public void LoadTemplate()
         {
-            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay"));
-            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "Anzhi"));
-            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "Anzhuo"));
-            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "Appchina"));
-            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay1"));
-            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay2"));
-            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay3"));
-            //Template.Add(new EditItem("Images/icon.png", "Images/add.png", "GooglePlay4"));
+            List<string> t = ProjectConfigration.GetTemplate();
 
-            //var coincide = from A in Template
-            //               from B in config.Candinate
-            //               where A.ChannelName.Equals(B.ChannelName)
-            //               select A;
-
-            //foreach (EditItem item in coincide)
-            //{
-            //    item.EditorImage = "Images/ready.png";
-            //}
-        }
-
-        /// <summary>
-        /// Add Template channel to candinate channels
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Add(object sender, RoutedEventArgs e)
-        {
-            // cast the sender to a button
-            //Button button = e.OriginalSource as Button;
-
-            //// find the item that is the datacontext for this button
-            //EditItem channel = (EditItem)button.DataContext;
-
-            //System.Diagnostics.Debug.WriteLine(string.Format("Template add {0} button is clicked !", channel.ChannelName));
-
-
-            //foreach (EditItem channelItem in config.Candinate.Where(T => T.ChannelName.Equals(channel.ChannelName)))
-            //{
-            //    System.Diagnostics.Debug.WriteLine("已经添加过了");
-            //    return;
-            //}
-
-            //channel.EditorImage = "Images/ready.png";
-
-            //config.Candinate.Add(new EditItem()
-            //{
-            //    ChannelIcon = channel.ChannelIcon,
-            //    EditorImage = "Images/remove.png",
-            //    ChannelName = channel.ChannelName
-            //});
-
-
-        }
-
-        private void Button_Remove(object sender, RoutedEventArgs e)
-        {
-            //System.Diagnostics.Debug.WriteLine("Candinate channel remove button is clicked!");
-            // cast the sender to a button
-            //Button button = e.OriginalSource as Button;
-
-            // find the item that is the datacontext for this button
-            //EditItem channel = button.DataContext as EditItem;
-
-            //System.Diagnostics.Debug.WriteLine(string.Format("Template remove {0} button is clicked !", channel.ChannelName));
-
-            //foreach (EditItem channelItem in Template.Where(T => T.ChannelName.Equals(channel.ChannelName)))
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Reset template state");
-
-            //    channelItem.EditorImage = "Images/add.png";
-            //    break;
-            //}
-
-            //config.Candinate.Remove(channel);
-        }
-        //add channel
-        private void AddChannel_Click(object sender, RoutedEventArgs e)
-        {
-            //var dialog = new ChannelEditorWindow();
-            //bool? result = dialog.ShowDialog();
-            //string value = dialog.getChannels();
-
-            //if (result != null && value != null)
-            //{
-            //    System.Diagnostics.Debug.WriteLine("value:" + result.Value + " result:" + result);
-            //    string[] channels = value.Split(new char[] { ',',';',':'});
-
-            //    foreach (string channel in channels)
-            //    {
-            //        //config.Candinate.Add(new EditItem("Images/icon.png", "Images/remove.png", channel));
-            //    }
-            //}
-        }
-
-        private void SearchTextBox_FindJava(object sender, RoutedEventArgs e)
-        {
-            var folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-
-            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            foreach( string item in t)
             {
-                string path = null;
-                if (isValidJavaSDKPath(path = folderBrowserDialog1.SelectedPath))
+                ChannelTemplate.Add(new TemplateItem( item , false));
+            }
+
+
+            var coincide = from A in ChannelTemplate
+                           from B in Candinate
+                           where A.ItemName.Equals(B.ItemName)
+                           select A;
+
+            foreach (ChannelItem item in coincide)
+            {
+                (item as TemplateItem).IsChecked = true;
+            }
+
+            this.lb_template.ItemsSource = ChannelTemplate;
+        }
+
+        private void FindToggleAndInitTemplateState(DependencyObject obj)
+        {
+            int N = VisualTreeHelper.GetChildrenCount(obj);
+
+            for( int i =0; i< N; i++)
+            {
+                var child = VisualTreeHelper.GetChild(obj, i);
+
+                if (child != null && child is ToggleButton)
                 {
-                    config.Java_Path = path;
+                    String name = FindToggleName(child);
+
+                    if (name != null)
+                    {
+                       // templateState.Add( name , (ToggleButton)child);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("请选择 JDK 工程根目录( 包涵 lin ,bin 等子目录)");
+                    FindToggleAndInitTemplateState(child as DependencyObject);
                 }
             }
         }
 
-        private void SearchTextBox_FindAndroid(object sender, RoutedEventArgs e)
+        private String FindToggleName(DependencyObject obj)
         {
-            var folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            int M = VisualTreeHelper.GetChildrenCount(obj);
 
-            if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            for (int i = 0; i < M; i++)
             {
-                string path = null;
-                if (isValidAndroidSDKPath(path = folderBrowserDialog1.SelectedPath))
+                var child = VisualTreeHelper.GetChild(obj, i);
+
+                if (child != null && child is TextBlock)
                 {
-                    config.Android_Path = path;
+                    return ((TextBlock)child).Text;
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show("请选择 Android 工程根目录");
+                    return FindToggleName(child);
                 }
             }
+
+            return null;
         }
 
         private void SearchTextBox_FindKeyStore(object sender, RoutedEventArgs e)
@@ -207,38 +146,8 @@ namespace UmengPackage
 
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                config.Keystore_File_Path = openFileDialog1.FileName;
+                KeystoreFilePath = openFileDialog1.FileName;
             }
-        }
-
-        public static bool isValidAndroidSDKPath(string path)
-        {
-            string[] folders = { "tools", "platforms" };
-            string folder_path;
-
-            foreach (string folder in folders)
-            {
-                folder_path = System.IO.Path.Combine(path, folder);
-
-                if (!System.IO.Directory.Exists(folder_path))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public static bool isValidJavaSDKPath(string path)
-        {
-            string bin = System.IO.Path.Combine(path, "bin");
-            string lib = System.IO.Path.Combine(path, "lib");
-
-            if (System.IO.Directory.Exists(bin) && System.IO.Directory.Exists(lib))
-            {
-                return true;
-            }
-
-            return false;
         }
 
         //Save current configration
@@ -248,7 +157,19 @@ namespace UmengPackage
             {
                 CheckInput();
 
-                config.writeSettintToFile( this.tb_setting_file.Text );
+                config.KeystoreFilePath = keystore_file_path;
+                config.KeystorePassword = KeyStorePw;
+                config.Alias = Alias;
+                config.AliasPassword = AliasPw;
+
+                config.Candinate.Clear();
+
+                foreach (EditItem item in Candinate.Where( T=> ((T as EditItem).State == EditState.Normal)))
+                {
+                    config.Candinate.Add(item.ItemName);
+                }
+
+                config.WriteSettintToFile(SettingFile);
 
                 Close();
             }
@@ -266,53 +187,41 @@ namespace UmengPackage
         private bool CheckInput()
         {
             //keystore
-            if (string.IsNullOrEmpty(config.Keystore_File_Path))
+            if (string.IsNullOrEmpty(KeystoreFilePath))
             {
                 throw new Exception("没有设置 keystore");
             }
 
             //keystore pw
 
-            if (string.IsNullOrEmpty(config.Keystore_Pw))
+            if (string.IsNullOrEmpty(KeyStorePw))
             {
                 throw new Exception("没有设置 keystore password");
             }
 
             //alias
 
-            if (string.IsNullOrEmpty(config.Alias))
+            if (string.IsNullOrEmpty(Alias))
             {
                 throw new Exception("没有设置 keystore entry (alias)");
             }
 
             //entry pw
 
-            if (string.IsNullOrEmpty(config.Key_Pw))
+            if (string.IsNullOrEmpty(AliasPw))
             {
                 throw new Exception("没有设置 keystore entry password");
             }
 
-            //android sdk path
-            if (string.IsNullOrEmpty(config.Android_Path))
-            {
-                throw new Exception("没有设置 Android SDK Path");
-            }
-
-            //java home
-
-            if (string.IsNullOrEmpty(config.Java_Path))
-            {
-                throw new Exception("没有设置 Java 路径");
-            }
             //channel
-            if (config.Candinate == null || config.Candinate.Count == 0)
+            if (Candinate == null || Candinate.Count == 0)
             {
                 throw new Exception("没有设置 渠道 ");
             }
 
             //setting file name
 
-            if (string.IsNullOrEmpty(this.tb_setting_file.Text))
+            if (string.IsNullOrEmpty(SettingFile))
             {
                 throw new Exception("亲，起个名呗 ^_^ ");
             }
@@ -326,9 +235,40 @@ namespace UmengPackage
 
             if (arg != null)
             {
-                String channel = arg.Content;
+                var channel = arg.Content;
 
                 System.Diagnostics.Debug.WriteLine("Delete Channel : " + channel);
+
+                //remove from candinate
+                var edit = Candinate.find(channel);
+
+                if (edit != null)
+                {
+                    Candinate.Remove(edit);
+                }
+                //detag from template
+
+                var item = ChannelTemplate.find(channel) as TemplateItem;
+
+                if (item != null)
+                {
+                    item.IsChecked = false;
+                }
+               
+            }
+        }
+
+        private void AddChannel(String name)
+        {
+            var item = Candinate.find(name);
+
+            if (item != null)
+            {
+                System.Diagnostics.Debug.WriteLine("Already exits");
+            }
+            else
+            {
+                Candinate.Insert(Candinate.Count - 1, new EditItem(name, EditState.Normal));
             }
         }
 
@@ -338,44 +278,203 @@ namespace UmengPackage
 
             if (arg != null)
             {
-                String channel = arg.Content;
-
-                System.Diagnostics.Debug.WriteLine("Add Channel : " + channel );
+                AddChannel(arg.Content );
+                
+                //tag in template
+                var _item = ChannelTemplate.find(arg.Content) as TemplateItem;
+                if (_item != null)
+                {
+                    _item.IsChecked = true;
+                }
             }
         }
 
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            var toggle = sender as ToggleButton;
 
+            var enumerator =  LogicalTreeHelper.GetChildren(toggle).GetEnumerator();
+            
+            if(enumerator.MoveNext()){
+
+                var tb = enumerator.Current as TextBlock;
+
+                OnToggleClick(toggle.IsChecked, tb.Text);
+            }
+        }
+
+        private void OnToggleClick(bool? isChecked, String name)
+        {
+            if (isChecked.Value)
+            {
+                AddChannel(name);
+            }
+            else
+            {
+                Candinate.deleteByName(name);
+            }
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private string keystore_file_path;
+        public string KeystoreFilePath
+        {
+            get { return keystore_file_path; }
+            set
+            {
+                if (value != keystore_file_path)
+                {
+                    keystore_file_path = value;
+                    NotifyPropertyChanged("KeystoreFilePath");
+                }
+            }
+        }
+
+        private string key_store_pw;
+        public string KeyStorePw
+        {
+            get { return key_store_pw; }
+            set
+            {
+                if (value != key_store_pw)
+                {
+                    key_store_pw = value;
+                    NotifyPropertyChanged("KeyStorePw");
+                }
+            }
+        }
+
+        private string alias_pw;
+        public string AliasPw
+        {
+            get { return alias_pw; }
+            set
+            {
+                if (value != alias_pw)
+                {
+                    alias_pw = value;
+                    NotifyPropertyChanged("AliasPw");
+                }
+            }
+        }
+
+        private string alias;
+        public string Alias
+        {
+            get { return alias; }
+            set
+            {
+                if (value != alias)
+                {
+                    alias = value;
+                    NotifyPropertyChanged("Alias");
+                }
+            }
+        }
+
+        private string setting_file;
+        public string SettingFile
+        {
+            get { return setting_file; }
+            set
+            {
+                if (value != setting_file)
+                {
+                    setting_file = value;
+                    NotifyPropertyChanged("SettingFile");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(String info)
+        {
+
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 
-    public class EditItem
+    public class EditItem : ChannelItem
     {
-        public EditItem(String name, EditState state)
+        public EditItem(String name, EditState state):base(name)
         {
-            ItemName = name;
             State = state;
         }
 
-        public String ItemName
-        {
-            get;
-            set;
-        }
+        private EditState state;
         public EditState State
         {
-            get;
-            set;
+            get { return state; }
+            set
+            {
+                if (value != state)
+                {
+                    state = value;
+                    NotifyPropertyChanged("State");
+                }
+            }
         }
     }
 
-    public class CandinateItem
+    public class TemplateItem : ChannelItem
     {
-        public CandinateItem(String name, SelectedState state)
+        public TemplateItem(String name, bool isCheck)
+            : base(name)
         {
-            ItemName = name;
-            State = state;
+            IsChecked = isCheck;
         }
 
-        public String ItemName { get;set;}
-        public SelectedState State { get; set; }
+        private bool isChecked;
+        public bool IsChecked 
+        {
+            get { return isChecked; }
+            set
+            {
+                if (value != isChecked)
+                {
+                    isChecked = value;
+                    NotifyPropertyChanged("IsChecked");
+                }
+            }
+        }
+    }
+
+    public class ChannelItem : INotifyPropertyChanged
+    {
+        public ChannelItem(String name)
+        {
+            ItemName = name;
+        }
+        private String itemName;
+        public String ItemName 
+        {
+            get { return itemName; }
+            set
+            {
+                if (value != itemName)
+                {
+                    itemName = value;
+                    NotifyPropertyChanged("ItemName");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(String info)
+        {
+
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace UmengPackage.Source
             int count = Config.Candinate.Count;
             int i = 0;
             int per = 0;
-            PackageState state = new PackageState();
+            //PackageState state = new PackageState();
 
             //foreach (EditItem channel in Config.Candinate )
             //{
@@ -145,7 +145,7 @@ namespace UmengPackage.Source
                 File.Delete(unzipAlignedApk);
             }
 
-            Aapt.SignAPK(Config.Keystore_File_Path, Config.Keystore_Pw, Config.Alias, Config.Key_Pw,unSignedApk,unzipAlignedApk);
+            Aapt.SignAPK(Config.KeystoreFilePath, Config.KeystorePassword, Config.Alias, Config.AliasPassword,unSignedApk,unzipAlignedApk);
         }
 
         public void ZipAlign(string channel)

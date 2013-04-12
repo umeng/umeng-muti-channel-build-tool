@@ -63,21 +63,21 @@ namespace UmengPackage.Source
 
 		private void run(){
             //Builder builder = new ApkBuilder( config, project, project.ToFileName(),monitor);
-            //builder.Build();
-            PackageState state = new PackageState();
+            ////builder.Build();
+            //PackageState state = new PackageState();
 
-            for (int i = 0; i < 10; i++)
-            {
-                state.setChannel( "Channel:"+i);
-                monitor.ReportProgress( i , state.setState( State.START));
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    state.setChannel( "Channel:"+i);
+            //    monitor.ReportProgress( i , state.setState( State.START));
 
-                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
+            //    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
 
-                monitor.ReportProgress( i , state.setState( State.END));
+            //    monitor.ReportProgress( i , state.setState( State.END));
 
-                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
+            //    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
 
-            }
+            //}
 		}
 	}
 }

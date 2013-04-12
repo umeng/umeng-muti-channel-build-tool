@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:shared="clr-namespace:UIControls;assembly=UIControls"
-             WindowStyle="None" WindowStartupLocation="CenterOwner" Background="{x:Null}" AllowsTransparency="True"
+             WindowStyle="None" WindowStartupLocation="CenterScreen" Background="{x:Null}" AllowsTransparency="True"
              Height="520" Width="680" ResizeMode="NoResize"
+             MouseLeftButtonDown="Window_MouseLeftButtonDown"
             >
     <Window.Resources>
         <ResourceDictionary>
@@ -38,21 +39,21 @@
                         <Border BorderBrush="#2F2A36" BorderThickness="0,1,0,0">
                             <Grid>
                                 <Label Width="80" Content="签名配置" Foreground="White" FontSize="12" Margin="10,9,566,62" />
-                                <Label Name="keystore" Content="KeyStore" Foreground="#59585D" Margin="100,10,497,59"/>
-                                <Label Name="keystore_pw" Content="Password" Margin="355,9,230,59" Foreground="#59585D"/>
-                                <Label Margin="102,55,497,14" Name="alias" Content="Alias" Foreground="#59585D"/>
-                                <Label Margin="355,52,230,16" Name="alias_pw" Content="Password" Foreground="#59585D" />
+                                <Label Content="KeyStore" Foreground="#59585D" Margin="100,10,497,59"/>
+                                <Label Content="Password" Margin="355,9,230,59" Foreground="#59585D"/>
+                                <Label Margin="102,55,497,14" Content="Alias" Foreground="#59585D"/>
+                                <Label Margin="355,52,230,16" Content="Password" Foreground="#59585D" />
 
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="466,12,0,0" Name="tb_store_pw" VerticalAlignment="Top" Width="157" 
-                             Text="{Binding Alias}"/>
+                             Text="{Binding KeyStorePw}"/>
                                 
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="165,56,0,0" Name="tb_alias" VerticalAlignment="Top" Width="157" 
                              Text="{Binding Alias}"/>
                                 <TextBox Height="23" HorizontalAlignment="Left" Margin="466,55,0,0" Name="tb_alias_pw" VerticalAlignment="Top" Width="157" 
-                             Text="{Binding Key_Pw}"/>
+                             Text="{Binding AliasPw}"/>
                                 <shared:SearchTextBox Search="SearchTextBox_FindKeyStore" Name="tb_keystore" Margin="165,12,0,0" LabelText="path to keystore "
                                                       Width="157" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                        Text="{Binding Keystore_File_Path}"/>
+                                        Text="{Binding KeystoreFilePath}"/>
                             </Grid>
                         </Border>
                     </Border>
@@ -96,16 +97,13 @@
                             </ListBox.Template>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BorderBrush="Black" BorderThickness="1" Background="#28272C">
-                                        <Border BorderBrush="#332D3B" BorderThickness="1" Background="Transparent">
-                                            <shared:StateTextBlock Text="{Binding ItemName}" SelectedState="{Binding State}" Width="80" Height="25" />
-                                        </Border>
-                                    </Border>
-                                </DataTemplate>
+                                <ToggleButton x:Name="toggle_tmp" Click="ToggleButton_Click" Width="80" Height="30" IsChecked="{Binding IsChecked}">
+                                    <TextBlock x:Name="tb_tmp_channel" Text="{Binding ItemName}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#59585D"/>
+                                </ToggleButton>
+                            </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
-
                 <Border x:Name="bg_bottom" Grid.Row="3" BorderBrush="Black" BorderThickness="0,1,0,0" Margin="0,0,0,0">
                     <Border BorderBrush="#2F2A36" BorderThickness="0,1,0,0"></Border>
                 </Border>
@@ -114,7 +112,7 @@
 
                 <Grid Grid.Row="3" Margin="0,0,0,0">
                     <Label Content="配置文件名称 " Foreground="White" Width="89" Height="30" HorizontalAlignment="Left" />
-                    <TextBox x:Name="tb_setting_file" Margin="100,0,0,0" Width="200" Height="30" HorizontalAlignment="Left" />
+                    <TextBox x:Name="tb_setting_file" Text="{Binding SettingFile}" Margin="100,0,0,0" Width="200" Height="30" HorizontalAlignment="Left" />
                     
                     <shared:ImageButton FirstImage="UmengPackage;component/Images/button_normal.png" 
                                         SecondImage="UmengPackage;component/Images/button_click.png"

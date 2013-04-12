@@ -59,8 +59,6 @@ namespace UIControls {
                 new FrameworkPropertyMetadata(typeof(SearchTextBox)));
         }
 
-        private DispatcherTimer searchEventDelayTimer;
-
         public SearchTextBox()
             : base() {
         }

@@ -6,6 +6,14 @@
              xmlns:share="clr-namespace:UIControls;assembly=UIControls"
              mc:Ignorable="d" 
              Height="450" Width="600">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UIControls;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
         <TextBlock Text="Hello world" />
 
@@ -68,8 +76,6 @@
             
         </share:UTextBox>
 
-        <share:StateTextBlock SelectedState="NO" Text="123" Width="80" Height="20" />
-       
         
         <TextBox  Margin="356,156,172,254" Text="AppChina" Background="Transparent" BorderBrush="Transparent">
             
@@ -100,5 +106,11 @@
 
         </Grid>
         <Image Source="/UIControls;component/Images/channel_item.png" Stretch="None" Margin="0,197,480,210" />
+        <ToggleButton Height=" 30" Background="AliceBlue" Width="90">
+            <TextBlock Text="Hello world" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </ToggleButton>
+        
+        <share:HintTextBox Text="123" Width="130" Height="30" HintText="编辑标签" Margin="404,210,66,210" />
+        
     </Grid>
 </UserControl>

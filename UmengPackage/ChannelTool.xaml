@@ -64,10 +64,10 @@
                         <Rectangle >
                             <Rectangle.Fill >
                             <ImageBrush ImageSource="Images/channel_item.png" Stretch="None" />
-                        </Rectangle.Fill>
+                            </Rectangle.Fill>
                         </Rectangle>
-                        <TextBlock Text="{Binding ChannelName}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Foreground="#FF9E9AA4" Margin="0,-8,0,0"/>
-                        <ProgressBar Style="{StaticResource progressbar_style}" Width="100" VerticalAlignment="Center" Margin="0,15,0,0" Value="30"/>
+                        <TextBlock Text="{Binding ItemName}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Foreground="#FF9E9AA4" Margin="0,-8,0,0"/>
+                        <ProgressBar Style="{StaticResource progressbar_style}" Width="100" VerticalAlignment="Center" Margin="0,15,0,0" Value="{Binding Progress}"/>
                     </Grid>
                     <!--/Grid-->
                 </DataTemplate>
