@@ -19,7 +19,6 @@ namespace CommonTools
         public string VersionName = null;
         public string VersionCode = null;
         public string IconPath = null;
-        public string AppSize = null;
 
         private static Regex[] r = { 
                             new Regex("versionName=\"(.*?)\""),
@@ -37,8 +36,6 @@ namespace CommonTools
             Asserts = Path.Combine(root, "assets");
             Smali = Path.Combine(root, "smali");
             CommonFolder = Path.Combine(root, "smali", "com", "umeng", "common");
-
-            parseAxml();
         }
         /// <summary>
         /// if sdk is confused , there must be at least one a.smali or b.smali file
@@ -54,7 +51,6 @@ namespace CommonTools
                         return true;
                     }
                 }
-
                 return false;
             }
         }
@@ -73,23 +69,31 @@ namespace CommonTools
             }
         }
 
-        public void parseAxml()
+        public DecodedApkStruct parseAxml()
         {
-            string appInfo = File.ReadAllText(AxmlFile, Encoding.UTF8);
-
-            string[] result = new string[r.Length];
-
-            for (int i = 0; i < r.Length; i++)
+            try
             {
-                var g = r[i].Match(appInfo).Groups;
-                result[i] = g[1].Value;
+                string appInfo = File.ReadAllText(AxmlFile, Encoding.UTF8);
+
+                string[] result = new string[r.Length];
+
+                for (int i = 0; i < r.Length; i++)
+                {
+                    var g = r[i].Match(appInfo).Groups;
+                    result[i] = g[1].Value;
+                }
+
+                AppName = fetchString(result[3]);
+                VersionName = fetchString(result[0]);
+                VersionCode = fetchString(result[1]);
+
+                IconPath = searchLogo(result[2].Substring("@drawable/".Length) + ".png");
+
+                return this;
             }
+            catch(Exception e) { }
 
-            AppName = fetchString(result[3]);
-            VersionName = fetchString(result[0]);
-            VersionCode = fetchString(result[1]);
-
-            IconPath = Path.Combine(ResFolder, result[2].Replace('/', '\\').TrimStart('@') + ".png");
+            return null;
         }
         //<string name="app_name">UmengDemo</string>
         private string fetchString(string origin)
@@ -103,6 +107,29 @@ namespace CommonTools
             }
 
             return origin;
+        }
+
+        /// <summary>
+        /// search res/drawable-xxxx/xxx.png
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        private string searchLogo(String filename)
+        {
+            var folder = Directory.GetDirectories(ResFolder);
+
+            foreach( string path in Directory.GetDirectories(ResFolder).Where( T=> Path.GetFileName(T).StartsWith("drawable")))
+            {
+                foreach( string subPath in Directory.GetFiles( path))
+                {
+                    if ( Path.GetFileName(subPath).Equals(filename))
+                    {
+                        return subPath;
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

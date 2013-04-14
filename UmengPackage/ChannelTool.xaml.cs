@@ -17,6 +17,7 @@ using UmengPackage.Source.Model;
 using UmengPackage.Source.Common;
 using UmengPackage.Source;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace UmengPackage
 {
@@ -42,6 +43,7 @@ namespace UmengPackage
 
             LoadConfigrationAndBindList();
 
+            DataContext = mApkInfo;
         }
 
         private void LoadConfigrationAndBindList()
@@ -91,7 +93,7 @@ namespace UmengPackage
                 LoadConfigrationAndBindList();
             }
         }
-        /*
+       
         private void InitBackgroundWorker()
         {
             bw.WorkerReportsProgress = true;
@@ -129,13 +131,14 @@ namespace UmengPackage
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             //Progress changed
-            PackageState state = e.UserState as PackageState;
 
-            int index = e.ProgressPercentage;
+            int index = (int)(e.UserState);
+
+            int step = e.ProgressPercentage;
 
             if (index < AvailabelChannels.Count)
             {
-                AvailabelChannels[index].CurrentState = state.CurrentState;
+                AvailabelChannels[index].Progress = step;
             }
            
         }
@@ -164,7 +167,6 @@ namespace UmengPackage
             }
         }
 
-        */
         private void dragDrop_Event(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -193,16 +195,22 @@ namespace UmengPackage
         private void processFile(string path)
         {
             System.Diagnostics.Debug.WriteLine( path );
-
-            //this.hint.Content = System.IO.Path.GetFileName( path );
-
+            
+            this.ProcessHint.Visibility = Visibility.Visible;
             // About apk file
-            mApkInfo.parseApk(path); 
-        }
-
-        private void button3_Click(object sender, RoutedEventArgs e)
-        {
-
+            mApkInfo.parseApkAsync(path,
+            (T) =>
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    ////end
+                    if (T != null)
+                    {
+                        mApkInfo.bind(T);
+                        ProcessHint.Visibility = Visibility.Hidden;
+                    }
+                }));
+            }); 
         }
 
         private void btn_builder_Click(object sender, RoutedEventArgs e)

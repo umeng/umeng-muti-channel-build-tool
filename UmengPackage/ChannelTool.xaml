@@ -90,7 +90,16 @@
                               DragDrop.Drop="dragDrop_Event"
                               DragDrop.DragOver="dragDrop_Event"
                               DragDrop.DragLeave="dragDrop_Event">
-                            <Image Name="apk_holder" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                            <StackPanel x:Name="ProcessHint" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                        Orientation="Horizontal" Visibility="Hidden">
+                                <Viewbox Width="30" Height="30">
+                                    <shared:CircularProgressBar ToolTip="解析中..."/>
+                                </Viewbox>
+                                <TextBlock x:Name="HintText" Text="解析中..." VerticalAlignment="Center" Margin="8,0,0,0" Foreground="LightGray"/>
+                            </StackPanel>
+
+                            <Image Name="apk_holder" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding ApkHolderState}">
                                 <Image.Style>
                                     <Style TargetType="{x:Type Image}">
                                         <Setter Property="Source" Value="Images/add_apk.png"/>
@@ -102,8 +111,11 @@
                                     </Style>
                                 </Image.Style>
                             </Image>
-                            <Label x:Name="apk_name" Content="winxin" Foreground="White" FontSize="20" Visibility="Visible" Margin="260,50,0,0"/>
-                            <Label x:Name="apk_size" Content="123.k" Foreground="LightGray" FontSize="16" Visibility="Visible" Margin="260,80,0,0"/>
+
+                            <Image Name="apk_logo" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{Binding AppIcon}"/>
+                            
+                            <Label x:Name="apk_name" Content="{Binding AppName}" Foreground="White" FontSize="20" Visibility="Visible" Margin="260,50,0,0"/>
+                            <Label x:Name="apk_size" Content="{Binding AppSize}" Foreground="LightGray" FontSize="16" Visibility="Visible" Margin="260,80,0,0"/>
                         </Grid>  
                     </Border>
                 </Border>

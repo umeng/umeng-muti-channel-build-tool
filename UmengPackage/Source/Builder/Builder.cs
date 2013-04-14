@@ -41,37 +41,40 @@ namespace UmengPackage.Source
         {
             SetProjectEnvironmet();
             int count = Config.Candinate.Count;
-            int i = 0;
-            int per = 0;
-            //PackageState state = new PackageState();
+            int index = 0;
+            int step = 0;
+         
+            foreach (string channel in Config.Candinate)
+            {
+                index ++;
+                step = 0;
 
-            //foreach (EditItem channel in Config.Candinate )
-            //{
-            //    i++;
-            //    per = i*100/count;
-            //    state.setChannel(channel.ChannelName);
-            //    //start
-            //    monitor.ReportProgress(per, state.setState(State.START));
-            //    try
-            //    {
-            //        ReplaceChannle(channel.ChannelName);
+                //totally, 6 steps
+                try
+                {
+                    monitor.ReportProgress(++step , index);
+                    ReplaceChannle(channel);
+                    
+                    monitor.ReportProgress(++step, index);
+                    BuildUnsignedApk();
 
-            //        BuildUnsignedApk();
+                    monitor.ReportProgress(++step, index);
+                    SignAPK(channel);
 
-            //        SignAPK(channel.ChannelName);
-            //        ZipAlign(channel.ChannelName);
+                    monitor.ReportProgress(++step, index);
+                    ZipAlign(channel);
 
-            //        CopyToWorkspace(channel.ChannelName);
+                    monitor.ReportProgress(++step, index);
+                    CopyToWorkspace(channel);
 
-            //        monitor.ReportProgress(per, state.setState( State.END));
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        monitor.ReportProgress(per, state.setState( State.FAILURE));
-            //        throw e;
-            //    }
-                //end
-            //}
+                    monitor.ReportProgress(++step, index);
+                    
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
         }
         public abstract void Restore();
 

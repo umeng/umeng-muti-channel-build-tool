@@ -7,9 +7,12 @@ using System.IO.Packaging;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
+using System.Windows;
 
 using UmengPackage.Source.Common;
 using CommonTools;
+using System.Threading;
+using System.Windows.Threading;
 
 
 
@@ -17,39 +20,88 @@ namespace UmengPackage.Source.Model
 {
     class ApkInfo : INotifyPropertyChanged
     {
+        public delegate void OnParseEnd(DecodedApkStruct das);
+
+        public OnParseEnd end;
+
         /// <summary>
         /// Same as ApkBuild's temp folder
         /// </summary>
         private static string mTempFolder = Path.Combine(Environment.CurrentDirectory, "temp");
+        private string apkPath = null;
 
-        private static string IconPath = Path.Combine( Environment.CurrentDirectory, "icon.png" );
 
-        public  void parseApk(string path)
+
+        public void parseApkAsync(string path, OnParseEnd end)
         {
-            Aapt.DecodeApk(path, mTempFolder);
+            this.apkPath = path;
+            this.end = end;
 
-            var dfs = new DecodedApkStruct(mTempFolder);
+            new Thread(parseApk).Start();
+        }
 
-            AppName = dfs.AppName;
-            AppVersionName = dfs.VersionName;
-            AppVersionCode = dfs.VersionCode;
-            AppSize = dfs.AppSize;
+        public void parseApk()
+        {
+            Aapt.DecodeApk(apkPath, mTempFolder);
 
-            string pathToIcon = dfs.IconPath;
+            var dfs = new DecodedApkStruct(mTempFolder).parseAxml();
+           
+            end(dfs);
+        }
 
-            if (File.Exists(IconPath))
+        public void bind(DecodedApkStruct das)
+        {
+            var dfs = das;
+
+            if (dfs == null)
             {
-                File.Delete(IconPath);
+                AppName = Path.GetFileName(apkPath);
+                AppVersionName = "";
+                AppVersionCode = "";
+
+                ApkHolderState = Visibility.Visible;
             }
+            else
+            {
 
-            File.Copy(pathToIcon, IconPath);
+                AppName = dfs.AppName;
+                AppVersionName = dfs.VersionName;
+                AppVersionCode = dfs.VersionCode;
+                AppSize = formatFileSize(apkPath);
 
-            BitmapImage tempImage = new BitmapImage();
-            tempImage.BeginInit();
-            tempImage.StreamSource = File.Open(IconPath, FileMode.Open);
-            tempImage.EndInit();
+                if (File.Exists(dfs.IconPath))
+                {
+                    MemoryStream memoryStream = new MemoryStream();
 
-            AppIcon = tempImage;
+                    byte[] fileBytes = File.ReadAllBytes(dfs.IconPath);
+                    memoryStream.Write(fileBytes, 0, fileBytes.Length);
+                    memoryStream.Position = 0;
+
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.StreamSource = memoryStream;
+                    bi.CacheOption = BitmapCacheOption.OnLoad;
+                    bi.EndInit();
+
+                    AppIcon = bi;
+
+                    ApkHolderState = Visibility.Hidden;
+                }
+            } 
+        }
+
+        private Visibility apkHolderState;
+        public Visibility ApkHolderState
+        {
+            get 
+            {
+                return apkHolderState; 
+            }
+            set
+            {
+                apkHolderState = value;
+                NotifyPropertyChanged("ApkHolderState");
+            }
         }
         
         private BitmapImage appIcon;
@@ -129,19 +181,18 @@ namespace UmengPackage.Source.Model
             }
         }
 
-        public static void extractAppIcon(string pathToApk, string pathInArchive, string des)
+        private string formatFileSize(string filename)
         {
-            using (Package package = ZipPackage.Open(pathToApk, FileMode.Open, FileAccess.Read))
+            string[] sizes = { "B", "K", "M", "G" };
+            double len = new FileInfo(filename).Length;
+            int order = 0;
+            while (len >= 1024 && order + 1 < sizes.Length)
             {
-                var part = package.GetPart(new Uri(pathInArchive));
-
-                using (Stream source = part.GetStream(FileMode.Open, FileAccess.Read))
-                {
-                    FileStream targetFile = File.OpenWrite(des);
-                    source.CopyTo(targetFile);
-                    targetFile.Close();
-                }
+                order++;
+                len = len / 1024;
             }
+
+            return String.Format("{0:0.##} {1}", len, sizes[order]);
         }
     }
 }
