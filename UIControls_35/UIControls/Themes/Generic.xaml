@@ -1,4 +1,5 @@
- <ResourceDictionary
+<?xml version="1.0" encoding="gb2312" ?>
+<ResourceDictionary
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
@@ -83,7 +84,7 @@
     </Style>
 
 
-    <SolidColorBrush x:Key="SearchTextBox_Background" Color="White" />
+  <SolidColorBrush x:Key="SearchTextBox_Background" Color="White" />
   <SolidColorBrush x:Key="SearchTextBox_Foreground" Color="Black" />
   <LinearGradientBrush x:Key="SearchTextBox_Border" StartPoint="0,0" EndPoint="0,1">
     <GradientStop Color="#FFABADB3" Offset="0.05" />
@@ -95,8 +96,8 @@
     <GradientStop Color="#FFB9D7EB" Offset="0.07" />
     <GradientStop Color="#FFC7E2F1" Offset="1" />
   </LinearGradientBrush>
-  <SolidColorBrush x:Key="SearchTextBox_SearchIconBorder" Color="White" />
-  <SolidColorBrush x:Key="SearchTextBox_SearchIconBackground" Color="White" />
+  <SolidColorBrush x:Key="SearchTextBox_SearchIconBorder" Color="LightGray" />
+  <SolidColorBrush x:Key="SearchTextBox_SearchIconBackground" Color="LightGray" />
   <LinearGradientBrush x:Key="SearchTextBox_SearchIconBorder_MouseOver" StartPoint="0,0" EndPoint="0,1" >
     <GradientStop Color="#FFFFFFFF" Offset="0" />
     <GradientStop Color="#FFE5F4FC" Offset="1" />
@@ -131,11 +132,10 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type l:SearchTextBox}">
-          <Border x:Name="Border"
-                  Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid x:Name="LayoutGrid">
+         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
+            <Border x:Name="Border" CornerRadius="2" BorderBrush="#828087" BorderThickness="1" Background="#929097"
+                  >
+                <Grid x:Name="LayoutGrid">
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="{Binding RelativeSource={RelativeSource TemplatedParent},
@@ -156,10 +156,10 @@
                       BorderThickness="1"
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Stretch"
-                      BorderBrush="{StaticResource SearchTextBox_SearchIconBorder}"
-                      Background="{StaticResource SearchTextBox_SearchIconBackground}">
+                      BorderBrush="{TemplateBinding Background}"
+                      Background="{TemplateBinding Background}">
                 <Image x:Name="SearchIcon"
-                       Stretch="None"
+                       Stretch="UniformToFill"
                        Width="15"
                        Height="15" 
                        HorizontalAlignment="Center"
@@ -167,8 +167,10 @@
                        Source="pack://application:,,,/UIControls;component/Images/search.png" />
                </Border>
             </Grid>
+            </Border>
           </Border>
-          <ControlTemplate.Triggers>
+
+                    <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
               <Setter Property="BorderBrush" Value="{StaticResource SearchTextBox_BorderMouseOver}" />
             </Trigger>
@@ -228,7 +230,7 @@
 
                         <l:HintTextBox x:Name="EditText" Visibility="Hidden" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
                                        Path=SharedText,Mode=TwoWay}" Background="Transparent" BorderBrush="Transparent" Foreground="White"
-                                       HintText=" Edit Here"/>
+                                       HintText=" 编辑渠道"/>
 
                             <Grid x:Name="NormalPart" Visibility="Visible" >
                             <Image Source="/UIControls;component/Images/channel_item.png" Stretch="None"/>
@@ -266,12 +268,15 @@
     </Style>
 
   <Style x:Key="{x:Type l:HintTextBox}" TargetType="{x:Type l:HintTextBox}">
+     
+        <Setter Property="CaretBrush" Value="White" />
+        <Setter Property="Focusable" Value="True"/> 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type l:HintTextBox}">
 
                     <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
-                        <ScrollViewer Margin="2" x:Name="PART_ContentHost" Focusable="True" VerticalAlignment="Center"/>
+                        <ScrollViewer Margin="2" x:Name="PART_ContentHost" Focusable="True" VerticalAlignment="Center" />
                         <TextBlock x:Name="LabelText" Margin="2" Padding="2,0,0,0" FontStyle="Italic" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
                                        Path=HintText,Mode=TwoWay}" VerticalAlignment="Center" Foreground="#59585D"/>
                     </Grid>
@@ -528,11 +533,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Rectangle Height="25" Width="8" Fill="White" SnapsToDevicePixels="True">
-                        <Rectangle.Effect>
-                            <DropShadowEffect ShadowDepth="0" BlurRadius="10" Color="White" />
-                        </Rectangle.Effect>
-                    </Rectangle>
+                    <Image  Width="8" Height="92" Source="/UIControls;component/Images/thumb.png" Stretch="Fill" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -552,7 +553,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
                     <Grid x:Name="Bg" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                        <Border Width="1" Background="#FFFFFF" HorizontalAlignment="Center"/>
+                        <Border Width="11" BorderBrush="#2E2C34" BorderThickness="1,0,0,0" Background="#52505B" HorizontalAlignment="Center"/>
                         <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}">
                             <Track.Thumb>
                                 <Thumb Style="{StaticResource ScrollBarThumb}"/>
@@ -578,20 +579,15 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ScrollViewer">
                     <Grid Background="{TemplateBinding Background}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
                         <ScrollContentPresenter x:Name="ScrollContentPresenter"
                                 Grid.Column="0" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
                                 Cursor="{TemplateBinding Cursor}" Margin="{TemplateBinding Padding}" 
                             />
-                        <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1" 
+                        <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" HorizontalAlignment="Right" 
                                 Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" 
                                 Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" 
                                 Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" 
-                                ViewportSize="25" 
+                                ViewportSize="92" 
                                 Style="{DynamicResource scroll_bar_style}"/>
                     </Grid>
                 </ControlTemplate>
@@ -635,7 +631,7 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
 
                     <Border x:Name="border" BorderBrush="Black" BorderThickness="1" Background="#28272C">
-                        <Border BorderBrush="#332D3B" BorderThickness="1" Background="Transparent">
+                        <Border x:Name="inter_border" BorderBrush="#332D3B" BorderThickness="1" Background="Transparent">
                             <ContentPresenter/>
                         </Border>
                     </Border>
@@ -643,11 +639,42 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Background" TargetName="border" Value="#1A191D"/>
+                            <Setter Property="BorderBrush" TargetName="inter_border" Value="#1A191D" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-     
+
+    <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBoxBase}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Foreground" Value="#242328"/>
+        <Setter Property="CaretBrush" Value="White"/>
+        <Setter Property="MinWidth" Value="120"/>
+        <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+
+                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="2">
+                        <Border Name="Border" CornerRadius="2" BorderBrush="#828087" BorderThickness="1" Background="#929097">
+                            <ScrollViewer Margin="1" x:Name="PART_ContentHost"/>
+                        </Border>
+                    </Border>
+                    <!--ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBackgroundBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers-->
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

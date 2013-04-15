@@ -86,6 +86,8 @@ namespace UmengPackage
 
             var dialog = new ConfigTemplate( filename );
 
+            //dialog.TranslatePoint(new Point(-200, -100), this);
+
             bool? result = dialog.ShowDialog();
 
             if (result != null)

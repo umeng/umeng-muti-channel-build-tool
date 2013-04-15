@@ -49,3 +49,5 @@ D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\UmengWidget.p
 D:\Developer\workspace_silverlight\UmengTools\UmengTools\obj\x86\Debug\UmengTools.pdb
 D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\UIControls.dll
 D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\UIControls.pdb
+D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\Microsoft.Expression.Drawing.dll
+D:\Developer\workspace_silverlight\UmengTools\UmengTools\bin\Debug\Microsoft.Expression.Drawing.xml

@@ -37,6 +37,11 @@ namespace UmengPackage
             InitializeComponent();
         }
 
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+        }
+
         public ConfigTemplate(String configFile):this()
         {
             //bind

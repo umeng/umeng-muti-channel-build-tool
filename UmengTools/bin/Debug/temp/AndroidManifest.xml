@@ -1,78 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest android:versionCode="18" android:versionName="2.0" package="com.ChinaMGT.MainActivity"
+<manifest android:versionCode="15" android:versionName="1.1.1" android:installLocation="auto" package="com.hexun.forex"
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" android:required="false" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" android:required="false" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:required="false" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:required="false" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:required="false" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" android:required="false" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" android:required="false" />
-    <uses-permission android:name="android.permission.VIBRATE" android:required="false" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:persistent="true">
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="@string/app_name" android:name=".Guide" android:screenOrientation="portrait" android:configChanges="orientation" android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:label="@string/app_name" android:name=".welcome" android:configChanges="orientation" android:windowSoftInputMode="stateHidden|adjustPan">
+    <application android:theme="@*android:style/Theme.NoTitleBar" android:label="@string/app_name" android:icon="@drawable/logo">
+        <activity android:label="@string/app_name" android:name=".Splash" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="@string/app_name" android:name=".Home" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="@string/app_name" android:name=".testguanggao" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar" android:label="@string/app_name" android:name=".Article_all" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar" android:label="@string/app_name" android:name=".Article_fenlei" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar" android:label="@string/app_name" android:name=".Article_weidu" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar" android:label="@string/app_name" android:name=".Article_shoucang" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar" android:label="@string/app_name" android:name=".Article_yaoqing" android:configChanges="orientation">
+        <activity android:name=".UserRemarkActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="ProblemActivity" android:launchMode="singleTask" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".HelpActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name=".AppExchangeActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".FundGuideActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".ExchangeRateActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation">
             <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="image/*" />
+                <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar" android:label="@string/app_name" android:name=".ArticleViewPage" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="@string/app_name" android:name=".fenlei_main" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="@string/app_name" android:name=".banquan" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="@string/app_name" android:name=".FaceBook" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar" android:label="@string/app_name" android:name=".Share" android:configChanges="orientation" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar" android:label="@string/app_name" android:name=".FacebookShare" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.google.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode" />
-        <activity android:theme="@*android:style/Theme.Black.NoTitleBar.Fullscreen" android:label="@string/app_name" android:name=".SearchResult" android:configChanges="orientation" android:windowSoftInputMode="stateHidden|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.searchable" android:resource="@xml/searchable" />
-        </activity>
-        <activity android:label="设置" android:name=".SettingsActivity" android:configChanges="orientation" />
-        <activity android:name="com.umeng.fb.ui.SendFeedback" android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.umeng.fb.ui.FeedbackConversations" />
-        <activity android:name="com.umeng.fb.ui.FeedbackConversation" android:configChanges="keyboard" />
-        <activity android:name="com.umeng.api.activity.OauthActivity" android:screenOrientation="unspecified" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="adjustResize" />
-        <activity android:theme="@style/Theme.IOSched" android:name="com.umeng.api.activity.UpdateStatusActivity" android:screenOrientation="unspecified" android:configChanges="keyboardHidden|orientation" android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:theme="@style/Theme.UMDefault" android:name="com.umeng.socialize.view.CommentActivity" android:configChanges="keyboard|orientation" />
-        <activity android:theme="@style/Theme.UMDialog" android:name="com.umeng.socialize.view.ShareActivity" android:launchMode="singleTask" android:configChanges="keyboard|orientation" android:windowSoftInputMode="stateVisible|adjustResize" android:noHistory="true" />
-        <activity android:theme="@style/Theme.UMDefault" android:name="com.umeng.socialize.view.CommentDetail" android:configChanges="keyboard|orientation" android:noHistory="true" />
-        <activity android:theme="@style/Theme.UMDefault" android:name="com.umeng.socialize.view.CommentDetailNoMap" android:configChanges="keyboard|orientation" android:noHistory="true" />
-        <meta-data android:name="UMENG_APPKEY" android:value="507e8bda5270154bfd0000be" />
-        <meta-data android:name="UMENG_CHANNEL" android:value="GooglePlay" />
+        <activity android:name=".NewsActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".CalendarActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".BrandPriceActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".ToolActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".SetActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".NewsDetailActivity" android:launchMode="singleTask" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name=".push.activity.PushNewsDetailActivity" android:launchMode="singleTask" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name=".NewsSpecialActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".WeiboShareActivity" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name=".WeiboShareLoginActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".LoginActivity" android:launchMode="singleTask" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
+        <activity android:name=".RegistActivity" android:launchMode="singleTask" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
+        <activity android:name=".RegistActivityWeb" android:launchMode="singleTask" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
+        <activity android:name=".CalendarWeekDataListActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".push.activity.PushCalendarWeekDataListActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".CalendarDayDataListActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".CalendarDayDataListSubActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".push.activity.PushCalendarDayDataListActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".CalDataDetailActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".SearchActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".SearchResultActivity" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity android:name=".ExchangeRateDetailActivity" android:launchMode="singleTask" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name=".ForexSearchActivity" android:launchMode="singleTask" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name=".CommonWebviewActivity" android:launchMode="singleTask" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
+        <activity android:theme="@*android:style/Theme.Translucent.NoTitleBar" android:name=".DialogActivity" android:launchMode="singleTask" android:screenOrientation="portrait" android:configChanges="keyboardHidden|orientation" />
         <service android:name="com.umeng.common.net.DownloadingService" android:exported="true" android:process=":DownloadingService" />
-        <service android:name="hpo.ding.util.service.HPOService">
-            <intent-filter android:priority="1000" />
-        </service>
-        <receiver android:name="hpo.ding.util.service.AutoRunBootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.HOME" />
+        <service android:name=".service.basic.SystemBasicLocalDataService" />
+        <service android:name=".offlinedownload.OfflineDownloadService" />
+        <receiver android:name=".offlinedownload.ConnectBroadcastReceiver">
+            <intent-filter android:priority="1000">
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <meta-data android:name="android.app.default_searchable" android:value=".SearchResult" />
-        <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-        <uses-library android:name="com.google.android.maps" android:required="false" />
+        <meta-data android:name="UMENG_APPKEY" android:value="50d7c230527015730300001e" />
+        <meta-data android:name="UMENG_CHANNEL" android:value="Android Market" />
+        <meta-data android:name="HEXUN_PRODUCTID" android:value="1031" />
+        <meta-data android:name="MisUserAnalysis_UserkeyFileName" android:value="info_id" />
+        <meta-data android:name="MisUserAnalysis_UserkeyFileName_Key" android:value="id" />
+        <receiver android:name="com.hexun.forex.push.MyPushReceiver">
+            <intent-filter>
+                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
+                <action android:name="com.huawei.android.push.intent.RECEIVE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.huawei.android.pushagent.PushEventReceiver" android:process=":eventReceiver">
+            <intent-filter>
+                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.huawei.android.push.intent.REFRESH_PUSH_CHANNEL" />
+                <action android:name="com.huawei.intent.action.PUSH_ON" />
+                <action android:name="com.huawei.android.push.intent.REGISTER" />
+                <action android:name="com.huawei.intent.action.PUSH_OFF" />
+                <action android:name="com.huawei.android.push.intent.HEARTBEAT_REQ" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+            <meta-data android:name="CS_cloud_version" android:value="@string/cloudpush_version_value" />
+        </receiver>
+        <service android:name="com.huawei.android.pushagent.PushService" android:process=":pushservice" />
+        <meta-data android:name="APPKEY" android:value="5" />
+        <meta-data android:name="CHANNEL" android:value="push" />
     </application>
-    <supports-screens android:anyDensity="true" android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:resizeable="true" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.DEVICE_POWER" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>

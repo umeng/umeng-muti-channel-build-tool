@@ -48,14 +48,14 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Height="442">
-        <ComboBox Name="settingList"  Height="28" HorizontalAlignment="Left" Margin="630,3,0,0" VerticalAlignment="Top" Width="140"
+        <ComboBox Name="settingList"  Height="28" HorizontalAlignment="Left" Margin="640,3,0,0" VerticalAlignment="Top" Width="140"
                   SelectedIndex="0"
                   >
         </ComboBox>
-        <shared:ImageButton FirstImage="/UmengPackage;component/Images/setting.png" SecondImage="/UmengPackage;component/Images/setting.png" Margin="605,7,176,413" 
+        <shared:ImageButton FirstImage="/UmengPackage;component/Images/setting.png" SecondImage="/UmengPackage;component/Images/setting.png" Margin="615,7,166,413" 
                             Stretch="None" Click="OnEdit"/>
         
-        <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="740" Height="200" x:Name="Channels" Background="Transparent" Margin="30,30,2,1" 
+        <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="750" Height="200" x:Name="Channels" Background="Transparent" Margin="30,30,2,1" 
                  HorizontalContentAlignment="Stretch">
             
             <ListBox.ItemTemplate >
@@ -84,7 +84,7 @@
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="0" BlurRadius="15"/>
                     </Border.Effect>
-                        <Grid Width="400" Height="180" Margin="10"
+                        <Grid Width="400" Height="180" Margin="-10,10,10,10"
                               AllowDrop="True"
                               DragDrop.DragEnter="dragDrop_Event" 
                               DragDrop.Drop="dragDrop_Event"
