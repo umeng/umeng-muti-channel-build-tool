@@ -41,6 +41,8 @@ namespace UmengPackage
         {
             InitializeComponent();
 
+            InitBackgroundWorker();
+
             LoadConfigrationAndBindList();
 
             DataContext = mApkInfo;
@@ -86,8 +88,6 @@ namespace UmengPackage
 
             var dialog = new ConfigTemplate( filename );
 
-            //dialog.TranslatePoint(new Point(-200, -100), this);
-
             bool? result = dialog.ShowDialog();
 
             if (result != null)
@@ -114,8 +114,8 @@ namespace UmengPackage
                 Worker w = Worker.Instanse();
                 
                 w.setMoniter(worker);
-                w.setProject(mApkFile);
-                w.setProfile(GetProfile());
+                w.setProject(mApkInfo.DeApkStruct);
+                w.setConfigure(GetConfigure());
 
                 w.start();
             }
@@ -125,7 +125,7 @@ namespace UmengPackage
             }
         }
 
-        public ProjectConfigration GetProfile()
+        public ProjectConfigration GetConfigure()
         {
             return ProjectConfigration.readSettingFromFile( mConfigFile );
         }
@@ -133,6 +133,7 @@ namespace UmengPackage
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             //Progress changed
+            System.Diagnostics.Debug.WriteLine("Progress changed :" + e.ProgressPercentage);
 
             int index = (int)(e.UserState);
 
@@ -140,14 +141,15 @@ namespace UmengPackage
 
             if (index < AvailabelChannels.Count)
             {
+                Channels.SelectedIndex = index;
                 AvailabelChannels[index].Progress = step;
             }
-           
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             //Backgroud work complete !
+            PackageHint.Visibility = Visibility.Hidden;
 
             if ((e.Cancelled == true))
             {
@@ -198,7 +200,7 @@ namespace UmengPackage
         {
             System.Diagnostics.Debug.WriteLine( path );
             
-            this.ProcessHint.Visibility = Visibility.Visible;
+            this.ParseHint.Visibility = Visibility.Visible;
             // About apk file
             mApkInfo.parseApkAsync(path,
             (T) =>
@@ -206,10 +208,10 @@ namespace UmengPackage
                 Dispatcher.BeginInvoke(new Action(() =>
                 {
                     ////end
-                    if (T != null)
+                    if (T)
                     {
-                        mApkInfo.bind(T);
-                        ProcessHint.Visibility = Visibility.Hidden;
+                        mApkInfo.bind();
+                        ParseHint.Visibility = Visibility.Hidden;
                     }
                 }));
             }); 
@@ -232,6 +234,8 @@ namespace UmengPackage
                 }
 
                 bw.RunWorkerAsync();
+
+                PackageHint.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -249,6 +253,12 @@ namespace UmengPackage
             }
 
             mConfigFile = configFile;
+
+            if (mApkInfo.isApkReady())
+            {
+                throw new Exception("没有提供Apk文件");
+            }
+
             return true;
         }
 
@@ -264,6 +274,7 @@ namespace UmengPackage
             {
                 if (value != progress)
                 {
+                    progress = value;
                     NotifyPropertyChanged("Progress");
                 }
             }
@@ -271,7 +282,7 @@ namespace UmengPackage
 
         public ShowItem(string name, int progress):base( name)
         {
-            this.progress = progress;
+            Progress = progress;
         }
     }
 }

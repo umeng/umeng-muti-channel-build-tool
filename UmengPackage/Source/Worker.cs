@@ -17,6 +17,7 @@ using System.ComponentModel;
 
 using UmengPackage.Source.Common;
 using UmengPackage.Source.Model;
+using CommonTools;
 
 namespace UmengPackage.Source
 {
@@ -32,14 +33,14 @@ namespace UmengPackage.Source
         //Project Configration used to sign and zipAlign apk
 		ProjectConfigration config;
         //Path to Apk file or to Source folder
-        String project;
+        DecodedApkStruct project;
 
 		public static Worker Instanse(){
             return worker;
 		}
 		public Worker(){}
 
-        public Worker setProfile(ProjectConfigration c)
+        public Worker setConfigure(ProjectConfigration c)
         {
 			config = c;
             return this;
@@ -51,9 +52,9 @@ namespace UmengPackage.Source
             return this;
         }
 
-        public Worker setProject(String p)
+        public Worker setProject(DecodedApkStruct apkStruct)
         {
-            project = p;
+            project = apkStruct;
             return this;
         }
 		
@@ -62,22 +63,7 @@ namespace UmengPackage.Source
 		}
 
 		private void run(){
-            //Builder builder = new ApkBuilder( config, project, project.ToFileName(),monitor);
-            ////builder.Build();
-            //PackageState state = new PackageState();
-
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    state.setChannel( "Channel:"+i);
-            //    monitor.ReportProgress( i , state.setState( State.START));
-
-            //    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
-
-            //    monitor.ReportProgress( i , state.setState( State.END));
-
-            //    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
-
-            //}
+            new ApkBuilder(config, project , monitor).Build();
 		}
 	}
 }

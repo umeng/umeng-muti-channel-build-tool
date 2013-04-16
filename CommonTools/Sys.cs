@@ -65,19 +65,19 @@ namespace CommonTools
             p.Start();
             p.BeginOutputReadLine();
             p.BeginErrorReadLine();
-            p.StandardInput.WriteLine(cmd);
+            p.StandardInput.WriteLine(cmd + " 2> log\\e.txt");
             p.StandardInput.WriteLine("exit");
             p.WaitForExit();
         }
 
         void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            //Log.i( e.Data);
+            Log.i( e.Data);
         }
 
         void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            //Log.e( e.Data);
+            Log.e( e.Data);
         }
     }
 }

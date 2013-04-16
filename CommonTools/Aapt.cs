@@ -100,6 +100,8 @@ namespace CommonTools
 
             List<string> cmd = new List<string>();
 
+            cmd.Add("java");
+            cmd.Add("-jar");
             cmd.Add( mPathToSigner );
 
             cmd.Add(keystore);

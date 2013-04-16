@@ -18,9 +18,9 @@ using System.Windows.Threading;
 
 namespace UmengPackage.Source.Model
 {
-    class ApkInfo : INotifyPropertyChanged
+    public class ApkInfo : INotifyPropertyChanged
     {
-        public delegate void OnParseEnd(DecodedApkStruct das);
+        public delegate void OnParseEnd(bool isSuccess);
 
         public OnParseEnd end;
 
@@ -28,9 +28,21 @@ namespace UmengPackage.Source.Model
         /// Same as ApkBuild's temp folder
         /// </summary>
         private static string mTempFolder = Path.Combine(Environment.CurrentDirectory, "temp");
+        private DecodedApkStruct mDeApkStruct = null;
+
+        public DecodedApkStruct DeApkStruct
+        {
+            get { return mDeApkStruct; }
+            set
+            {
+                if (mDeApkStruct != value)
+                {
+                    mDeApkStruct = value;
+                }
+            }
+        }
+
         private string apkPath = null;
-
-
 
         public void parseApkAsync(string path, OnParseEnd end)
         {
@@ -44,14 +56,19 @@ namespace UmengPackage.Source.Model
         {
             Aapt.DecodeApk(apkPath, mTempFolder);
 
-            var dfs = new DecodedApkStruct(mTempFolder).parseAxml();
-           
-            end(dfs);
+            mDeApkStruct = new DecodedApkStruct(mTempFolder).parseAxml();
+
+            end(mDeApkStruct != null? true:false);
         }
 
-        public void bind(DecodedApkStruct das)
+        public bool isApkReady()
         {
-            var dfs = das;
+            return apkHolderState == Visibility.Visible;
+        }
+
+        public void bind()
+        {
+            var dfs = mDeApkStruct;
 
             if (dfs == null)
             {

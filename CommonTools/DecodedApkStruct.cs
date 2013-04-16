@@ -31,12 +31,16 @@ namespace CommonTools
 
         public DecodedApkStruct(string root)
         {
+            Root = root;
+
             AxmlFile = Path.Combine( root, "AndroidManifest.xml");
             ResFolder = Path.Combine(root, "res");
             Asserts = Path.Combine(root, "assets");
             Smali = Path.Combine(root, "smali");
             CommonFolder = Path.Combine(root, "smali", "com", "umeng", "common");
         }
+
+        public string Root { get; set; }
         /// <summary>
         /// if sdk is confused , there must be at least one a.smali or b.smali file
         /// </summary>

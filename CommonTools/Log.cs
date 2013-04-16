@@ -10,17 +10,17 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace UmengPackage.Source.Common
+namespace CommonTools
 {
 	/// <summary>
 	/// Description of Log.
 	/// </summary>
 	public class Log
 	{
+        public static bool LOG = true;
+
 		private static readonly string ii = null;
-		//private static readonly string ee = "e.txt";
-		
-		private static StreamWriter sw = null;
+        private static readonly string ee = null;
 		
 		static Log()
 		{
@@ -31,37 +31,53 @@ namespace UmengPackage.Source.Common
 			
 			ii = Path.Combine(System.Environment.CurrentDirectory,
                 Path.Combine("log" ,"i.txt"));
+            ee = Path.Combine(System.Environment.CurrentDirectory,
+                Path.Combine("log", "e.txt"));
 			
 			if(File.Exists(ii) && (new FileInfo(ii).Length > 1024*1024))
 			{
 				File.Delete(ii);
 			}
-			sw = File.AppendText(ii);
+
+            if (File.Exists(ee) && (new FileInfo(ee).Length > 1024 * 1024))
+            {
+                File.Delete(ii);
+            }
 		}
 		
-		public static void d(int debug){
-			Debug.WriteLine("DEBUG:"+ debug);
+		public static void d(string debug){
+            if (LOG)
+            {
+                Debug.WriteLine("DEBUG:" + debug);
+            }
 		}
 		public static void i(string info){
-			Debug.WriteLine("INFO:" + info);
-			
-			sw.WriteLine("INFO:" + info);
-			sw.Flush();
+            if (LOG)
+            {
+                Debug.WriteLine("INFO:" + info);
+            }
 		}
 		
 		public static void w(string warning){
-			Debug.WriteLine("WARNING:" + warning);
+            if (LOG)
+            {
+                Debug.WriteLine("WARNING:" + warning);
+            }
 		}
 		
 		public static void e(string error){
-			Debug.WriteLine("ERROR:" + error);
-			
-			sw.WriteLine("ERROR" + error);
-			sw.Flush();
+            if (LOG)
+            {
+                Debug.WriteLine("ERROR:" + error);
+            }
 		}
 		
 		public static void e(Exception e){
-			Debug.WriteLine("ERROR:" + e.Message);
+            if (LOG)
+            {
+                Debug.WriteLine("ERROR:" + e.Message);
+                Debug.WriteLine("ERROR:" + e.StackTrace);
+            }
 		}
 	}
 }

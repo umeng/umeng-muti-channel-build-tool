@@ -43,9 +43,9 @@
                         <Border BorderBrush="#2F2A36" BorderThickness="0,1,0,0">
                             <Grid>
                                 <Label Width="71" Content="签名配置" Foreground="LightGray" FontSize="12" Margin="4,-50,0,0" Height="30" HorizontalAlignment="Left"/>
-                            <Label Content="KeyStore " Foreground="#59585D"  Margin="102,15,483,56" Width="66" />
+                                <Label Content="KeyStore " Foreground="#59585D"  Margin="88,15,497,56" />
                                 <Label Content="Password" Margin="369,9,216,59" Foreground="#59585D"/>
-                                <Label Margin="102,55,497,14" Content="Alias" Foreground="#59585D"/>
+                                <Label Margin="91,55,508,14" Content="Alias" Foreground="#59585D"/>
                                 <Label Margin="369,52,216,16" Content="Password" Foreground="#59585D" />
 
                                 <TextBox Height="26" HorizontalAlignment="Left" Margin="466,12,0,0" Name="tb_store_pw" VerticalAlignment="Top" Width="180" 
@@ -117,8 +117,8 @@
                     <Label Content="编辑渠道" HorizontalAlignment="Left" Margin="10,0,0,0" Width="80" Foreground="#FFABABAB" Height="26" FontSize="11" />
 
                     <Grid Grid.Row="3" Margin="0,0,0,0">
-                    <Label Content="配置文件名称 " Foreground="LightGray" Width="89" Height="30" HorizontalAlignment="Left" Margin="3,20,0,20" />
-                        <TextBox x:Name="tb_setting_file" Text="{Binding SettingFile}" Margin="100,0,0,0" Width="200" Height="30" HorizontalAlignment="Left"
+                    <Label Content="配置文件 " Foreground="LightGray" Width="89" Height="30" HorizontalAlignment="Left" Margin="3,20,0,20" />
+                        <TextBox x:Name="tb_setting_file" Text="{Binding SettingFile}" Margin="86,0,0,0" Width="200" Height="30" HorizontalAlignment="Left"
                                  Background="LightGray"/>
 
                         <shared:ImageButton FirstImage="UmengPackage;component/Images/button_normal.png" 

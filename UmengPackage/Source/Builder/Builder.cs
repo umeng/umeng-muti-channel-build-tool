@@ -46,7 +46,6 @@ namespace UmengPackage.Source
          
             foreach (string channel in Config.Candinate)
             {
-                index ++;
                 step = 0;
 
                 //totally, 6 steps
@@ -68,7 +67,8 @@ namespace UmengPackage.Source
                     CopyToWorkspace(channel);
 
                     monitor.ReportProgress(++step, index);
-                    
+
+                    index++;
                 }
                 catch (Exception e)
                 {
@@ -140,7 +140,7 @@ namespace UmengPackage.Source
 
             if (!File.Exists(unSignedApk))
             {
-                throw new Exception(string.Format("Can't find unsigned apk at {0}", unSignedApk));
+                throw new Exception(string.Format("打包错误,没有生成中间文件:{1}", unSignedApk));
             }
 
             if (File.Exists(unzipAlignedApk))
@@ -158,7 +158,7 @@ namespace UmengPackage.Source
 
             if (!File.Exists(unzipAlignedApk))
             {
-                throw new Exception(string.Format("Can't find unzipAligned apk at {0}", unzipAlignedApk));
+                throw new Exception(string.Format("签名错误，没有生成中间文件:{0}", unzipAlignedApk));
             }
             if (File.Exists(finalApk))
             {
@@ -174,7 +174,7 @@ namespace UmengPackage.Source
 
             if (apk_file == null || !File.Exists(apk_file))
             {
-                throw new Exception("Fail to generate .apk for " + channel);
+                throw new Exception("ZipAlign 错误，没有生成优化包 ");
             }
 
             string dst_file = generateDstFile(channel);
@@ -186,11 +186,10 @@ namespace UmengPackage.Source
         private string generateDstFile(string channel)
         {
 
-            string project_name = "";
-            string file_name = string.Format("{0}_{1}.apk", project_name, channel);
+            string file_name = string.Format("{0}_{1}.apk", ApplicationName, channel);
 
             string dst_path = Path.Combine(System.Environment.CurrentDirectory,
-                Path.Combine("output", project_name));
+                Path.Combine("output", ApplicationName));
 
             if (!Directory.Exists(dst_path))
             {

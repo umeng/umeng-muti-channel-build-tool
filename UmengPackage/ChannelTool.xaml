@@ -54,6 +54,14 @@
         </ComboBox>
         <shared:ImageButton FirstImage="/UmengPackage;component/Images/setting.png" SecondImage="/UmengPackage;component/Images/setting.png" Margin="615,7,166,413" 
                             Stretch="None" Click="OnEdit"/>
+
+        <StackPanel x:Name="PackageHint" Width="200" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                        Orientation="Horizontal" Visibility="Hidden" Margin="30,0,0,0">
+            <Viewbox Width="30" Height="30">
+                <shared:CircularProgressBar ToolTip="解析中..."/>
+            </Viewbox>
+            <TextBlock x:Name="PackageHintText" Text="正在生成渠道包..." VerticalAlignment="Center" Margin="8,0,0,0" Foreground="LightGray"/>
+        </StackPanel>
         
         <ListBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="750" Height="200" x:Name="Channels" Background="Transparent" Margin="30,30,2,1" 
                  HorizontalContentAlignment="Stretch">
@@ -66,8 +74,10 @@
                             <ImageBrush ImageSource="Images/channel_item.png" Stretch="None" />
                             </Rectangle.Fill>
                         </Rectangle>
-                        <TextBlock Text="{Binding ItemName}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Foreground="#FF9E9AA4" Margin="0,-8,0,0"/>
-                        <ProgressBar Style="{StaticResource progressbar_style}" Width="100" VerticalAlignment="Center" Margin="0,15,0,0" Value="{Binding Progress}"/>
+                        <TextBlock Text="{Binding ItemName}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" 
+                                   Foreground="#FF9E9AA4" Margin="0,-8,0,0"/>
+                        <ProgressBar Style="{StaticResource progressbar_style}" Width="100" VerticalAlignment="Center" Margin="0,15,0,0" 
+                                     Value="{Binding Progress}" Maximum="6"/>
                     </Grid>
                     <!--/Grid-->
                 </DataTemplate>
@@ -75,7 +85,8 @@
         </ListBox>
         
         <shared:ImageButton Content="一键打包" HorizontalAlignment="Left" Margin="585,349,0,26" FirstImage="/UmengPackage;component/Images/button_normal.png" 
-                           SecondImage="/UmengPackage;component/Images/button_click.png" FontSize="20" Foreground="#FFF8F5F5" Width="168" Stretch="Fill"/>
+                           SecondImage="/UmengPackage;component/Images/button_click.png" FontSize="20" Foreground="#FFF8F5F5" Width="168" Stretch="Fill"
+                           Click="btn_builder_Click" />
 
         <Grid Width="400" Height="180" Margin="10,253,350,19">
             <Border Background="#35333D" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
@@ -91,8 +102,8 @@
                               DragDrop.DragOver="dragDrop_Event"
                               DragDrop.DragLeave="dragDrop_Event">
 
-                            <StackPanel x:Name="ProcessHint" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                                        Orientation="Horizontal" Visibility="Hidden">
+                            <StackPanel x:Name="ParseHint" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                        Orientation="Horizontal" Visibility="Hidden" Margin="10,0,0,0">
                                 <Viewbox Width="30" Height="30">
                                     <shared:CircularProgressBar ToolTip="解析中..."/>
                                 </Viewbox>

@@ -21,11 +21,12 @@ namespace UmengPackage.Source
     class ApkBuilder : Builder
     {
         string PathToApktool { get; set; }
-        string PathToApkFile { get; set; }
         
-        public ApkBuilder(ProjectConfigration config, String projectName, String apkFile,BackgroundWorker monitor) : base(config, projectName, monitor)
+        DecodedApkStruct ApkFolderStruct { get; set; }
+        
+        public ApkBuilder(ProjectConfigration config,DecodedApkStruct das, BackgroundWorker monitor) : base(config, das.AppName, monitor)
         {
-            PathToApkFile = apkFile;
+            ApkFolderStruct = das;
         }
         
         public override void SetProjectEnvironmet()
@@ -50,11 +51,11 @@ namespace UmengPackage.Source
 
         public string GetTempFolder()
         {
-            return Path.Combine(CurrentDir, "temp");
+            return ApkFolderStruct.Root;
         }
         public override string GetAndroidManifestPath()
         {
-            return Path.Combine(CurrentDir, "temp", "AndroidManifest.xml");
+            return ApkFolderStruct.AxmlFile;
         }
 
         public override string GetUnsignedApk()
