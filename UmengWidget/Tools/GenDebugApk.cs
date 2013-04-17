@@ -28,7 +28,7 @@ namespace UmengWidget.Tools
             }
 
             File.Delete(dfs.LogFile);
-            File.WriteAllLines(apk, smali);
+            File.WriteAllLines( dfs.LogFile, smali);
 
             //Debug_ap
             Apktool.Build("DEBUG_" + apk);

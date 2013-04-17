@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UmengWidget.Tools
+namespace UmengWidget.Model
 {
-    class CheckAds
+    class Ads
     {
-        public void loadKeywords()
-        {
-
-        }
     }
 }

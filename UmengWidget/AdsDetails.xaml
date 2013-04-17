@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="UmengWidget.AdsDetails"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="400" HorizontalAlignment="Stretch">
+    <Grid Background="Black" Height="247">
+        <Label Foreground="White" Height="28" HorizontalAlignment="Left" Margin="59,9,0,0" VerticalAlignment="Top" Content="{Binding Appkey}"/>
+        <Label Foreground="White" Height="28" HorizontalAlignment="Left" Margin="252,11,0,0" VerticalAlignment="Top" Content="{Binding Channel}" />
+
+        <Label Content="集成组件" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="48,48,0,0" VerticalAlignment="Top" />
+        
+        <WrapPanel Name="container" Width="300" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="统计分析" Foreground="White" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Visibility="{Binding Analytics}"/>
+            <Label Content="自动更新" Foreground="White" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Visibility="{Binding Update}"/>
+            <Label Content="交叉推广" Foreground="White" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Visibility="{Binding XP}" />
+            <Label Content="双向反馈" Foreground="White" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Visibility="{Binding Feedback}"/>
+        </WrapPanel>
+    </Grid>
+</UserControl>

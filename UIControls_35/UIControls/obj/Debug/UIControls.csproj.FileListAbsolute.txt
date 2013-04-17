@@ -26,3 +26,5 @@ D:\Developer\workspace_silverlight\UmengTools\UIControls_35\UIControls\bin\Debug
 D:\Developer\workspace_silverlight\UmengTools\UIControls_35\UIControls\obj\Debug\UIControls.dll
 D:\Developer\workspace_silverlight\UmengTools\UIControls_35\UIControls\obj\Debug\CircularProgressBar.baml
 D:\Developer\workspace_silverlight\UmengTools\UIControls_35\UIControls\obj\Debug\CircularProgressBar.g.cs
+D:\Developer\workspace_silverlight\UmengTools\UIControls_35\UIControls\obj\Debug\SplitScreen.baml
+D:\Developer\workspace_silverlight\UmengTools\UIControls_35\UIControls\obj\Debug\SplitScreen.g.cs

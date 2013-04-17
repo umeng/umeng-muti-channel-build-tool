@@ -65,7 +65,7 @@ namespace CommonTools
             p.Start();
             p.BeginOutputReadLine();
             p.BeginErrorReadLine();
-            p.StandardInput.WriteLine(cmd + " 2> log\\e.txt");
+            p.StandardInput.WriteLine(cmd + " > log\\i.txt 2> log\\e.txt");
             p.StandardInput.WriteLine("exit");
             p.WaitForExit();
         }

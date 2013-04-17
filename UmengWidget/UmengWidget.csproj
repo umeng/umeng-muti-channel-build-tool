@@ -49,11 +49,20 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AdsDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UmengWidget.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="AdsDetails.xaml.cs">
+      <DependentUpon>AdsDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\Apktool.cs" />
+    <Compile Include="Model\Ads.cs" />
+    <Compile Include="Model\UmengMeta.cs" />
     <Compile Include="Tools\CheckAds.cs" />
     <Compile Include="Tools\GenDebugApk.cs" />
     <Compile Include="Tools\ShowMeta.cs" />
@@ -91,6 +100,13 @@
       <Project>{F2EF8B55-26CD-4F97-9C40-BDAFD3E18D14}</Project>
       <Name>CommonTools</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UIControls_35\UIControls\UIControls.csproj">
+      <Project>{A3082956-9EE4-4B35-9B4E-B07D0C4C8B56}</Project>
+      <Name>UIControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\spring.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

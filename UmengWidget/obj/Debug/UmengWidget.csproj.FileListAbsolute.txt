@@ -26,3 +26,7 @@ D:\Developer\workspace_silverlight\UmengTools\UmengWidget\obj\Debug\GenerateReso
 D:\Developer\workspace_silverlight\UmengTools\UmengWidget\obj\Debug\GenerateResource.write.1.tlog
 D:\Developer\workspace_silverlight\UmengTools\UmengWidget\obj\Debug\UmengWidget.dll
 D:\Developer\workspace_silverlight\UmengTools\UmengWidget\obj\Debug\UmengWidget.pdb
+D:\Developer\workspace_silverlight\UmengTools\UmengWidget\bin\Debug\UIControls.dll
+D:\Developer\workspace_silverlight\UmengTools\UmengWidget\bin\Debug\UIControls.pdb
+D:\Developer\workspace_silverlight\UmengTools\UmengWidget\obj\Debug\AdsDetails.baml
+D:\Developer\workspace_silverlight\UmengTools\UmengWidget\obj\Debug\AdsDetails.g.cs

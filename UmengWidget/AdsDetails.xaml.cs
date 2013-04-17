@@ -12,32 +12,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using UIControls;
+using UmengWidget.Tools;
+using UmengWidget.Model;
 
 namespace UmengWidget
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for AdsDetails.xaml
     /// </summary>
-    public partial class UmengWidget : UserControl
+    public partial class AdsDetails : UserControl
     {
-        public UmengWidget()
+        public AdsDetails()
         {
             InitializeComponent();
 
-            
+            DataContext = new UmengMeta();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            SplitScreen split = new SplitScreen(this.button, new Point(0, 0), this.bg);
-
-            //parse xaml and set to split screen
-
-            split.setView(new AdsDetails());
-
-            this.float_layer.Children.Add(split);
-        }
-
     }
 }
