@@ -15,6 +15,7 @@ using System.IO;
 using System.Xaml;
 using System.Windows.Media.Animation;
 
+
 namespace UIControls
 {
     /// <summary>
@@ -27,9 +28,9 @@ namespace UIControls
 
         
         private double splitLine;     // where the screen split
-        private double interval = 10; // interval between splitline and button.bottom
+        private double interval = 40; // interval between splitline and button.bottom
 
-        private Button button;
+        private ProgressButton button;
         private Storyboard sb = new Storyboard();
         private bool isEnd ; // animation start or end
 
@@ -51,24 +52,29 @@ namespace UIControls
         /// <param name="screen">backgroud image split</param>
         public SplitScreen(Button origin,Point dst, Grid screen): this()
         {
+            //this.Background = screen.Background;
+
             //copy button
             buttonOldPoint = origin.TranslatePoint(new Point(0, 0), screen);
 
             //TO-DO add some logic
             buttonNewPoint.X = buttonOldPoint.X ;
-
-            if (buttonNewPoint.Y > 50)
-            {
-                buttonNewPoint.Y = 50;
-            }
+            buttonNewPoint.Y = buttonOldPoint.Y ;
 
             splitLine = buttonOldPoint.Y + interval + origin.Height;
 
-            button = new Button();
+            button = new ProgressButton();
 
             button.Content = origin.Content;
             button.Width = origin.Width;
             button.Height = origin.Height;
+
+            button.FirstImage = (origin as ProgressButton).FirstImage;
+            button.SecondImage = (origin as ProgressButton).SecondImage;
+            button.CoverImage = (origin as ProgressButton).CoverImage;
+            button.RotatedImage = (origin as ProgressButton).RotatedImage;
+
+            button.State = State.Normal;
             button.Click += new RoutedEventHandler(button_Click);
 
             Canvas.SetLeft(button, buttonOldPoint.X);
@@ -83,7 +89,7 @@ namespace UIControls
 
             int height = (int)background.Height;
             int width = (int)background.Width;
-
+            
             var top = new CroppedBitmap(background, new Int32Rect(0, 0, width, (int)splitLine));
             var bottom = new CroppedBitmap(background, new Int32Rect(0, (int)splitLine, width, (int)(height - splitLine)));
 
@@ -98,11 +104,9 @@ namespace UIControls
 
             //generata container
             this.Container.Width = width;
-            this.Container.Height = 200;
+            this.Container.Height = 300;
 
             //animation
-            Storyboard sb = new Storyboard();
-            Duration du = new Duration(TimeSpan.FromSeconds(1));
             double verticalMove = buttonOldPoint.Y - buttonNewPoint.Y;
 
             translate(bg_top, 0, -verticalMove);
@@ -147,7 +151,6 @@ namespace UIControls
             {
                 parent.Children.Remove(this);
                 System.Diagnostics.Debug.WriteLine("animation end");
-
             }
         }
 

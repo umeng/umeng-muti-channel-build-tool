@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace CommonTools
 {
@@ -19,6 +20,9 @@ namespace CommonTools
         public string VersionName = null;
         public string VersionCode = null;
         public string IconPath = null;
+
+        public string Channel = null;
+        public string Appkey = null;
 
         private static Regex[] r = { 
                             new Regex("versionName=\"(.*?)\""),
@@ -77,21 +81,41 @@ namespace CommonTools
         {
             try
             {
-                string appInfo = File.ReadAllText(AxmlFile, Encoding.UTF8);
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AxmlFile);
 
-                string[] result = new string[r.Length];
 
-                for (int i = 0; i < r.Length; i++)
+                var attr_version = doc.DocumentElement.Attributes;
+
+                
+                VersionName = fetchString(attr_version["android:versionName"].Value);
+                VersionCode = fetchString(attr_version["android:versionCode"].Value);
+
+                var application = doc.GetElementsByTagName("application")[0];
+                var attr_app = application.Attributes;
+
+                AppName = fetchString(attr_app["android:label"].Value);
+
+                IconPath = searchLogo(attr_app["android:icon"].Value.Substring("@drawable/".Length) + ".png");
+
+
+                //update 
+                var mata = doc.GetElementsByTagName("meta-data");
+
+                foreach (XmlElement mata_data in mata)
                 {
-                    var g = r[i].Match(appInfo).Groups;
-                    result[i] = g[1].Value;
+                    if (mata_data.GetAttribute("android:name").Equals("UMENG_CHANNEL"))
+                    {
+                        Channel = mata_data.GetAttribute("android:value");
+                        continue;
+                    }
+
+                    if (mata_data.GetAttribute("android:name").Equals("UMENG_APPKEY"))
+                    {
+                        Appkey = mata_data.GetAttribute("android:value");
+                        continue;
+                    }
                 }
-
-                AppName = fetchString(result[3]);
-                VersionName = fetchString(result[0]);
-                VersionCode = fetchString(result[1]);
-
-                IconPath = searchLogo(result[2].Substring("@drawable/".Length) + ".png");
 
                 return this;
             }

@@ -14,9 +14,9 @@ namespace UmengWidget.Common
 
         public static DecodedApkStruct Decode(string apk)
         {
-            Aapt.DecodeApk(apk, TEMP);
+            Aapt.DecodeApkWithSource(apk, TEMP);
 
-            return new DecodedApkStruct( TEMP );
+            return new DecodedApkStruct( TEMP ).parseAxml();
         }
 
         public static void Build(string dstApk)

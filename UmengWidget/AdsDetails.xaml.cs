@@ -25,8 +25,12 @@ namespace UmengWidget
         public AdsDetails()
         {
             InitializeComponent();
-
-            DataContext = new UmengMeta();
         }
+
+        public AdsDetails(UmengMeta meta):this()
+        {
+            DataContext = meta;
+        }
+
     }
 }

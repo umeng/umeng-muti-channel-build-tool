@@ -55,6 +55,7 @@
     <Compile Include="CircularProgressBar.xaml.cs">
       <DependentUpon>CircularProgressBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProgressButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -112,6 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\thumb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CommonTools\CommonTools.csproj">
+      <Project>{F2EF8B55-26CD-4F97-9C40-BDAFD3E18D14}</Project>
+      <Name>CommonTools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

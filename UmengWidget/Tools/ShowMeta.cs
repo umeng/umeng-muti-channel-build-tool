@@ -19,7 +19,7 @@ namespace UmengWidget.Tools
     /// </summary>
     class ShowMeta
     {
-        private UmengMeta Meta;
+        private UmengMeta Meta = new UmengMeta();
 
         private string[] feature = {
                                     "http://alog.umeng.com/app_logs",
@@ -29,42 +29,21 @@ namespace UmengWidget.Tools
                                     };
 
         private bool[] mask = { false, false, false, false };
+        private string[] componets = {"统计分析","交换网络","分享组件","双向反馈","自动更新" };
 
         public UmengMeta run(string apk)
         {
             var apkStruct = Apktool.Decode(apk);
 
-            parseAppkeyAndChannel(apkStruct.AxmlFile);
+            Meta.Appkey = apkStruct.Appkey;
+            Meta.Channel = apkStruct.Channel;
+
             parsePackge(apkStruct.Smali);
 
             return Meta;
         }
 
-        private void parseAppkeyAndChannel(string pathToXaml)
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(pathToXaml);
-
-            //update 
-            XmlNodeList mata_datas = doc.GetElementsByTagName("meta-data");
-
-            foreach (XmlElement mata_data in mata_datas)
-            {
-                if (mata_data.GetAttribute("android:name").Equals("UMENG_CHANNEL"))
-                {
-                    Meta.Appkey = mata_data.GetAttribute("android:value");
-
-                    continue;
-                }
-
-                if (mata_data.GetAttribute("android:name").Equals("UMENG_APPKEY"))
-                {
-                    Meta.Channel = mata_data.GetAttribute("android:value");
-
-                    continue;
-                }
-            }
-        }
+       
 
         private void parsePackge(string root)
         {
@@ -78,24 +57,20 @@ namespace UmengWidget.Tools
                 seek(root);
             }
 
-            if (mask[0])
+            StringBuilder b = new StringBuilder();
+
+            for( int i = 0; i< mask.Length; i ++)
             {
-                Meta.Analytics = Visibility.Visible;
-            }
-            if (mask[1])
-            {
-                Meta.Update = Visibility.Visible;
+                if (mask[i])
+                {
+                    b.Append(componets[i]);
+                    b.Append("    ");
+                }
             }
 
-            if (mask[2])
-            {
-                Meta.Feedback = Visibility.Visible;
-            }
+            Meta.Components = b.ToString();
 
-            if (mask[3])
-            {
-                Meta.XP = Visibility.Visible;
-            }
+            System.Diagnostics.Debug.WriteLine(Meta.Components);
         }
 
         private void seek(string root)

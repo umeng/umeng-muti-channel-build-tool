@@ -111,6 +111,10 @@
         </ToggleButton>
         
         <share:HintTextBox Text="123" Width="130" Height="30" HintText="编辑标签" Margin="404,210,66,210" />
-        
+
+        <share:ProgressButton FirstImage="/UmengPackage;component/Images/button_normal.png" 
+                           SecondImage="/UmengPackage;component/Images/button_click.png" 
+                           Margin="185,291,300,105" Content="123" />
+
     </Grid>
 </UserControl>

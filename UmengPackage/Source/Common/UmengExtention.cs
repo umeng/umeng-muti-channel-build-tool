@@ -10,19 +10,6 @@ namespace UmengPackage.Source.Common
 {
     static class UmengExtention
     {
-        public static string ToCommand(this List<string> cmd)
-        {
-
-            StringBuilder msb = new StringBuilder();
-
-            foreach (string p in cmd)
-            {
-                msb.Append(p);
-                msb.Append(" ");
-            }
-
-            return msb.ToString();
-        }
 
         public static string ToSafePathString(this String path)
         {
@@ -63,11 +50,6 @@ namespace UmengPackage.Source.Common
         public static bool isConfigFile(this string configFile)
         {
             return configFile.StartsWith("setting@");
-        }
-
-        public static bool isApkFile(this string apkFile)
-        {
-            return apkFile.ToLower().EndsWith(".apk");
         }
 
         public static ChannelItem find(this ObservableCollection<ChannelItem> list, string name)

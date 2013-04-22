@@ -9,7 +9,7 @@ namespace UmengWidget.Model
 {
     public class UmengMeta : INotifyPropertyChanged
     {
-        private string appkey = "Appkey:1231w12asdq23r2";
+        private string appkey = "";
         public string Appkey
         {
             get { return appkey; }
@@ -23,7 +23,7 @@ namespace UmengWidget.Model
             }
         }
 
-        private string channel = "Channel:GooglePlay";
+        private string channel = "";
         public string Channel
         {
             get { return channel; }
@@ -37,72 +37,16 @@ namespace UmengWidget.Model
             }
         }
 
-        private Visibility analytics;
-        public Visibility Analytics
+        private string components = "";
+        public string Components
         {
-            get { return analytics; }
+            get { return components; }
             set
             {
-                if (value != analytics)
+                if (value != components)
                 {
-                    analytics = value;
-                    NotifyPropertyChanged("Analytics");
-                }
-            }
-        }
-
-        private Visibility update;
-        public Visibility Update
-        {
-            get { return analytics; }
-            set
-            {
-                if (value != update)
-                {
-                    update = value;
-                    NotifyPropertyChanged("Update");
-                }
-            }
-        }
-
-        private Visibility feedback;
-        public Visibility Feedback
-        {
-            get { return feedback; }
-            set
-            {
-                if (value != feedback)
-                {
-                    feedback = value;
-                    NotifyPropertyChanged("Feedback");
-                }
-            }
-        }
-
-        private Visibility xp;
-        public Visibility XP
-        {
-            get { return xp; }
-            set
-            {
-                if (value != xp)
-                {
-                    xp = value;
-                    NotifyPropertyChanged("XP");
-                }
-            }
-        }
-
-        private Visibility social;
-        public Visibility Social
-        {
-            get { return social; }
-            set
-            {
-                if (value != social)
-                {
-                    social = value;
-                    NotifyPropertyChanged("Social");
+                    components = value;
+                    NotifyPropertyChanged("Components");
                 }
             }
         }

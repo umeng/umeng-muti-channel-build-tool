@@ -84,7 +84,7 @@ namespace UmengPackage.Source.Model
                 AppName = dfs.AppName;
                 AppVersionName = dfs.VersionName;
                 AppVersionCode = dfs.VersionCode;
-                AppSize = formatFileSize(apkPath);
+                AppSize = apkPath.formatFileSize();
 
                 if (File.Exists(dfs.IconPath))
                 {
@@ -196,20 +196,6 @@ namespace UmengPackage.Source.Model
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
-        }
-
-        private string formatFileSize(string filename)
-        {
-            string[] sizes = { "B", "K", "M", "G" };
-            double len = new FileInfo(filename).Length;
-            int order = 0;
-            while (len >= 1024 && order + 1 < sizes.Length)
-            {
-                order++;
-                len = len / 1024;
-            }
-
-            return String.Format("{0:0.##} {1}", len, sizes[order]);
-        }
+        } 
     }
 }

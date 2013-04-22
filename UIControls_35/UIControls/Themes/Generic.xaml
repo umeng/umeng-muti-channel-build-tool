@@ -83,6 +83,89 @@
         </Setter>
     </Style>
 
+    <Style x:Key="{x:Type l:ProgressButton}" TargetType="{x:Type l:ProgressButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type l:ProgressButton}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
+                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.8"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        
+                        <Border x:Name="border" BorderBrush="{x:Null}" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Margin="0" 
+                                VerticalAlignment="Stretch" CornerRadius="0" Opacity="1">
+                            <Border.Background>
+                                <ImageBrush x:Name="button_bg" ImageSource="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                        Path=FirstImage}" Stretch="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                        Path=Stretch}"/>
+                            </Border.Background>
+
+                        </Border>
+
+                        <Image x:Name="rotated" Source="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                        Path=RotatedImage}" >
+                        </Image>
+
+                        <Image x:Name="foreground" Source="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                        Path=CoverImage}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True"/>
+                        <Trigger Property="IsDefaulted" Value="True"/>
+                        <Trigger Property="IsEnabled" Value="False"/>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false"/>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" TargetName="border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                        Path=SecondImage}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiTrigger>
+                        
+                        <Trigger Property="State" Value="Working">
+                            <Setter Property="RenderTransform" TargetName="rotated">
+                                <Setter.Value>
+                                    <RotateTransform Angle="0" CenterX="36" CenterY="36"/>
+                                </Setter.Value>
+                            </Setter>
+                            
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Angle" Storyboard.TargetName="rotated"
+                                                         From="0" To="360" Duration="0:0:1.5" RepeatBehavior="Forever" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
   <SolidColorBrush x:Key="SearchTextBox_Background" Color="White" />
   <SolidColorBrush x:Key="SearchTextBox_Foreground" Color="Black" />

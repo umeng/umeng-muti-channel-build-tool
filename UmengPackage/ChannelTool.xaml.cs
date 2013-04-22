@@ -19,6 +19,8 @@ using UmengPackage.Source;
 using System.Collections.ObjectModel;
 using System.Threading;
 
+using CommonTools;
+
 namespace UmengPackage
 {
     /// <summary>

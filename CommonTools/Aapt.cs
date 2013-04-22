@@ -62,6 +62,24 @@ namespace CommonTools
             Sys.Run(cmd.ToCommand());
         }
 
+        public static void DecodeApkWithSource(string pathToApkFile, string pathToDecodeFolder)
+        {
+            if (!File.Exists(pathToApkFile))
+            {
+                throw new Exception("Target apk is missing..");
+            }
+
+            List<String> cmd = new List<string>();
+            cmd.Add(mPathToApktool);
+            cmd.Add("d");
+            cmd.Add("-f");
+            cmd.Add(string.Format("\"{0}\"", pathToApkFile));
+            cmd.Add(string.Format("\"{0}\"", pathToDecodeFolder));
+
+            Sys.Run(cmd.ToCommand());
+        }
+
+
         public static void BuildApk(string pathToDecodeFolder, string pathToDstApk)
         {
             if (File.Exists(pathToDstApk))

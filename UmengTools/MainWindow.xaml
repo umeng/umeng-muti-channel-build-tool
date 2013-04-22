@@ -243,7 +243,7 @@
                             <ImageBrush ImageSource="skin/ico/widget.png" Stretch="None" />
                         </TabItem.Background>
                         <Grid Background="#242328" Width="816">
-                            <Grid x:Name="index_grid2" Margin="8,12,8,8">
+                            <Grid x:Name="index_grid2" Margin="0">
                                     <widgetPage:UmengWidget/>
                             </Grid>
                         </Grid>

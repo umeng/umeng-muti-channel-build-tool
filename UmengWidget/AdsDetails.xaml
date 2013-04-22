@@ -4,18 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="400" HorizontalAlignment="Stretch">
-    <Grid Background="Black" Height="247">
-        <Label Foreground="White" Height="28" HorizontalAlignment="Left" Margin="59,9,0,0" VerticalAlignment="Top" Content="{Binding Appkey}"/>
-        <Label Foreground="White" Height="28" HorizontalAlignment="Left" Margin="252,11,0,0" VerticalAlignment="Top" Content="{Binding Channel}" />
-
-        <Label Content="集成组件" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="48,48,0,0" VerticalAlignment="Top" />
-        
-        <WrapPanel Name="container" Width="300" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="统计分析" Foreground="White" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Visibility="{Binding Analytics}"/>
-            <Label Content="自动更新" Foreground="White" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Visibility="{Binding Update}"/>
-            <Label Content="交叉推广" Foreground="White" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Visibility="{Binding XP}" />
-            <Label Content="双向反馈" Foreground="White" Height="28" HorizontalAlignment="Right" VerticalAlignment="Top" Width="150" Visibility="{Binding Feedback}"/>
-        </WrapPanel>
+             Height="300" Width="800" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid>
+        <Border Background="#E6E6E6" BorderBrush="DarkGray" BorderThickness="1" ClipToBounds="True">
+            <Border Background="Transparent" BorderBrush="Black" BorderThickness="0,10,0,0" Margin="0,-11,0,0">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+                </Border.Effect>
+            </Border>
+        </Border>
+        <Grid Margin="10">
+            <Label Foreground="#5B5A61" Height="28" HorizontalAlignment="Left" Margin="66,36,0,0" VerticalAlignment="Top" Content="APPKey:"/>
+            <Label Foreground="#A3A0A4" Height="28" HorizontalAlignment="Left" Margin="153,36,0,0" VerticalAlignment="Top" Content="{Binding Appkey}"/>
+            <Label Foreground="#5B5A61" Height="28" HorizontalAlignment="Left" Margin="66,66,0,0" VerticalAlignment="Top" Content="渠     道:"/>
+            <Label Foreground="#A3A0A4" Height="28" HorizontalAlignment="Left" Margin="153,65,0,0" VerticalAlignment="Top" Content="{Binding Channel}" />
+            <Label Content="集成组件:" Foreground="#5B5A61" Height="28" HorizontalAlignment="Left" Margin="65,93,0,0" VerticalAlignment="Top" />
+            <Label Foreground="#A3A0A4" Height="28" HorizontalAlignment="Left" Margin="153,94,0,0" VerticalAlignment="Top" Content="{Binding Components}" />
+        </Grid>
     </Grid>
 </UserControl>
