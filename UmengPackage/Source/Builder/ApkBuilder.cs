@@ -35,7 +35,6 @@ namespace UmengPackage.Source
             PathToApktool = Path.Combine(CurrentDir, "tools", "apktool", "apktool.bat"); 
         }
 
-        
 
         public override void BuildUnsignedApk()
         {

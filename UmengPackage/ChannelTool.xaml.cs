@@ -182,7 +182,7 @@ namespace UmengPackage
 
             int step = e.ProgressPercentage;
 
-            if (index < AvailabelChannels.Count)
+            if (index >= 0 && index < AvailabelChannels.Count)
             {
                 Channels.SelectedIndex = index;
                 AvailabelChannels[index].Progress = step;
@@ -201,8 +201,11 @@ namespace UmengPackage
 
             else if (!(e.Error == null))
             {
+
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append(e.Error.Message);
+                sb.Append("\n\r");
+                sb.Append(e.Error.StackTrace);
                 sb.Append("\n\n");
                 sb.Append("查看 /log/i.txt 详细错误信息");
                 MessageBox.Show(sb.ToString());

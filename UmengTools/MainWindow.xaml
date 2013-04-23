@@ -212,7 +212,7 @@
                 
                 <Button x:Name="closebutton" Content="Button" HorizontalAlignment="Right" Margin="0,1.037,0.704,0.963" Style="{DynamicResource close_button}" Width="40" Click="closebutton_Click"/>
                 <Button x:Name="minibutton" Content="Button" HorizontalAlignment="Right" Margin="0,1.037,40.704,0.963" Style="{DynamicResource mini_button}" Width="40" Click="minibutton_Click"/>
-                <Button x:Name="menubutton" Content="Button" HorizontalAlignment="Right" Margin="0,1.037,80.704,0.963" Style="{DynamicResource menu_button}" Width="40"/>
+                <Button x:Name="menubutton" Content="Button" HorizontalAlignment="Right" Margin="0,1.037,80.704,0.963" Style="{DynamicResource menu_button}" Width="40" Click="menubutton_Click"/>
 
 
                 <TabControl x:Name="roottab" Margin="0" Grid.Row="1" Style="{DynamicResource TabControlStyle}" Width="800">                   
@@ -224,7 +224,7 @@
                                 <mainPage:ChannelTool/>
                         </Grid>
                     </TabItem>
-                    <TabItem Header="SDK市场" Height="83" Margin="120,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
+                    <!--TabItem Header="SDK市场" Height="83" Margin="120,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
                                 <ImageBrush ImageSource="Images/market.png" Stretch="None" />
                         </TabItem.Background>
@@ -233,8 +233,8 @@
                                   <mainPage:UserControl1/>
                             </Grid>
                         </Grid>
-                    </TabItem>
-                    <TabItem Header="小工具" Height="83" Margin="220,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
+                    </TabItem-->
+                    <TabItem Header="小工具" Height="83" Margin="120,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
                                 <ImageBrush ImageSource="Images/widget.png" Stretch="None" />
                         </TabItem.Background>

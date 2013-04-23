@@ -62,6 +62,8 @@ namespace CommonTools
 
         public void run(string cmd)
         {
+            Log.StaticCreateDirectory();
+
             p.Start();
             p.BeginOutputReadLine();
             p.BeginErrorReadLine();

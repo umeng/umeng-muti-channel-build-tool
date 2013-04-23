@@ -21,7 +21,11 @@ namespace CommonTools
 
 		private static readonly string ii = null;
         private static readonly string ee = null;
-		
+
+        public static void StaticCreateDirectory()
+        {
+        }
+
 		static Log()
 		{
 			if(!Directory.Exists("log"))

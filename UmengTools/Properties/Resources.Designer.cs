@@ -59,19 +59,5 @@ namespace UmengTools.Properties {
                 resourceCulture = value;
             }
         }
-        
-        internal static byte[] SignApk {
-            get {
-                object obj = ResourceManager.GetObject("SignApk", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        internal static byte[] zipalign {
-            get {
-                object obj = ResourceManager.GetObject("zipalign", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

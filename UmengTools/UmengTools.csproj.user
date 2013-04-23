@@ -3,13 +3,13 @@
   <PropertyGroup>
     <PublishUrlHistory>C:\Users\ntop\Desktop\|publish\</PublishUrlHistory>
     <InstallUrlHistory>\\10.18.103.226\share\</InstallUrlHistory>
-    <SupportUrlHistory />
+    <SupportUrlHistory>http://www.umeng.com</SupportUrlHistory>
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
     <ErrorReportUrlHistory />
     <FallbackCulture>en-US</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup>
     <EnableSecurityDebugging>false</EnableSecurityDebugging>

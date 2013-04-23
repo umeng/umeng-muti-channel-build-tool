@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
   <channels>
-    <item>channel0</item>
     <item>channel1</item>
     <item>channel2</item>
     <item>channel3</item>

@@ -122,13 +122,13 @@ namespace CommonTools
             cmd.Add("-jar");
             cmd.Add( mPathToSigner );
 
-            cmd.Add(keystore);
+            cmd.Add(string.Format("\"{0}\"",keystore));
             cmd.Add(storepw);
             cmd.Add(entry);
             cmd.Add(keypw);
 
-            cmd.Add(unSignedApk);
-            cmd.Add(unzipAlignedApk);
+            cmd.Add(string.Format("\"{0}\"",unSignedApk));
+            cmd.Add(string.Format("\"{0}\"",unzipAlignedApk));
 
             Sys.Run(cmd.ToCommand());
         }
@@ -151,8 +151,8 @@ namespace CommonTools
             cmd.Add( mPathToZipAlign );
             cmd.Add("-v");
             cmd.Add("4");
-            cmd.Add(unzipAlignedApk); //input apk
-            cmd.Add(finalApk); //output apk
+            cmd.Add(string.Format("\"{0}\"",unzipAlignedApk)); //input apk
+            cmd.Add(string.Format("\"{0}\"",finalApk)); //output apk
 
             Sys.Run(cmd.ToCommand());
         }

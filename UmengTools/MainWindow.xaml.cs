@@ -19,6 +19,7 @@ namespace UmengTools
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,6 +39,13 @@ namespace UmengTools
         private void minibutton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        private void menubutton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("友盟渠道打包工具\n"+
+                            "源码地址：\n"+
+                            "https://github.com/umeng");
         }
     }
 }
