@@ -7,10 +7,6 @@
         WindowStyle="None" WindowStartupLocation="CenterScreen" Background="{x:Null}" AllowsTransparency="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Title="MainWindow" Height="600" Width="800" xmlns:my="clr-namespace:System;assembly=mscorlib">
-
-    <!--xmlns:mainPage="clr-namespace:UmengPackage;assembly=UmengPackage"
-        xmlns:marketPage="clr-namespace:UmengMarket;assembly=UmengMarket"
-        xmlns:widgetPage="clr-namespace:UmengWidget;assembly=UmengWidget"-->
     
     <Window.Resources>
         <LinearGradientBrush x:Key="MyBrush" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -62,7 +58,7 @@
                                 </Border.BorderBrush>
                                 <Rectangle Margin="-0.2,1,0,0" Height="18.46" VerticalAlignment="Top">
                                     <Rectangle.Fill>
-                                        <ImageBrush ImageSource="skin/Button/x1.png"/>
+                                        <ImageBrush ImageSource="Images/Button/close.png"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </Border>
@@ -122,7 +118,7 @@
                                 </Border.BorderBrush>
                                 <Rectangle Margin="0,0,-0.5,0">
                                     <Rectangle.Fill>
-                                        <ImageBrush ImageSource="skin/Button/MNI.png"/>
+                                        <ImageBrush ImageSource="Images/Button/min.png"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </Border>
@@ -176,7 +172,7 @@
                             <Border BorderThickness="0.5,0,0,0">
                                 <Rectangle Margin="0" StrokeThickness="0" Height="15">
                                     <Rectangle.Fill>
-                                        <ImageBrush ImageSource="skin/Button/M.png"/>
+                                        <ImageBrush ImageSource="Images/Button/menu.png"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </Border>
@@ -222,7 +218,7 @@
                 <TabControl x:Name="roottab" Margin="0" Grid.Row="1" Style="{DynamicResource TabControlStyle}" Width="800">                   
                     <TabItem Header="一键打包" Height="83" Margin="20,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
-                            <ImageBrush ImageSource="skin/ico/package.png" Stretch="None" />
+                            <ImageBrush ImageSource="Images/package.png" Stretch="None" />
                         </TabItem.Background>
                         <Grid Margin="0,-20,0,0" Background="#242328" Width="800" >
                                 <mainPage:ChannelTool/>
@@ -230,7 +226,7 @@
                     </TabItem>
                     <TabItem Header="SDK市场" Height="83" Margin="120,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
-                            <ImageBrush ImageSource="skin/ico/market.png" Stretch="None" />
+                                <ImageBrush ImageSource="Images/market.png" Stretch="None" />
                         </TabItem.Background>
                         <Grid Background="#242328" Width="800">
                             <Grid x:Name="index_grid1" Margin="8,12,8,8">
@@ -240,7 +236,7 @@
                     </TabItem>
                     <TabItem Header="小工具" Height="83" Margin="220,0,0,0" Width="100" Style="{DynamicResource TabItemStyle}">
                         <TabItem.Background>
-                            <ImageBrush ImageSource="skin/ico/widget.png" Stretch="None" />
+                                <ImageBrush ImageSource="Images/widget.png" Stretch="None" />
                         </TabItem.Background>
                         <Grid Background="#242328" Width="816">
                             <Grid x:Name="index_grid2" Margin="0">

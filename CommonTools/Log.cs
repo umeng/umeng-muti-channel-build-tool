@@ -24,15 +24,13 @@ namespace CommonTools
 		
 		static Log()
 		{
-			if(!Directory.Exists(Path.Combine(System.Environment.CurrentDirectory, "log")))
+			if(!Directory.Exists("log"))
 			{
-				Directory.CreateDirectory(Path.Combine(System.Environment.CurrentDirectory, "log"));
+				Directory.CreateDirectory("log");
 			}
 			
-			ii = Path.Combine(System.Environment.CurrentDirectory,
-                Path.Combine("log" ,"i.txt"));
-            ee = Path.Combine(System.Environment.CurrentDirectory,
-                Path.Combine("log", "e.txt"));
+			ii = Path.Combine("log" ,"i.txt");
+            ee = Path.Combine("log", "e.txt");
 			
 			if(File.Exists(ii) && (new FileInfo(ii).Length > 1024*1024))
 			{

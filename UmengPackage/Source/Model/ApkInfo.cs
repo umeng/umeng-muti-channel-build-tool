@@ -27,7 +27,7 @@ namespace UmengPackage.Source.Model
         /// <summary>
         /// Same as ApkBuild's temp folder
         /// </summary>
-        private static string mTempFolder = Path.Combine(Environment.CurrentDirectory, "temp");
+        private static string mTempFolder = "temp";
         private DecodedApkStruct mDeApkStruct = null;
 
         public DecodedApkStruct DeApkStruct
@@ -151,12 +151,12 @@ namespace UmengPackage.Source.Model
         private string appVersionCode;
         public string AppVersionCode
         {
-            get { return appName; }
+            get { return appVersionCode; }
             set
             {
-                if (appName != value)
+                if (appVersionCode != value)
                 {
-                    appName = value;
+                    appVersionCode = value;
                     NotifyPropertyChanged("AppVersionCode");
                 }
             }

@@ -10,7 +10,7 @@ namespace UmengWidget.Common
 {
     public class Apktool
     {
-        private static readonly string TEMP = Path.Combine(Environment.CurrentDirectory, "widget_temp");
+        private static readonly string TEMP = "widget_temp";
 
         public static DecodedApkStruct Decode(string apk)
         {

@@ -119,7 +119,9 @@ namespace CommonTools
 
                 return this;
             }
-            catch(Exception e) { }
+            catch(Exception e) {
+                throw new Exception("Parsing 'AndroidManifest.xml' error : " + e.Message);
+            }
 
             return null;
         }

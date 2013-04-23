@@ -14,8 +14,8 @@ namespace UmengPackage.Source
 {
     abstract class Builder
     {
-        private readonly string pathToJarsigner = Path.Combine(Environment.CurrentDirectory, "tools", "SignApk.jar");
-        private readonly string pathToZipalign = Path.Combine(Environment.CurrentDirectory, "tools", "zipalign.exe");
+        private readonly string pathToJarsigner = Path.Combine("tools", "SignApk.jar");
+        private readonly string pathToZipalign = Path.Combine("tools", "zipalign.exe");
         //BackgroudWorker monitor ,used to publish progress
         protected BackgroundWorker monitor;
         public ProjectConfigration Config { get; set; }
@@ -24,15 +24,17 @@ namespace UmengPackage.Source
         
         public Builder() 
         {
-            CurrentDir = System.Environment.CurrentDirectory;
+            CurrentDir = "apk_temp";
+            if (!Directory.Exists(CurrentDir))
+            {
+                Directory.CreateDirectory(CurrentDir);
+            }
         }
-        public Builder(ProjectConfigration config, String applicationName, BackgroundWorker bw) 
+        public Builder(ProjectConfigration config, String applicationName, BackgroundWorker bw):this()
         {
             Config = config;
             ApplicationName = applicationName;
             monitor = bw;
-
-            CurrentDir = System.Environment.CurrentDirectory;
         }
 
         public abstract void Backup();
@@ -180,7 +182,7 @@ namespace UmengPackage.Source
             string dst_file = generateDstFile(channel);
             if (File.Exists(dst_file)) File.Delete(dst_file);
 
-            File.Copy(apk_file, dst_file);
+            File.Move(apk_file, dst_file);
         }
 
         private string generateDstFile(string channel)
@@ -188,8 +190,7 @@ namespace UmengPackage.Source
 
             string file_name = string.Format("{0}_{1}.apk", ApplicationName, channel);
 
-            string dst_path = Path.Combine(System.Environment.CurrentDirectory,
-                Path.Combine("output", ApplicationName));
+            string dst_path = Path.Combine("output", ApplicationName);
 
             if (!Directory.Exists(dst_path))
             {

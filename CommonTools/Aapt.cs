@@ -10,10 +10,10 @@ namespace CommonTools
 {
     public class Aapt
     {
-        private static string mPathToAapt = Path.Combine(Environment.CurrentDirectory, "tools", "apktool", "aapt.exe");
-        private static string mPathToApktool = Path.Combine(Environment.CurrentDirectory, "tools", "apktool", "apktool.bat");
-        private static string mPathToSigner = Path.Combine(Environment.CurrentDirectory, "tools", "SignApk.jar");
-        private static string mPathToZipAlign = Path.Combine(Environment.CurrentDirectory, "tools", "zipalign.exe");
+        private static string mPathToAapt = Path.Combine( "tools", "apktool", "aapt.exe");
+        private static string mPathToApktool = Path.Combine( "tools", "apktool", "apktool.bat");
+        private static string mPathToSigner = Path.Combine( "tools", "SignApk.jar");
+        private static string mPathToZipAlign = Path.Combine( "tools", "zipalign.exe");
         
         /// <summary>
         /// return 

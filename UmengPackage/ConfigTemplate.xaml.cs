@@ -331,11 +331,8 @@ namespace UmengPackage
             get { return keystore_file_path; }
             set
             {
-                if (value != keystore_file_path)
-                {
-                    keystore_file_path = value;
-                    NotifyPropertyChanged("KeystoreFilePath");
-                }
+                keystore_file_path = value;
+                NotifyPropertyChanged("KeystoreFilePath");
             }
         }
 

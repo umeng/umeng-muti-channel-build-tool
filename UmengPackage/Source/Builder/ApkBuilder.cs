@@ -70,7 +70,7 @@ namespace UmengPackage.Source
 
         public override string GetFinalApk(string channel)
         {
-            return Path.Combine(CurrentDir, string.Format("{0}-{1}", ApplicationName, channel));
+            return Path.Combine(CurrentDir, string.Format("{0}-{1}.apk", ApplicationName, channel));
         }
 
         public override void Backup()

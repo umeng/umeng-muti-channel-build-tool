@@ -33,7 +33,7 @@ namespace UmengPackage.Source.Model
 
         static ProjectConfigration()
         {
-            Config_Path = Path.Combine(System.Environment.CurrentDirectory, "projects");
+            Config_Path = "projects";
         }
 
         public ProjectConfigration(){}

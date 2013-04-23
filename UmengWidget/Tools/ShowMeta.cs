@@ -12,6 +12,31 @@ using System.Windows;
 
 namespace UmengWidget.Tools
 {
+    class Component
+    {
+        public string Feature;
+        public bool Mask;
+
+        public string Name;
+
+        public Component(string name, string feature)
+        {
+            Name = name;
+            Feature = feature;
+
+            Mask = false;
+        }
+
+        public bool Match(string text)
+        {
+            if (!Mask && text.Contains(Feature))
+            {
+                Mask = true;
+            }
+
+            return Mask;
+        }
+    }
     /// <summary>
     /// Get:
     /// Appkey,
@@ -21,15 +46,13 @@ namespace UmengWidget.Tools
     {
         private UmengMeta Meta = new UmengMeta();
 
-        private string[] feature = {
-                                    "http://alog.umeng.com/app_logs",
-                                    "http://au.umeng.com/api/check_app_update",
-                                    "http://feedback.whalecloud.com/feedback",
-                                    "http://ex.puata.info"
-                                    };
-
-        private bool[] mask = { false, false, false, false };
-        private string[] componets = {"统计分析","交换网络","分享组件","双向反馈","自动更新" };
+        int[] arr1Line = {1, 2, 3, 4, 5};
+        
+        private Component[] Componets = {   new Component("统计分析","http://alog.umeng.com/app_logs"),
+                                            new Component("交换网络", "http://ex.puata.info"),
+                                            new Component("双向反馈","http://feedback.whalecloud.com/feedback"),
+                                            new Component("自动更新","http://au.umeng.com/api/check_app_update")
+                                        };
 
         public UmengMeta run(string apk)
         {
@@ -59,11 +82,11 @@ namespace UmengWidget.Tools
 
             StringBuilder b = new StringBuilder();
 
-            for( int i = 0; i< mask.Length; i ++)
+            for (int i = 0; i < Componets.Length; i++)
             {
-                if (mask[i])
+                if (Componets[i].Mask)
                 {
-                    b.Append(componets[i]);
+                    b.Append(Componets[i].Name);
                     b.Append("    ");
                 }
             }
@@ -75,7 +98,7 @@ namespace UmengWidget.Tools
 
         private void seek(string root)
         {
-            if (mask[0] && mask[1] && mask[2] && mask[3])
+            if (Componets[0].Mask && Componets[1].Mask && Componets[2].Mask && Componets[3].Mask)
             {
                 return;
             }
@@ -86,12 +109,9 @@ namespace UmengWidget.Tools
             {
                 string content = File.ReadAllText(file);
 
-                for(int i = 0; i < feature.Length; i ++)
+                foreach( Component c in Componets)
                 {
-                    if( content.Contains(feature[i]))
-                    {
-                        mask[i] = true;
-                    }
+                    c.Match(content);
                 }
             }
 

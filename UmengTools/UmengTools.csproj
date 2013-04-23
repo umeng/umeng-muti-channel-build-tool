@@ -143,13 +143,9 @@
     <None Include="UmengTools_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="skin\Button\M.png" />
-    <Resource Include="skin\Button\MAX.png" />
-    <Resource Include="skin\Button\MNI.png" />
-    <Resource Include="skin\Button\x1.png" />
-    <Resource Include="skin\ico\toolbar_hover.png" />
-    <Resource Include="skin\ico\toolbar_pushed.png" />
-    <Resource Include="skin\kk2.jpg" />
+    <Resource Include="Images\Button\menu.png" />
+    <Resource Include="Images\Button\min.png" />
+    <Resource Include="Images\Button\close.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">
@@ -173,28 +169,11 @@
       <Name>UmengWidget</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="skin\ico\market_disable.png" />
-    <Resource Include="skin\ico\widget_disable.png" />
-    <Resource Include="skin\ico\package_normal.png" />
-    <Resource Include="skin\ico\market_normal.png" />
-    <Resource Include="skin\ico\widget_normal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="skin\Button\nav_close_normal.png" />
-    <Resource Include="skin\Button\nav_menu_disabler.png" />
-    <Resource Include="skin\Button\nav_menu_normal.png" />
-    <Resource Include="skin\Button\nav_min_disable.png" />
-    <Resource Include="skin\Button\nav_min_normal_s.png" />
-    <Resource Include="skin\Button\nav__close_disable.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="skin\ico\market.png" />
-    <Resource Include="skin\ico\package.png" />
-    <Resource Include="skin\ico\widget.png" />
+    <Resource Include="Images\market.png" />
+    <Resource Include="Images\package.png" />
+    <Resource Include="Images\widget.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="output.ico" />

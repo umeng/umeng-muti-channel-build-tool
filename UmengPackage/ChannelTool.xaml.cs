@@ -28,8 +28,9 @@ namespace UmengPackage
     /// </summary>
     public partial class ChannelTool : UserControl
     {
-        private string mApkFile = "Drag APK Here";
         private string mConfigFile = null;
+
+        private int mSelectedConfigIndex = 0;
 
         private ObservableCollection<string> CandinateConfigrationFiles = new ObservableCollection<string>();
         private ObservableCollection<ShowItem> AvailabelChannels = new ObservableCollection<ShowItem>();
@@ -42,15 +43,44 @@ namespace UmengPackage
         public ChannelTool()
         {
             InitializeComponent();
-
             InitBackgroundWorker();
-
-            LoadConfigrationAndBindList();
+            LoadConfigration();
 
             DataContext = mApkInfo;
+            settingList.SelectionChanged += new SelectionChangedEventHandler(settingList_SelectionChanged);
+
+            var setting = Preferences.getDefault();
+
+            mSelectedConfigIndex = setting.getInt("selected_index") ?? 0;
+
+            BindList();
+
+            Application.Current.MainWindow.Closed += new EventHandler(MainWindow_Closed);
         }
 
-        private void LoadConfigrationAndBindList()
+        private void ResetChannelState()
+        {
+            foreach (ShowItem item in AvailabelChannels)
+            {
+                item.Progress = 0;
+            }
+        }
+
+        void settingList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mSelectedConfigIndex = settingList.SelectedIndex;
+
+            BindList();
+        }
+
+        void MainWindow_Closed(object sender, EventArgs e)
+        {
+            var editor = Preferences.getDefault().Editor();
+
+            editor.WriteInt("selected_index", mSelectedConfigIndex).Commit();
+        }
+
+        private void LoadConfigration()
         {
             if (CandinateConfigrationFiles.Count > 0)
             {
@@ -67,16 +97,26 @@ namespace UmengPackage
             }
 
             this.settingList.ItemsSource = CandinateConfigrationFiles;
+        }
+
+        private void BindList()
+        {
+            if (mSelectedConfigIndex < 0 || mSelectedConfigIndex >= CandinateConfigrationFiles.Count)
+            {
+                mSelectedConfigIndex = 0;
+            }
+
+            this.settingList.SelectedIndex = mSelectedConfigIndex;
 
             if (CandinateConfigrationFiles.Count > 0)
             {
-                var config = ProjectConfigration.readSettingFromFile(CandinateConfigrationFiles[0]);
-                
+                var config = ProjectConfigration.readSettingFromFile(CandinateConfigrationFiles[mSelectedConfigIndex]);
+
                 AvailabelChannels.Clear();
 
                 foreach (string item in config.Candinate)
                 {
-                    AvailabelChannels.Add(new ShowItem(item,0));
+                    AvailabelChannels.Add(new ShowItem(item, 0));
                 }
             }
 
@@ -94,7 +134,8 @@ namespace UmengPackage
 
             if (result != null)
             {
-                LoadConfigrationAndBindList();
+                LoadConfigration();
+                BindList();
             }
         }
        
@@ -169,7 +210,16 @@ namespace UmengPackage
 
             else
             {
-                MessageBox.Show("渠道打包完成");
+                string path = System.IO.Path.Combine("output", mApkInfo.AppName);
+
+                if (MessageBox.Show(String.Format("打开目录：\n {0} ", path), "渠道打包完成", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.No)
+                {
+                    //do nothing
+                }
+                else
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", path);
+                }
             }
         }
 
@@ -200,7 +250,7 @@ namespace UmengPackage
 
         private void processFile(string path)
         {
-            System.Diagnostics.Debug.WriteLine( path );
+            ResetChannelState();
             
             this.ParseHint.Visibility = Visibility.Visible;
             // About apk file
@@ -235,6 +285,8 @@ namespace UmengPackage
                     return;
                 }
 
+                ResetChannelState();
+
                 bw.RunWorkerAsync();
 
                 PackageHint.Visibility = Visibility.Visible;
@@ -264,6 +316,8 @@ namespace UmengPackage
             return true;
         }
 
+
+        public CancelEventHandler MainWindow_Closing { get; set; }
     }
 
     public class ShowItem : ChannelItem
