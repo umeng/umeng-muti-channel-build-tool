@@ -1,12 +1,5 @@
-UmengTools/bin/
-UmengTools/obj/
-UmengTools/publish/
-
-UmengPackage/bin/
-UmengPackage/obj/
-
-UmengMarket/bin/
-UmengMarket/obj/
+bin/
+obj/
 
 UIControls_35/_UpgradeReport_Files/
 UIControls_35/Backup/

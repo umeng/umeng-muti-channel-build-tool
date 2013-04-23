@@ -6,7 +6,6 @@
              xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:shared="clr-namespace:UIControls;assembly=UIControls"
-             xmlns:local="clr-namespace:UmengPackage"
              Name="tool"
              Height="450" Width="800"
              Background="#242328">

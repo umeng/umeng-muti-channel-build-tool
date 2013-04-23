@@ -5,7 +5,11 @@
   xmlns:mwt="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
   xmlns:l="clr-namespace:UIControls">
 
-
+    <SolidColorBrush x:Key="SharedBorderOuter" Color="Black" />
+    <SolidColorBrush x:Key="SharedBorderInner" Color="Black" />
+    <SolidColorBrush x:Key="SharedBorderBackground" Color="Black" />
+    <SolidColorBrush x:Key="SharedWindowBackground" Color="Black" />
+    
     <Style x:Key="{x:Type l:ImageButton}" TargetType="{x:Type l:ImageButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -304,13 +308,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type l:UTextBox}">
-                   
                     <Grid Width="120" Height="43">
                         
-                        <!--TextBox x:Name="EditText" Visibility="Hidden" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
-                                       Path=SharedText,Mode=TwoWay}" Background="Transparent" BorderBrush="Transparent">
-                        </TextBox-->
-
                         <l:HintTextBox x:Name="EditText" Visibility="Hidden" Text="{Binding RelativeSource={RelativeSource TemplatedParent},
                                        Path=SharedText,Mode=TwoWay}" Background="Transparent" BorderBrush="Transparent" Foreground="White"
                                        HintText=" ±à¼­ÇþµÀ"/>
