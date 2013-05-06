@@ -11,6 +11,7 @@ namespace CommonTools
     public class DecodedApkStruct
     {
         public string AxmlFile = null;
+        public string ApktoolYML = null;
         public string ResFolder = null;
         public string Asserts = null;
         public string Smali = null;
@@ -38,6 +39,7 @@ namespace CommonTools
             Root = root;
 
             AxmlFile = Path.Combine( root, "AndroidManifest.xml");
+            ApktoolYML = Path.Combine(root, "apktool.yml");
             ResFolder = Path.Combine(root, "res");
             Asserts = Path.Combine(root, "assets");
             Smali = Path.Combine(root, "smali");

@@ -25,6 +25,31 @@ namespace UmengTools
             InitializeComponent();
 
             WindowStyle = System.Windows.WindowStyle.None;
+
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+        }
+
+        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var ex = e.ExceptionObject as Exception;
+
+            if (ex != null)
+            {
+                var sb = new StringBuilder();
+                sb.Append(ex.Message);
+                sb.Append("\n\r");
+                sb.Append(ex.StackTrace);
+
+                if (ex.InnerException != null)
+                {
+                    sb.Append("\n\rInnerException");
+                    sb.Append(ex.InnerException.Message);
+                    sb.Append("\n\r");
+                    sb.Append(ex.InnerException.StackTrace);
+                }
+
+                MessageBox.Show(sb.ToString(),"程序异常退出");
+            }
         }
         private void closebutton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -47,5 +72,6 @@ namespace UmengTools
                             "源码地址：\n"+
                             "https://github.com/umeng");
         }
+
     }
 }

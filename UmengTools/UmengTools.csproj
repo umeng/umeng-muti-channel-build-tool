@@ -30,7 +30,7 @@
     <SupportUrl>http://www.umeng.com</SupportUrl>
     <ProductName>友盟渠道打包工具</ProductName>
     <PublisherName>友盟</PublisherName>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -151,7 +151,9 @@
     <Resource Include="Images\Button\menu.png" />
     <Resource Include="Images\Button\min.png" />
     <Resource Include="Images\Button\close.png" />
-    <Content Include="projects\template.xml" />
+    <Content Include="projects\template.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonTools\CommonTools.csproj">

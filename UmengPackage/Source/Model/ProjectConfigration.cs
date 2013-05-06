@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Xml;
 
 using UmengPackage.Source.Common;
 
@@ -101,7 +102,7 @@ namespace UmengPackage.Source.Model
             return config;
         }
 
-        public static List<string> GetTemplate()
+        public static List<Dictionary<String,String>> GetTemplate()
         {
             string filename = System.IO.Path.Combine(Config_Path, string.Format("template.xml"));
 
@@ -110,16 +111,25 @@ namespace UmengPackage.Source.Model
                 return null;
             }
 
-            var preference = Preferences.getPreferences(filename);
+            XmlDocument doc = new XmlDocument();
 
-            if (preference != null)
-            {
-                return preference.getList("channels");
+            doc.Load(filename);
+
+            var channel = doc.GetElementsByTagName("channels")[0];
+            var list = new List<Dictionary<string, string>>();
+
+            foreach (XmlNode item in channel.ChildNodes)
+            {    
+                var dic = new Dictionary<string, string>();
+
+                dic.Add( "id" , item.Attributes["id"].Value as string);
+                dic.Add( "cat", item.Attributes["cat"].Value as string);
+                dic.Add("name", item.InnerText);
+
+                list.Add( dic);
             }
-            else
-            {
-                return null;
-            }
+
+            return list;
         }
     }
 }

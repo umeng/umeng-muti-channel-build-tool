@@ -76,17 +76,16 @@ namespace UmengPackage
 
         public void LoadTemplate()
         {
-            List<string> t = ProjectConfigration.GetTemplate();
+            var t = ProjectConfigration.GetTemplate();
 
-            foreach( string item in t)
+            foreach( var item in t)
             {
-                ChannelTemplate.Add(new TemplateItem( item , false));
+                ChannelTemplate.Add(new TemplateItem(item["id"], item["name"] , false));
             }
-
 
             var coincide = from A in ChannelTemplate
                            from B in Candinate
-                           where A.ItemName.Equals(B.ItemName)
+                           where A.isSameChannel( B.ItemName)
                            select A;
 
             foreach (ChannelItem item in coincide)
@@ -427,10 +426,25 @@ namespace UmengPackage
 
     public class TemplateItem : ChannelItem
     {
-        public TemplateItem(String name, bool isCheck)
+        public TemplateItem(String id,String name, bool isCheck)
             : base(name)
         {
             IsChecked = isCheck;
+            Id = id;
+        }
+
+        public string id;
+        public string Id
+        {
+            get { return id; }
+            set
+            {
+                if (value != id)
+                {
+                    id = value;
+                    NotifyPropertyChanged("Id");
+                }
+            }
         }
 
         private bool isChecked;

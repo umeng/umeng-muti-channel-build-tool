@@ -57,16 +57,18 @@ namespace UmengPackage.Source.Common
             ChannelItem target = null;
 
             foreach (ChannelItem item in list)
-            {
-                if( item.ItemName.Equals( name ))
+            {  
+                if( item.isSameChannel( name))
                 {
                     target = item;
                     break;
-                }
+                } 
             }
 
             return target;
         }
+
+
 
         public static int findIndex(this ObservableCollection<ChannelItem> list, string name)
         {
@@ -76,7 +78,7 @@ namespace UmengPackage.Source.Common
             {
                 var item = list[i];
 
-                if (item.ItemName.Equals(name))
+                if (item.isSameChannel( name))
                 {
                     index = i;
                     break;
@@ -94,7 +96,7 @@ namespace UmengPackage.Source.Common
             {
                 var item = list[i];
 
-                if (item.ItemName.Equals(name))
+                if (item.isSameChannel(name))
                 {
                     isSuccess = true;
                     list.RemoveAt(i);
@@ -102,6 +104,22 @@ namespace UmengPackage.Source.Common
                 }
             }
             return isSuccess;
+        }
+
+        public static bool isSameChannel(this ChannelItem item,string cname)
+        {
+            var name = cname.Trim();
+            if (item.ItemName.Equals(name))
+            {
+                return true;
+            }
+
+            if( (item is TemplateItem) && (item as TemplateItem).Id.Equals( name))
+            {
+                return true;
+            }
+
+            return false;
         }
      
     }

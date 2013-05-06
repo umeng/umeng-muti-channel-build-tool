@@ -122,8 +122,8 @@ namespace UmengPackage.Source
                 XmlElement application = doc.GetElementsByTagName("application")[0] as XmlElement;
 
                 XmlElement channel_mata = doc.CreateElement("meta-data");
-                channel_mata.SetAttribute("android:name", "UMENG_CHANNEL");
-                channel_mata.SetAttribute("android:value", channel);
+                channel_mata.SetAttribute("name", "http://schemas.android.com/apk/res/android", "UMENG_CHANNEL");
+                channel_mata.SetAttribute("value", "http://schemas.android.com/apk/res/android", channel);
 
                 application.AppendChild(channel_mata);
             }

@@ -33,6 +33,36 @@ namespace UmengPackage.Source
         {
             //Add apktool to environment
             PathToApktool = Path.Combine(CurrentDir, "tools", "apktool", "apktool.bat"); 
+            //Encode YML file<chinese char will result in build 'malcharset' exception >
+            EncodeYML();
+        }
+
+        private void EncodeYML()
+        {
+            if(!File.Exists( ApkFolderStruct.ApktoolYML))
+            {
+                return;
+            }
+            try
+            {
+                string[] lines = File.ReadAllLines(ApkFolderStruct.ApktoolYML);
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if( lines[i].Contains("apkFileName"))
+                    {
+                        lines[i] = string.Format("apkFileName: temp_{0}.apk", DateTime.Now.Second);
+                        break;
+                    }
+                }
+
+                File.WriteAllLines(ApkFolderStruct.ApktoolYML, lines);
+
+            }
+            catch (Exception)
+            {
+                System.Diagnostics.Debug.WriteLine("Fail to encode apktool.yml file");
+            }
         }
 
 

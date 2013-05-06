@@ -14,7 +14,16 @@ namespace CommonTools
         private static string mPathToApktool = Path.Combine( "tools", "apktool", "apktool.bat");
         private static string mPathToSigner = Path.Combine( "tools", "SignApk.jar");
         private static string mPathToZipAlign = Path.Combine( "tools", "zipalign.exe");
-        
+
+        /// <summary>
+        /// Add apktool to env path, since apktool need aapt in path
+        /// </summary>
+        static Aapt()
+        {
+            var oldPath = System.Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
+            var newPath = oldPath + ";" + Path.Combine("tools", "apktool");
+            System.Environment.SetEnvironmentVariable("PATH", newPath );
+        }
         /// <summary>
         /// return 
         /// { 

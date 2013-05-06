@@ -71,7 +71,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30" />
                             <RowDefinition Height="160*" />
-                            <RowDefinition Height="80*" />
+                            <RowDefinition Height="85*" />
                         </Grid.RowDefinitions>
                     <Label Content="渠       道" Foreground="LightGray" Margin="3,0,0,0" Width="83" HorizontalAlignment="Left"/>
                         <ListBox Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Width="630"
@@ -104,7 +104,7 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <ToggleButton x:Name="toggle_tmp" Click="ToggleButton_Click" Width="80" Height="28" IsChecked="{Binding IsChecked}" Margin="0,0,0,2">
-                                        <TextBlock x:Name="tb_tmp_channel" Text="{Binding ItemName}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#59585D"/>
+                                        <TextBlock x:Name="tb_tmp_channel" Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#59585D"/>
                                     </ToggleButton>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
