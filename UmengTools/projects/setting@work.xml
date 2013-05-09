@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <keystore>D:\Tools\liuzhaoyun.keystore</keystore>
+  <keystore_password>liuzhaoyun</keystore_password>
+  <alias>liuzhaoyun</alias>
+  <alias_password>liuzhaoyun</alias_password>
+  <channels>
+    <item>channel4</item>
+    <item>channel5</item>
+    <item>channel3</item>
+    <item>channel0</item>
+    <item>channel1</item>
+    <item>uaoheofuawe</item>
+    <item>channel2</item>
+    <item>channel8</item>
+  </channels>
+</root>
