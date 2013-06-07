@@ -223,8 +223,14 @@ namespace UmengPackage
                 throw new Exception("没有设置 渠道 ");
             }
 
-            //setting file name
+            //uncommit channel
+            /*if (Candinate.Count == 1 && ( Candinate[0] as EditItem).State == EditState.Editable)
+            {
+                throw new Exception("请编辑渠道（回车输入）");
+            }
+             */
 
+            //setting file name
             if (string.IsNullOrEmpty(SettingFile))
             {
                 throw new Exception("亲，起个名呗 ^_^ ");
