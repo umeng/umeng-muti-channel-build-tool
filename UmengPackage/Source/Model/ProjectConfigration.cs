@@ -92,12 +92,12 @@ namespace UmengPackage.Source.Model
 
             var config = new ProjectConfigration();
 
-            config.KeystoreFilePath = preference.getString("keystore");
-            config.KeystorePassword = preference.getString("keystore_password");
-            config.Alias = preference.getString("alias");
-            config.AliasPassword = preference.getString("alias_password");
+            config.KeystoreFilePath = preference.getString("keystore") ?? string.Empty;
+            config.KeystorePassword = preference.getString("keystore_password") ?? string.Empty;
+            config.Alias = preference.getString("alias") ?? string.Empty;
+            config.AliasPassword = preference.getString("alias_password") ?? string.Empty;
 
-            config.Candinate = preference.getList("channels");
+            config.Candinate = preference.getList("channels") ?? config.Candinate;
 
             return config;
         }

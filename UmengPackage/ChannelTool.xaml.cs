@@ -164,7 +164,7 @@ namespace UmengPackage
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw ex.InnerException;
             }
         }
 
@@ -207,7 +207,13 @@ namespace UmengPackage
                 sb.Append("\n\r");
                 sb.Append(e.Error.StackTrace);
                 sb.Append("\n\n");
-                sb.Append("查看 /log/i.txt 详细错误信息");
+
+                string logFile = System.IO.Path.Combine("log","e.txt");
+                if( System.IO.File.Exists( logFile ))
+                {
+                    sb.Append( System.IO.File.ReadAllText( logFile));
+                }
+
                 MessageBox.Show(sb.ToString());
             }
 

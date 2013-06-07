@@ -74,7 +74,7 @@ namespace UmengPackage.Source
                 }
                 catch (Exception e)
                 {
-                    throw e;
+                    throw new Exception(string.Format("打包失败:{0}",e.Message),e);
                 }
             }
         }
