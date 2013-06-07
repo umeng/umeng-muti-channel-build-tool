@@ -6,21 +6,24 @@
 
 工程结构图 ：
 
+```
 - CommonTools 共用的工具类，包括对 `Apktool` , `Jarsigner` , `zipalign` 的封装
 - UIControls_35   共用的UI类，对大部分控件的样式都是在这里设置的
 - UmengMarket  Marekt 组件，现在还没有实现
 - UmengPackage 打包组件
 - UmengTools 工程主要UI，管理 UmengMarket, UmengPackage, UmengTools 三个组件
 - UmengWidget 小工具组件，目前仅有解包分析的功能
-
+```
 
 打包工具组件：
 
+```
 - Source - Builder - ApkBuilder.cs     通过 APK 打包的 Builder 实现
-                                - Builder.cs            抽象 Builder 类，提供打包的主要逻辑
-                                - SourceBuilder.cs通过源码打包的 Builder 实现 (目前代码还没有实现)
+                   - Builder.cs            抽象 Builder 类，提供打包的主要逻辑
+                   - SourceBuilder.cs通过源码打包的 Builder 实现 (目前代码还没有实现)
                                      
-                - Worker.cs 打包过程对外接口
+         - Worker.cs 打包过程对外接口
+```
 
 ##3. 打包流程
 
