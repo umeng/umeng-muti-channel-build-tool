@@ -224,11 +224,10 @@ namespace UmengPackage
             }
 
             //uncommit channel
-            /*if (Candinate.Count == 1 && ( Candinate[0] as EditItem).State == EditState.Editable)
+            if (Candinate.Count == 1 && ( Candinate[0] as EditItem).State == EditState.Editable)
             {
                 throw new Exception("请编辑渠道（回车输入）");
             }
-             */
 
             //setting file name
             if (string.IsNullOrEmpty(SettingFile))
