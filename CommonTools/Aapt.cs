@@ -14,6 +14,9 @@ namespace CommonTools
         private static string mPathToApktool = Path.Combine( "tools", "apktool", "apktool.bat");
         private static string mPathToSigner = Path.Combine( "tools", "SignApk.jar");
         private static string mPathToZipAlign = Path.Combine( "tools", "zipalign.exe");
+        private static string mPathToKeyTool = Path.Combine("tools","KeyTool.jar");
+
+        private static string mPathToErrorLog = Path.Combine("log", "e.txt");
 
         /// <summary>
         /// Add apktool to env path, since apktool need aapt in path
@@ -24,6 +27,45 @@ namespace CommonTools
             var newPath = oldPath + ";" + Path.Combine("tools", "apktool");
             System.Environment.SetEnvironmentVariable("PATH", newPath );
         }
+        
+        /// <summary>
+        /// 0 - cmd excute success
+        /// 1 - keystore password is not right
+        /// 2 - alias does not exist
+        /// 3 - alias's passwor is not right
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="store_pw"></param>
+        /// <param name="alias"></param>
+        /// <param name="key_pw"></param>
+        /// <returns></returns>
+        public static int checkStoreAndAlias(string path, string store_pw, string alias, string key_pw)
+        {
+            List<string> cmd = new List<string>();
+
+            cmd.Add("java");
+            cmd.Add("-jar");
+            cmd.Add(mPathToKeyTool);
+
+            cmd.Add(string.Format("\"{0}\"", path));
+            cmd.Add(store_pw);
+            cmd.Add(alias);
+            cmd.Add(key_pw);
+
+            Sys.Run(cmd.ToCommand());
+
+            int i = 0;
+            try
+            {
+                string str = File.ReadAllText(mPathToErrorLog);
+                System.Diagnostics.Debug.WriteLine("output is : " + str);
+                i = int.Parse( str );
+            }
+            catch { }
+
+            return i;
+        }
+
         /// <summary>
         /// return 
         /// { 

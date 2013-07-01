@@ -30,8 +30,8 @@ namespace CommonTools
      
         public SyncCmd(DataReceivedEventHandler hander = null)
         {
-            p.OutputDataReceived += hander ?? new DataReceivedEventHandler(p_OutputDataReceived);
-            p.ErrorDataReceived += new DataReceivedEventHandler(p_ErrorDataReceived);
+            p.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived);
+            p.ErrorDataReceived += hander ?? new DataReceivedEventHandler(p_ErrorDataReceived);
 
             p.StartInfo.WorkingDirectory = System.Environment.CurrentDirectory;
             //设定程序名
