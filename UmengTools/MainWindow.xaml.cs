@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using CommonTools;
+
 namespace UmengTools
 {
     /// <summary>
@@ -27,6 +29,12 @@ namespace UmengTools
             WindowStyle = System.Windows.WindowStyle.None;
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+            if (!Sys.isJavaInstalled())
+            {
+                 MessageBox.Show("请确认 Java 已经安装，并且添加到了环境变量");
+                 Close();
+            }
         }
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

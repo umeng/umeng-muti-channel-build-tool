@@ -48,20 +48,15 @@ namespace CommonTools
             cmd.Add(mPathToKeyTool);
 
             cmd.Add(string.Format("\"{0}\"", path));
-            cmd.Add(store_pw);
-            cmd.Add(alias);
-            cmd.Add(key_pw);
-
-            Sys.Run(cmd.ToCommand());
+            cmd.Add(string.Format("\"{0}\"",store_pw));
+            cmd.Add(string.Format("\"{0}\"",alias));
+            cmd.Add(string.Format("\"{0}\"",key_pw));
 
             int i = 0;
-            try
+            Sys.Run( cmd.ToCommand(), (I, E) =>
             {
-                string str = File.ReadAllText(mPathToErrorLog);
-                System.Diagnostics.Debug.WriteLine("output is : " + str);
-                i = int.Parse( str );
-            }
-            catch { }
+                int.TryParse(E, out i);
+            });
 
             return i;
         }
@@ -83,16 +78,16 @@ namespace CommonTools
             cmd.Add(mPathToAapt);
             cmd.Add("d");
             cmd.Add("badging");
-            cmd.Add( pathToApk );
+            cmd.Add(string.Format("\"{0}\"", pathToApk ));
 
-            StringBuilder data = new StringBuilder();
+            string data = null;
 
-            Sys.Run(cmd.ToCommand(), (S,E) =>
+            Sys.Run(cmd.ToCommand(), (I,E) =>
             {
-                data.Append(E.Data);
+                data = I;
                
             });
-            return data.ToString();
+            return data;
         }
 
         public static void DecodeApk(string pathToApkFile, string pathToDecodeFolder)
@@ -174,9 +169,9 @@ namespace CommonTools
             cmd.Add( mPathToSigner );
 
             cmd.Add(string.Format("\"{0}\"",keystore));
-            cmd.Add(storepw);
-            cmd.Add(entry);
-            cmd.Add(keypw);
+            cmd.Add(string.Format("\"{0}\"",storepw));
+            cmd.Add(string.Format("\"{0}\"",entry));
+            cmd.Add(string.Format("\"{0}\"",keypw));
 
             cmd.Add(string.Format("\"{0}\"",unSignedApk));
             cmd.Add(string.Format("\"{0}\"",unzipAlignedApk));
