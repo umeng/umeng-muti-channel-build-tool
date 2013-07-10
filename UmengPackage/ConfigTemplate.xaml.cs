@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Collections;
 using UIControls;
+using CommonTools;
 
 using UmengPackage.Source.Model;
 using UmengPackage.Source.Common;
@@ -217,6 +218,21 @@ namespace UmengPackage
                 throw new Exception("没有设置 keystore entry password");
             }
 
+            int resultCode = Aapt.checkStoreAndAlias( KeystoreFilePath, KeyStorePw, Alias, AliasPw );
+
+            switch (resultCode)
+            {
+                case 1:
+                    throw new Exception("Keystore Password 不正确");
+                case 2:
+                    throw new Exception("Alias 不正确");
+                case 3:
+                    throw new Exception("Alias Password 不正确");
+                case 0:
+                default:
+                    break;
+            }
+
             //channel
             if (Candinate == null || Candinate.Count == 0)
             {
@@ -224,11 +240,10 @@ namespace UmengPackage
             }
 
             //uncommit channel
-            /*if (Candinate.Count == 1 && ( Candinate[0] as EditItem).State == EditState.Editable)
+            if (Candinate.Count == 1 && ( Candinate[0] as EditItem).State == EditState.Editable)
             {
                 throw new Exception("请编辑渠道（回车输入）");
             }
-             */
 
             //setting file name
             if (string.IsNullOrEmpty(SettingFile))
