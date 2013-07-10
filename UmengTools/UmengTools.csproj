@@ -226,6 +226,7 @@
     <Content Include="tools\apktool\apktool.jar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="tools\KeyTool.jar" />
     <Content Include="tools\SignApk.jar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

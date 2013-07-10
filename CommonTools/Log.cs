@@ -22,6 +22,9 @@ namespace CommonTools
 		private static readonly string ii = null;
         private static readonly string ee = null;
 
+        /// <summary>
+        /// Don't delete this method before you got a better idea.
+        /// </summary>
         public static void StaticCreateDirectory()
         {
         }

@@ -14,6 +14,9 @@ namespace CommonTools
         private static string mPathToApktool = Path.Combine( "tools", "apktool", "apktool.bat");
         private static string mPathToSigner = Path.Combine( "tools", "SignApk.jar");
         private static string mPathToZipAlign = Path.Combine( "tools", "zipalign.exe");
+        private static string mPathToKeyTool = Path.Combine("tools","KeyTool.jar");
+
+        private static string mPathToErrorLog = Path.Combine("log", "e.txt");
 
         /// <summary>
         /// Add apktool to env path, since apktool need aapt in path
@@ -24,6 +27,40 @@ namespace CommonTools
             var newPath = oldPath + ";" + Path.Combine("tools", "apktool");
             System.Environment.SetEnvironmentVariable("PATH", newPath );
         }
+        
+        /// <summary>
+        /// 0 - cmd excute success
+        /// 1 - keystore password is not right
+        /// 2 - alias does not exist
+        /// 3 - alias's passwor is not right
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="store_pw"></param>
+        /// <param name="alias"></param>
+        /// <param name="key_pw"></param>
+        /// <returns></returns>
+        public static int checkStoreAndAlias(string path, string store_pw, string alias, string key_pw)
+        {
+            List<string> cmd = new List<string>();
+
+            cmd.Add("java");
+            cmd.Add("-jar");
+            cmd.Add(mPathToKeyTool);
+
+            cmd.Add(string.Format("\"{0}\"", path));
+            cmd.Add(string.Format("\"{0}\"",store_pw));
+            cmd.Add(string.Format("\"{0}\"",alias));
+            cmd.Add(string.Format("\"{0}\"",key_pw));
+
+            int i = 0;
+            Sys.Run( cmd.ToCommand(), (I, E) =>
+            {
+                int.TryParse(E, out i);
+            });
+
+            return i;
+        }
+
         /// <summary>
         /// return 
         /// { 
@@ -41,16 +78,16 @@ namespace CommonTools
             cmd.Add(mPathToAapt);
             cmd.Add("d");
             cmd.Add("badging");
-            cmd.Add( pathToApk );
+            cmd.Add(string.Format("\"{0}\"", pathToApk ));
 
-            StringBuilder data = new StringBuilder();
+            string data = null;
 
-            Sys.Run(cmd.ToCommand(), (S,E) =>
+            Sys.Run(cmd.ToCommand(), (I,E) =>
             {
-                data.Append(E.Data);
+                data = I;
                
             });
-            return data.ToString();
+            return data;
         }
 
         public static void DecodeApk(string pathToApkFile, string pathToDecodeFolder)
@@ -132,9 +169,9 @@ namespace CommonTools
             cmd.Add( mPathToSigner );
 
             cmd.Add(string.Format("\"{0}\"",keystore));
-            cmd.Add(storepw);
-            cmd.Add(entry);
-            cmd.Add(keypw);
+            cmd.Add(string.Format("\"{0}\"",storepw));
+            cmd.Add(string.Format("\"{0}\"",entry));
+            cmd.Add(string.Format("\"{0}\"",keypw));
 
             cmd.Add(string.Format("\"{0}\"",unSignedApk));
             cmd.Add(string.Format("\"{0}\"",unzipAlignedApk));
