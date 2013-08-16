@@ -1,6 +1,6 @@
 #友盟渠道打包工具 (windows .net 4.0)
 
-友盟渠道打包工具开放源码使用 GPL2 许可分发
+友盟渠道打包工具开放源码使用 GPL2 许可分发[**绿色版本下载地址**](https://github.com/umeng/umeng-muti-channel-build-tool/tree/master/Downloads)
 
 ##1. 工程结构
 
