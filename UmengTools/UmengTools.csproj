@@ -30,8 +30,8 @@
     <SupportUrl>http://www.umeng.com</SupportUrl>
     <ProductName>友盟渠道打包工具</ProductName>
     <PublisherName>友盟</PublisherName>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
