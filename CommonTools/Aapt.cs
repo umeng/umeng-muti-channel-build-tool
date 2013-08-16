@@ -27,6 +27,13 @@ namespace CommonTools
             var newPath = oldPath + ";" + Path.Combine("tools", "apktool");
             System.Environment.SetEnvironmentVariable("PATH", newPath );
         }
+
+        /// <summary>
+        /// Check the valibility of user\apktool\framework\1.apk 
+        /// </summary>
+        public static void prepare()
+        {
+        }
         
         /// <summary>
         /// 0 - cmd excute success
