@@ -2,6 +2,16 @@
 
 友盟渠道打包工具开放源码使用 GPL2 许可分发[**绿色版本下载地址**](https://github.com/umeng/umeng-muti-channel-build-tool/tree/master/Downloads)
 
+
+常见错误见[**这里**](https://github.com/umeng/umeng-muti-channel-build-tool/wiki/%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF%E8%AF%B4%E6%98%8E[FAQ])
+目前不支持的Apk特性见[**这里**](https://github.com/umeng/umeng-muti-channel-build-tool/wiki/%E7%9B%AE%E5%89%8D%E6%B2%A1%E6%9C%89%E6%94%AF%E6%8C%81%E7%9A%84%E7%89%B9%E6%80%A7)
+(可能会导致发布的SDK产生严重bug)。
+
+
+Google 现在已经发布了最新的[**构建系统**](http://tools.android.com/tech-docs/new-build-system/user-guide)(New Building System) , 在 Android Studio 中已经支持了最新的
+构建系统，如果开发者已经迁移，可以使用新的系统方面的生成渠道包，这是取代渠道打包工具的最佳方式。
+
+
 ##1. 工程结构
 
 工程结构图 ：
