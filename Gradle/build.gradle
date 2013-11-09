@@ -1,0 +1,80 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.6'//依赖
+    }
+}
+
+apply plugin: 'android'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')//添加android依赖libs
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion "17.0.0"
+	//签名
+    signingConfigs {
+    }
+
+    //渠道
+    productFlavors {
+        wandoujia{
+        
+        }
+        
+        appchina{
+        
+        }
+    }
+	
+    sourceSets {
+        main {
+            manifest {
+                srcFile 'AndroidManifest.xml'
+            }
+            java {
+                srcDir 'src'
+            }
+            res {
+                srcDir 'res'
+            }
+            assets {
+                srcDir 'assets'
+            }
+            resources {
+                srcDir 'src'
+            }
+            aidl {
+                srcDir 'src'
+            }
+		}
+	}
+}
+
+
+tasks.withType(Compile) {
+    options.encoding = "UTF-8"
+}
+
+//替换AndroidManifest.xml的UMENG_CHANNEL_VALUE字符串为渠道名称
+android.applicationVariants.all{ variant -> 
+	println "${variant.productFlavors[0].name}"
+    variant.processManifest.doLast{
+        copy{
+            from("${buildDir}/manifests"){
+                include "${variant.dirName}/AndroidManifest.xml"
+            }
+            into("${buildDir}/manifests/$variant.name")
+
+            filter{
+                String line -> line.replaceAll("UMENG_CHANNEL_VALUE", "${variant.productFlavors[0].name}")
+            }
+
+            variant.processResources.manifestFile = file("${buildDir}/manifests/${variant.name}/${variant.dirName}/AndroidManifest.xml")
+        }    
+   }
+}
