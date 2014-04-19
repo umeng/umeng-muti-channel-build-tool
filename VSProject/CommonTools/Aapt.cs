@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading;
+using Ionic.Zip;
 
 namespace CommonTools
 {
@@ -15,6 +16,7 @@ namespace CommonTools
         private static string mPathToSigner = Path.Combine( "tools", "SignApk.jar");
         private static string mPathToZipAlign = Path.Combine( "tools", "zipalign.exe");
         private static string mPathToKeyTool = Path.Combine("tools","KeyTool.jar");
+        private static string mPathToXMLEditor = Path.Combine("tools", "axmleditor.jar");
 
         private static string mPathToErrorLog = Path.Combine("log", "e.txt");
 
@@ -66,6 +68,74 @@ namespace CommonTools
             });
 
             return i;
+        }
+
+        /// <summary>
+        /// axmleditor will output a file named 'axml_%s.xml'
+        /// usage:axmleditor axml.xml -dir xml_temp test_chan
+        /// </summary>
+        /// <param name="srcaxml"></param>
+        /// <param name="chan"></param>
+        public static void EditorAXML(string srcaxml, string dir,string chan)
+        {
+            List<string> cmd = new List<string>();
+
+            cmd.Add("java");
+            cmd.Add("-jar");
+            cmd.Add(mPathToXMLEditor);
+            cmd.Add(srcaxml);
+            cmd.Add("-dir");
+            cmd.Add(dir);
+            cmd.Add(chan);
+
+            Sys.Run(cmd.ToCommand());
+        }
+
+        /// <summary>
+        /// Extract AndroidManifest.xml file to destiny directory
+        /// </summary>
+        /// <param name="apk">apk file</param>
+        /// <param name="dstdir">extract folder</param>
+        public static void ExtractAXML(string apk, string dstdir)
+        {
+            using (ZipFile zip = ZipFile.Read(apk))
+            {
+                ZipEntry e = zip["AndroidManifest.xml"];
+                e.Extract(dstdir, ExtractExistingFileAction.OverwriteSilently);
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apk">apk file</param>
+        /// <param name="axml"></param>
+        public static void UpdateAXML(string apk, string axml)
+        {
+            using (ZipFile zip = ZipFile.Read(apk))
+            {
+                zip.UpdateFile(axml,"AndroidManifest.xml");
+            }
+        }
+
+        public static void ZipApk(string dir, string apk)
+        {
+            using (ZipFile zip = new ZipFile())
+            {
+                zip.AddDirectory(dir);
+                zip.Save(apk);
+            }
+        }
+
+        public static void UpzipApk(string apk, string dir)
+        {
+            System.Diagnostics.Debug.WriteLine(":" + System.Environment.CurrentDirectory);
+            using (ZipFile zip = ZipFile.Read(apk))
+            {
+                foreach (ZipEntry e in zip)
+                {
+                    e.Extract(dir, ExtractExistingFileAction.OverwriteSilently);
+                }
+            }
         }
 
         /// <summary>

@@ -23,25 +23,21 @@ namespace CommonTools
             new LightSyncCmd(handler).run(cmd);
         }
 
-        /// <summary>
-        /// A sys method to judge wheather java has been installed!
-        /// Use 'cmd: where java' to test any error output, if no error throws out,
-        /// it proves that java exist.
-        /// </summary>
         public static bool isJavaInstalled()
         {
-            string cmd = "where java";
-            bool hasJava = true;
-            new LightSyncCmd((I,E) =>
-            {
-                if (!string.IsNullOrWhiteSpace(E))
-                {
-                    hasJava = false;
-                }
-            })
-            .run( cmd );
+            var path = System.Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
+            var dirs = path.Split(';');
 
-            return hasJava;
+            foreach(var dir in dirs)
+            {
+                System.Diagnostics.Debug.WriteLine(dir);
+                if (File.Exists(Path.Combine(dir, "java.exe")))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 

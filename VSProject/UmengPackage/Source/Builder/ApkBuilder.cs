@@ -8,14 +8,15 @@ using System.ComponentModel;
 using UmengPackage.Source.Common;
 using UmengPackage.Source.Model;
 using CommonTools;
+using System.Xml;
 
 namespace UmengPackage.Source
 {
     /// <summary>
     /// dir/temp/decode-folder
-    /// dir/unsigned-{application}.apk
-    /// dir/unziplaligned-{application}.apk
-    /// dir/{application}-channel.apk
+    /// dir/apk_temp/unsigned-{application}.apk
+    /// dir/apk_temp/unziplaligned-{application}.apk
+    /// dir/apk_temp/{application}-channel.apk
     /// dir/tools/apktool/.bat
     /// </summary>
     class ApkBuilder : Builder
@@ -23,8 +24,9 @@ namespace UmengPackage.Source
         string PathToApktool { get; set; }
         
         DecodedApkStruct ApkFolderStruct { get; set; }
-        
-        public ApkBuilder(ProjectConfigration config,DecodedApkStruct das, BackgroundWorker monitor) : base(config, das.AppName, monitor)
+
+        public ApkBuilder(ProjectConfigration config, DecodedApkStruct das, BackgroundWorker monitor, DoWorkEventArgs e)
+            : base(config, das.AppName, monitor,e)
         {
             ApkFolderStruct = das;
         }
@@ -66,8 +68,9 @@ namespace UmengPackage.Source
         }
 
 
-        public override void BuildUnsignedApk()
+        public override void BuildUnsignedApk(string channel)
         {
+            ReplaceChannle(channel);
             string tempFolder = GetTempFolder();
 
             if (!Directory.Exists( tempFolder ))
@@ -81,25 +84,6 @@ namespace UmengPackage.Source
         public string GetTempFolder()
         {
             return ApkFolderStruct.Root;
-        }
-        public override string GetAndroidManifestPath()
-        {
-            return ApkFolderStruct.AxmlFile;
-        }
-
-        public override string GetUnsignedApk()
-        {
-            return Path.Combine(CurrentDir, string.Format( "unsigned-{0}.apk", ApplicationName ));
-        }
-
-        public override string GetUnzipAlignedApk()
-        {
-            return Path.Combine(CurrentDir, string.Format("unzipAligned-{0}.apk", ApplicationName));
-        }
-
-        public override string GetFinalApk(string channel)
-        {
-            return Path.Combine(CurrentDir, string.Format("{0}-{1}.apk", ApplicationName, channel));
         }
 
         public override void Backup()
@@ -121,6 +105,47 @@ namespace UmengPackage.Source
             {
                 File.Delete(file);
             }
+        }
+
+        public void ReplaceChannle(string channel)
+        {
+
+            string androidmanifest_file = ApkFolderStruct.AxmlFile;
+
+            if (!File.Exists(androidmanifest_file))
+            {
+                throw new Exception(string.Format("Can't find AndroidManifest.xml file in the dir {0}", androidmanifest_file));
+            }
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(androidmanifest_file);
+
+            //update 
+            XmlNodeList mata_datas = doc.GetElementsByTagName("meta-data");
+            bool hasSet = false;
+            foreach (XmlElement mata_data in mata_datas)
+            {
+                if (mata_data.GetAttribute("android:name").Equals("UMENG_CHANNEL"))
+                {
+                    mata_data.SetAttribute("android:value", channel);
+                    hasSet = true;
+                    break;
+                }
+            }
+
+            // if no set ,add it
+            if (!hasSet)
+            {
+                XmlElement application = doc.GetElementsByTagName("application")[0] as XmlElement;
+
+                XmlElement channel_mata = doc.CreateElement("meta-data");
+                channel_mata.SetAttribute("name", "http://schemas.android.com/apk/res/android", "UMENG_CHANNEL");
+                channel_mata.SetAttribute("value", "http://schemas.android.com/apk/res/android", channel);
+
+                application.AppendChild(channel_mata);
+            }
+
+            doc.Save(androidmanifest_file);
         }
     }
 }

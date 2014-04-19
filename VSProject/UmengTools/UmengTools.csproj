@@ -30,8 +30,8 @@
     <SupportUrl>http://www.umeng.com</SupportUrl>
     <ProductName>友盟渠道打包工具</ProductName>
     <PublisherName>友盟</PublisherName>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -142,6 +142,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Content Include="bin\Debug\tools\axmleditor.jar" />
+    <Content Include="bin\Release\tools\axmleditor.jar" />
     <Content Include="tools\apktool\apktool.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -163,10 +165,6 @@
     <ProjectReference Include="..\UIControls_35\UIControls\UIControls.csproj">
       <Project>{A3082956-9EE4-4B35-9B4E-B07D0C4C8B56}</Project>
       <Name>UIControls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UmengMarket\UmengMarket.csproj">
-      <Project>{9C5B35D8-E087-4393-B340-B649F884EE09}</Project>
-      <Name>UmengMarket</Name>
     </ProjectReference>
     <ProjectReference Include="..\UmengPackage\UmengPackage.csproj">
       <Project>{493DAEDD-9F1F-4747-BBA0-F82A3ECE3865}</Project>
@@ -226,6 +224,7 @@
     <Content Include="tools\apktool\apktool.jar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="tools\axmleditor.jar" />
     <Content Include="tools\KeyTool.jar" />
     <Content Include="tools\SignApk.jar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -26,44 +26,44 @@ namespace UmengPackage.Source
 	/// </summary>
 	public class Worker
 	{
-        private static Worker worker = new Worker();
+        private static Builder builder;
 
         //BackgroudWorker monitor ,used to publish progress
         BackgroundWorker monitor;
         //Project Configration used to sign and zipAlign apk
 		ProjectConfigration config;
-        //Path to Apk file or to Source folder
-        DecodedApkStruct project;
+        //report result
+        DoWorkEventArgs result;
 
-		public static Worker Instanse(){
-            return worker;
-		}
-		public Worker(){}
-
-        public Worker setConfigure(ProjectConfigration c)
+        public static Worker getInstance(ProjectConfigration c, System.ComponentModel.BackgroundWorker bw, DoWorkEventArgs e)
         {
-			config = c;
-            return this;
+            return new Worker(c, bw,e);
 		}
 
-        public Worker setMoniter(System.ComponentModel.BackgroundWorker bw)
+        public Worker(ProjectConfigration c, System.ComponentModel.BackgroundWorker bw, DoWorkEventArgs e) 
         {
+            config = c;
             monitor = bw;
-            return this;
+            result = e;
         }
 
-        public Worker setProject(DecodedApkStruct apkStruct)
+        public void setApkBuilder(DecodedApkStruct apkStruct)
         {
-            project = apkStruct;
-            return this;
-        }
-		
-		public void start(){
-			worker.run();
+            builder = new ApkBuilder(config, apkStruct, monitor,result);
 		}
+
+        public void setXMLBuilder(string apk)
+        {
+            builder = new AXMLBuilder(config, apk, monitor, result);
+        }
+
+        public void start()
+        {
+            run();
+        }
 
 		private void run(){
-            new ApkBuilder(config, project , monitor).Build();
+            builder.Build();
 		}
 	}
 }

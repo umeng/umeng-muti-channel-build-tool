@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9C5B35D8-E087-4393-B340-B649F884EE09}</ProjectGuid>
+    <ProjectGuid>{493DAEDD-9F1F-4747-BBA0-F82A3ECE3865}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UmengMarket</RootNamespace>
-    <AssemblyName>UmengMarket</AssemblyName>
+    <RootNamespace>UmengPackage</RootNamespace>
+    <AssemblyName>UmengPackage</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -34,8 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -49,14 +51,31 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="SDKMarket.xaml">
+    <Compile Include="ConfigTemplate.xaml.cs">
+      <DependentUpon>ConfigTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Source\Builder\ApkBuilder.cs" />
+    <Compile Include="Source\Builder\AXMLBuilder.cs" />
+    <Compile Include="Source\Builder\Builder.cs" />
+    <Compile Include="Source\Common\UmengExtention.cs" />
+    <Compile Include="Source\Model\ApkInfo.cs" />
+    <Compile Include="Source\Common\Preferences.cs" />
+    <Compile Include="Source\Model\EditItem.cs" />
+    <Compile Include="Source\Model\ObservableCollection.cs" />
+    <Compile Include="Source\Model\ProjectConfigration.cs" />
+    <Compile Include="Source\Worker.cs" />
+    <Page Include="ChannelTool.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="SDKMarket.xaml.cs">
-      <DependentUpon>SDKMarket.xaml</DependentUpon>
+    <Compile Include="ChannelTool.xaml.cs">
+      <DependentUpon>ChannelTool.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ConfigTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -81,6 +100,45 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ready.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonTools\CommonTools.csproj">
+      <Project>{F2EF8B55-26CD-4F97-9C40-BDAFD3E18D14}</Project>
+      <Name>CommonTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIControls_35\UIControls\UIControls.csproj">
+      <Project>{A3082956-9EE4-4B35-9B4E-B07D0C4C8B56}</Project>
+      <Name>UIControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\channel_item.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\button_click.png" />
+    <Resource Include="Images\button_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\progress_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add_apk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add_apk_hover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
