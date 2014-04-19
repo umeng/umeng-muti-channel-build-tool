@@ -142,6 +142,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Content Include="bin\Debug\tools\axmleditor.jar" />
+    <Content Include="bin\Release\tools\axmleditor.jar" />
     <Content Include="tools\apktool\apktool.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -226,6 +228,7 @@
     <Content Include="tools\apktool\apktool.jar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="tools\axmleditor.jar" />
     <Content Include="tools\KeyTool.jar" />
     <Content Include="tools\SignApk.jar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

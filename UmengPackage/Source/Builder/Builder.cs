@@ -18,6 +18,8 @@ namespace UmengPackage.Source
         private readonly string pathToZipalign = Path.Combine("tools", "zipalign.exe");
         //BackgroudWorker monitor ,used to publish progress
         protected BackgroundWorker monitor;
+        protected DoWorkEventArgs result;
+
         public ProjectConfigration Config { get; set; }
         public String CurrentDir { get; set; }
         public String ApplicationName { get; set; }
@@ -30,14 +32,14 @@ namespace UmengPackage.Source
                 Directory.CreateDirectory(CurrentDir);
             }
         }
-        public Builder(ProjectConfigration config, String applicationName, BackgroundWorker bw):this()
+        public Builder(ProjectConfigration config, String applicationName, BackgroundWorker bw, DoWorkEventArgs e)
+            : this()
         {
             Config = config;
             ApplicationName = applicationName;
             monitor = bw;
+            result = e;
         }
-
-        public abstract void Backup();
 
         public void Build()
         {
@@ -54,10 +56,10 @@ namespace UmengPackage.Source
                 try
                 {
                     monitor.ReportProgress(++step , index);
-                    ReplaceChannle(channel);
+                    //ReplaceChannle(channel);
                     
                     monitor.ReportProgress(++step, index);
-                    BuildUnsignedApk();
+                    BuildUnsignedApk(channel);
 
                     monitor.ReportProgress(++step, index);
                     SignAPK(channel);
@@ -77,59 +79,15 @@ namespace UmengPackage.Source
                     throw new Exception(string.Format("打包失败:{0}",e.Message),e);
                 }
             }
+
+            result.Result = GetDstFolder();
         }
+
+        public abstract void Backup();
         public abstract void Restore();
 
-        public abstract void BuildUnsignedApk();
-
         public abstract void SetProjectEnvironmet();
-
-        public abstract string GetAndroidManifestPath();
-
-        public abstract string GetUnsignedApk();
-        public abstract string GetUnzipAlignedApk();
-        public abstract string GetFinalApk(string channel);
-
-        public void ReplaceChannle(string channel)
-        {
-
-            string androidmanifest_file = GetAndroidManifestPath();
-
-            if (!File.Exists(androidmanifest_file))
-            {
-                throw new Exception(string.Format("Can't find AndroidManifest.xml file in the dir {0}", androidmanifest_file));
-            }
-
-            XmlDocument doc = new XmlDocument();
-            doc.Load(androidmanifest_file);
-
-            //update 
-            XmlNodeList mata_datas = doc.GetElementsByTagName("meta-data");
-            bool hasSet = false;
-            foreach (XmlElement mata_data in mata_datas)
-            {
-                if (mata_data.GetAttribute("android:name").Equals("UMENG_CHANNEL"))
-                {
-                    mata_data.SetAttribute("android:value", channel);
-                    hasSet = true;
-                    break;
-                }
-            }
-
-            // if no set ,add it
-            if (!hasSet)
-            {
-                XmlElement application = doc.GetElementsByTagName("application")[0] as XmlElement;
-
-                XmlElement channel_mata = doc.CreateElement("meta-data");
-                channel_mata.SetAttribute("name", "http://schemas.android.com/apk/res/android", "UMENG_CHANNEL");
-                channel_mata.SetAttribute("value", "http://schemas.android.com/apk/res/android", channel);
-
-                application.AppendChild(channel_mata);
-            }
-
-            doc.Save(androidmanifest_file);
-        }
+        public abstract void BuildUnsignedApk(string channel);
 
         /// <summary>
         /// cmd: ApkSigner keystore storepw alias password input output
@@ -172,7 +130,7 @@ namespace UmengPackage.Source
 
         private void CopyToWorkspace(string channel)
         {
-            string apk_file = GetFinalApk( channel );
+            string apk_file = GetFinalApk(channel);
 
             if (apk_file == null || !File.Exists(apk_file))
             {
@@ -185,12 +143,17 @@ namespace UmengPackage.Source
             File.Move(apk_file, dst_file);
         }
 
-        private string generateDstFile(string channel)
+        protected string GetDstFolder()
+        {
+            return Path.Combine("output", ApplicationName);
+        }
+
+        protected string generateDstFile(string channel)
         {
 
             string file_name = string.Format("{0}_{1}.apk", ApplicationName, channel);
 
-            string dst_path = Path.Combine("output", ApplicationName);
+            string dst_path = GetDstFolder();
 
             if (!Directory.Exists(dst_path))
             {
@@ -198,6 +161,21 @@ namespace UmengPackage.Source
             }
 
             return Path.Combine(dst_path, file_name);
+        }
+
+        protected string GetUnsignedApk()
+        {
+            return Path.Combine(CurrentDir, string.Format("unsigned-{0}.apk", ApplicationName));
+        }
+
+        protected string GetUnzipAlignedApk()
+        {
+            return Path.Combine(CurrentDir, string.Format("unzipAligned-{0}.apk", ApplicationName));
+        }
+
+        protected string GetFinalApk(string channel)
+        {
+            return Path.Combine(CurrentDir, string.Format("{0}-{1}.apk", ApplicationName, channel));
         }
     }
 }

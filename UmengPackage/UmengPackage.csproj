@@ -55,6 +55,7 @@
       <DependentUpon>ConfigTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Source\Builder\ApkBuilder.cs" />
+    <Compile Include="Source\Builder\AXMLBuilder.cs" />
     <Compile Include="Source\Builder\Builder.cs" />
     <Compile Include="Source\Common\UmengExtention.cs" />
     <Compile Include="Source\Model\ApkInfo.cs" />
@@ -62,11 +63,7 @@
     <Compile Include="Source\Model\EditItem.cs" />
     <Compile Include="Source\Model\ObservableCollection.cs" />
     <Compile Include="Source\Model\ProjectConfigration.cs" />
-    <Compile Include="Source\Builder\SourceBuilder.cs" />
     <Compile Include="Source\Worker.cs" />
-    <Compile Include="UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
-    </Compile>
     <Page Include="ChannelTool.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,10 +75,6 @@
     <Page Include="ConfigTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControl1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

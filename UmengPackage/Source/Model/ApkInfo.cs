@@ -43,6 +43,17 @@ namespace UmengPackage.Source.Model
         }
 
         private string apkPath = null;
+        public string ApkPath
+        {
+            get
+            {
+                return apkPath;
+            }
+            set
+            {
+                apkPath = value;
+            }
+        }
 
         public void parseApkAsync(string path, OnParseEnd end)
         {

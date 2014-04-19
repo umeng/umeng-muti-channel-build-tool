@@ -36,8 +36,6 @@ namespace UmengPackage
         private ObservableCollection<ShowItem> AvailabelChannels = new ObservableCollection<ShowItem>();
         
         private ApkInfo mApkInfo = new ApkInfo();
-
-
         BackgroundWorker bw = new BackgroundWorker();
 
         public ChannelTool()
@@ -154,12 +152,9 @@ namespace UmengPackage
             {
                 BackgroundWorker worker = sender as BackgroundWorker;
 
-                Worker w = Worker.Instanse();
-                
-                w.setMoniter(worker);
-                w.setProject(mApkInfo.DeApkStruct);
-                w.setConfigure(GetConfigure());
-
+                Worker w = Worker.getInstance(GetConfigure(), worker, e);
+              
+                w.setXMLBuilder(mApkInfo.ApkPath);
                 w.start();
             }
             catch (Exception ex)
@@ -219,8 +214,7 @@ namespace UmengPackage
 
             else
             {
-                string path = System.IO.Path.Combine("output", mApkInfo.AppName);
-
+                string path = e.Result as string;
                 if (MessageBox.Show(String.Format("打开目录：\n {0} ", path), "渠道打包完成", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.No)
                 {
                     //do nothing

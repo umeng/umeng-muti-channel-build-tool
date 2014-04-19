@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using CommonTools;
+using System.Net;
+using System.IO;
 
 namespace UmengTools
 {
@@ -29,12 +31,6 @@ namespace UmengTools
             WindowStyle = System.Windows.WindowStyle.None;
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-
-            if (!Sys.isJavaInstalled())
-            {
-                 MessageBox.Show("请确认 Java 已经安装，并且添加到了环境变量");
-                 Close();
-            }
         }
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -80,6 +76,5 @@ namespace UmengTools
                             "源码地址：\n"+
                             "https://github.com/umeng");
         }
-
     }
 }
