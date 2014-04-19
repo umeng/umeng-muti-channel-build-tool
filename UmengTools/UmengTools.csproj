@@ -166,10 +166,6 @@
       <Project>{A3082956-9EE4-4B35-9B4E-B07D0C4C8B56}</Project>
       <Name>UIControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UmengMarket\UmengMarket.csproj">
-      <Project>{9C5B35D8-E087-4393-B340-B649F884EE09}</Project>
-      <Name>UmengMarket</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UmengPackage\UmengPackage.csproj">
       <Project>{493DAEDD-9F1F-4747-BBA0-F82A3ECE3865}</Project>
       <Name>UmengPackage</Name>
