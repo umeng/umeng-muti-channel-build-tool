@@ -12,19 +12,19 @@ Google 现在已经发布了最新的[**构建系统**](http://tools.android.com
 构建系统，如果开发者已经迁移，可以使用新的系统方面的生成渠道包，这是取代渠道打包工具的最佳方式，我们提供了一个简单的脚本见[这里](https://github.com/umeng/umeng-muti-channel-build-tool/tree/master/Gradle)。
 
 
-##1. 关于本次更新
+## 关于本次更新
 
 本次更新最大的改变是放弃了 V2.x 版本中通过 Apktool  反编译apk文件打包的方式，这种打包方式会对开发的apk文件做出大幅度的修改，可能会产生许多不兼容的问题，比如对jar包中包含资源的情况无法支持，对包含 .so 文件的apk兼容性也不好，而且在打包时 AndroidManifest.xml 文件中的特殊标签会丢失。为了解决这些问题减少对开发者apk文件的修改, 我们决定放弃这种方式，而采用直接编辑二进制的AndroidManifest.xml 文件的方式。这种方式只会修改 AndroidManifest.xml 文件，对于apk包中的资源文件和代码文件都不会做任何改变。如果打包不成功，生成的apk文件有问题，在测试阶段也可以快速发现，因为修改只会影响AndroidManifest.xml 相关的少量的设置。
 
 
-## 2. 工具说明
+## 工具说明
 
 [axmleditor.jar](https://github.com/ntop001/AXMLEditor) 一个AXML解析器，拥有很弱的编辑功能，工程中用来编辑二进制格式的 AndroidManifest.xml 文件.
 
 JarSigner.jar 给 Apk 签名， `SignApk.jar`  文件是我们修改过的 `apk ` 签名工具，实现了和 ADT 中一样的签名方式.
 
 
-## 3. 更新日志
+## 更新日志
 ### V3.0
 
 2014-04-19
