@@ -44,14 +44,18 @@ namespace UmengPackage.Source
 
         public override void SetProjectEnvironmet()
         {
-            Aapt.UpzipApk(mPathToApk, Path.Combine(WORK_SPACE,"apk"));
+            DirectoryInfo di = new DirectoryInfo(WORK_SPACE);
+            if (di.Exists)
+            {
+                di.Delete(true);
+            }
+            Aapt.UpzipApk(mPathToApk, ORIGIN_APK );
             File.Copy(ORIGIN_AXML, COPY_AXML,true);
         }
 
         public override void BuildUnsignedApk(string channel)
         {
-            var tmp = System.Environment.CurrentDirectory;
-            Aapt.EditorAXML(ORIGIN_AXML,WORK_SPACE, channel);
+            Aapt.EditorAXML(COPY_AXML, WORK_SPACE, channel);
             string output = Path.Combine(WORK_SPACE,string.Format("axml_{0}.xml",channel));
             File.Copy(output, ORIGIN_AXML,true);
 
