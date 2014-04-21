@@ -8,6 +8,8 @@
 (可能会导致发布的SDK产生严重bug)。
 
 
+打包工具不能完全保证生成的Apk文件的正确性，建议开发者最好做抽样测试。
+
 Google 现在已经发布了最新的[**构建系统**](http://tools.android.com/tech-docs/new-build-system/user-guide)(New Building System) , 在 Android Studio 中已经支持了最新的
 构建系统，如果开发者已经迁移，可以使用新的系统方面的生成渠道包，这是取代渠道打包工具的最佳方式，我们提供了一个简单的脚本见[这里](https://github.com/umeng/umeng-muti-channel-build-tool/tree/master/Gradle)。
 
