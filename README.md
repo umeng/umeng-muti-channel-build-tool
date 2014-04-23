@@ -25,6 +25,7 @@ Google 现在已经发布了最新的[**构建系统**](http://tools.android.com
 
 JarSigner.jar 给 Apk 签名， `SignApk.jar`  文件是我们修改过的 `apk ` 签名工具，实现了和 ADT 中一样的签名方式.
 
+这些java工具都是使用java7编译的，如果您还在使用java 1.6 请留下issue。
 
 ## 更新日志
 ### V3.0
