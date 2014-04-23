@@ -8,58 +8,35 @@
 (可能会导致发布的SDK产生严重bug)。
 
 
+打包工具不能完全保证生成的Apk文件的正确性，建议开发者最好做抽样测试。
+
 Google 现在已经发布了最新的[**构建系统**](http://tools.android.com/tech-docs/new-build-system/user-guide)(New Building System) , 在 Android Studio 中已经支持了最新的
 构建系统，如果开发者已经迁移，可以使用新的系统方面的生成渠道包，这是取代渠道打包工具的最佳方式，我们提供了一个简单的脚本见[这里](https://github.com/umeng/umeng-muti-channel-build-tool/tree/master/Gradle)。
 
 
-##1. 工程结构
+## 关于本次更新
 
-工程结构图 ：
-
-```
-- CommonTools 共用的工具类，包括对 `Apktool` , `Jarsigner` , `zipalign` 的封装
-- UIControls_35   共用的UI类，对大部分控件的样式都是在这里设置的
-- UmengMarket  Marekt 组件，现在还没有实现
-- UmengPackage 打包组件
-- UmengTools 工程主要UI，管理 UmengMarket, UmengPackage, UmengTools 三个组件
-- UmengWidget 小工具组件，目前仅有解包分析的功能
-```
-
-打包工具组件：
-
-```
-- Source - Builder - ApkBuilder.cs     通过 APK 打包的 Builder 实现
-                   - Builder.cs            抽象 Builder 类，提供打包的主要逻辑
-                   - SourceBuilder.cs通过源码打包的 Builder 实现 (目前代码还没有实现)
-                                     
-         - Worker.cs 打包过程对外接口
-```
-
-##3. 打包流程
-
-V2.0 版本仅实现了通过 `.apk` 打包的方式，本质上对  `apk` 文件进行反编译，修改 `AndroidManifest.xml` 文件后，再重新打包，我们使用的工具是开源的拆包工具 [Apktool](https://code.google.com/p/android-apktool/)
+本次更新最大的改变是放弃了 V2.x 版本中通过 Apktool  反编译apk文件打包的方式，这种打包方式会对开发的apk文件做出大幅度的修改，可能会产生许多不兼容的问题，比如对jar包中包含资源的情况无法支持，对包含 .so 文件的apk兼容性也不好，而且在打包时 AndroidManifest.xml 文件中的特殊标签会丢失。为了解决这些问题减少对开发者apk文件的修改, 我们决定放弃这种方式，而采用直接编辑二进制的AndroidManifest.xml 文件的方式。这种方式只会修改 AndroidManifest.xml 文件，对于apk包中的资源文件和代码文件都不会做任何改变。如果打包不成功，生成的apk文件有问题，在测试阶段也可以快速发现，因为修改只会影响AndroidManifest.xml 相关的少量的设置。
 
 
-1. 将  `apktool`  添加到当前 `process` 的环境变量
-2. 执行 `apktool d --no-src -f xxxx.apk temp` 拆解apk
-3. 替换或者添加 `AndroidManifest.xml` 中的 友盟` channel`
-4. 执行` apktool b temp  unsigned.apk` 重新打包apk
-5. 执行 `SignApk.jar` 生成签名后的 apk 文件
-6. 执行 `zipAlign` 生成对齐优化后的 apk 文件
-7. 回到 3 替换新的渠道
-8. 完成打包
+## 工具说明
 
+[axmleditor.jar](https://github.com/ntop001/AXMLEditor) 一个AXML解析器，拥有很弱的编辑功能，工程中用来编辑二进制格式的 AndroidManifest.xml 文件.
 
-使用  JarSigner.jar 给 Apk 签名， `SignApk.jar`  文件是我们修改过的 `apk ` 签名工具，实现了和 ADT 中一样的签名方式，使用如下：
+JarSigner.jar 给 Apk 签名， `SignApk.jar`  文件是我们修改过的 `apk ` 签名工具，实现了和 ADT 中一样的签名方式.
 
-```
-Usage: signapk file.{keystore} keystore_password key_entry key_password
-input.apk
-output.apk
-```
+这些java工具都是使用java7编译的，如果您还在使用java 1.6 请留下issue。
 
+## 更新日志
+### V3.0
 
-## 4. 更新日志
+2014-04-19
+
+更新内容
+
+>1. 更新了底层打包模块 
+>2. 修复了 V2.x 中的若干bug
+>3. 提高了打包速度和稳定性
 
 ### V2.1
 
