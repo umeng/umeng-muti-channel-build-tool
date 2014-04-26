@@ -121,6 +121,7 @@ namespace CommonTools
         {
             using (ZipFile zip = new ZipFile())
             {
+                zip.ParallelDeflateThreshold = -1;
                 zip.AddDirectory(dir);
                 zip.Save(apk);
             }
