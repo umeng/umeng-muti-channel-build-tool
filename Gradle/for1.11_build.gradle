@@ -1,0 +1,131 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.9.0'    //最新版本
+    }
+}
+
+//使用android插件
+apply plugin: 'android'
+
+//各种依赖
+dependencies {
+    //添加libs文件夹下的所有jar包
+    compile fileTree(dir: 'libs', include: '*.jar')
+    //这里添加其他依赖，可以是本地、远程的库，例如本地libraries/support_v7的库
+    //compile project(':libraries:support_v7')
+}
+
+//下面一段是将libs/*/*.so文件加入打包
+//如果你的项目是使用Eclipse+ADT建立的，则需要这段代码
+task copyNativeLibs(type: Copy) {
+    from(new File('libs')) { include '**/*.so' }
+    into new File(buildDir, 'native-libs')
+}
+
+tasks.withType(Compile) { compileTask -> compileTask.dependsOn copyNativeLibs }
+ 
+clean.dependsOn 'cleanCopyNativeLibs'
+ 
+tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
+    pkgTask.jniFolders = new HashSet<File>()
+    pkgTask.jniFolders.add(new File(buildDir, 'native-libs'))
+}
+
+//开始android配置
+android {
+    //编译版本，这里指定的是最新的19
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
+
+    //配置source路径（如果使用的不是默认路径的话，必须配置）
+    sourceSets{
+        main{
+            manifest {
+                srcFile 'AndroidManifest.xml'
+            }
+            //下面的写法看起来比较简洁，当然你也可以用上面的写法
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+        //测试所在的路径，这里假设是tests文件夹，没有可以不写这一行
+        //androidTest.setRoot('tests')
+    }
+
+    //签名
+    signingConfigs {
+        debug {
+            storeFile file("～/.android/debug.keystore")
+        }
+
+        //你自己的keystore信息
+        release {
+            storeFile file("your.keystore")
+            storePassword "yourPassword"
+            keyAlias "yourAlias"
+            keyPassword "yourPassword"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    //渠道Flavors，我这里写了一些常用的，你们自己改
+    productFlavors {
+        GooglePlay{}
+        //Store360{}
+        //QQ{}
+        //Taobao{}
+        //WanDouJia{}
+        //AnZhuo{}
+        //AnZhi{}
+        //BaiDu{}
+        //Store163{}
+        //GFeng{}
+        //AppChina{}
+        //EoeMarket{}
+        //Store91{}
+        //NDuo{}
+    }
+
+    //这个是解决lint报错的代码
+    lintOptions {
+          abortOnError false
+    }
+
+}
+
+tasks.withType(Compile) {
+    options.encoding = "UTF-8"
+}
+
+//替换AndroidManifest.xml的UMENG_CHANNEL_VALUE字符串为渠道名称 By Remex Huang
+android.applicationVariants.all{ variant -> 
+    variant.processManifest.doLast{
+    
+        //之前这里用的copy{}，我换成了文件操作，这样可以在v1.11版本正常运行，并保持文件夹整洁
+        //${buildDir}是指./build文件夹
+        //${variant.dirName}是flavor/buildtype，例如GooglePlay/release，运行时会自动生成
+        //下面的路径是类似这样：./build/manifests/GooglePlay/release/AndroidManifest.xml
+        def manifestFile = "${buildDir}/manifests/${variant.dirName}/AndroidManifest.xml"
+        
+        //将字符串UMENG_CHANNEL_VALUE替换成flavor的名字
+        def updatedContent = new File(manifestFile).getText('UTF-8').replaceAll("UMENG_CHANNEL_VALUE", "${variant.productFlavors[0].name}")
+        new File(manifestFile).write(updatedContent, 'UTF-8')
+        
+        //将此次flavor的AndroidManifest.xml文件指定为我们修改过的这个文件
+        variant.processResources.manifestFile = file("${buildDir}/manifests/${variant.dirName}/AndroidManifest.xml")
+    }    
+}
