@@ -119,21 +119,47 @@ namespace CommonTools
 
         public static void ZipApk(string dir, string apk)
         {
-            using (ZipFile zip = new ZipFile())
+            var cd = System.Environment.CurrentDirectory;
+            try
             {
-                zip.ParallelDeflateThreshold = -1;
-                zip.AddDirectory(dir);
-                zip.Save(apk);
+                apk = Path.Combine(cd, apk);
+                System.Environment.CurrentDirectory = dir;
+                using (ZipFile zip = new ZipFile())
+                {
+                    zip.ParallelDeflateThreshold = -1;
+
+                    if (resTable != null && resTable.Count > 0)
+                    {
+                        foreach (var pair in resTable)
+                        {
+                            ZipEntry entry = zip.AddFile(pair.Key);
+                            entry.CompressionMethod = pair.Value;
+                        }
+                        zip.Save(apk);
+                    }
+                    else
+                    {
+                        throw new Exception("ResTable is empty!");
+                    }
+                }
+            }
+            finally {
+                System.Environment.CurrentDirectory = cd;
             }
         }
 
+        private static Dictionary<String,CompressionMethod> resTable = new Dictionary<String, CompressionMethod>();
+
+ 
         public static void UpzipApk(string apk, string dir)
         {
-            System.Diagnostics.Debug.WriteLine(":" + System.Environment.CurrentDirectory);
+            resTable.Clear();
+
             using (ZipFile zip = ZipFile.Read(apk))
             {
                 foreach (ZipEntry e in zip)
                 {
+                    resTable.Add(e.FileName, e.CompressionMethod);
                     e.Extract(dir, ExtractExistingFileAction.OverwriteSilently);
                 }
             }
