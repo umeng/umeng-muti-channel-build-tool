@@ -27,6 +27,7 @@ JarSigner.jar 给 Apk 签名， `SignApk.jar`  文件是我们修改过的 `apk 
 
 这些java工具都是使用java7编译的，如果您还在使用java 1.6 请留下issue。
 
+[DotNetZip](http://dotnetzip.codeplex.com/) 解压缩和压缩文件使用的是DotNetZip(Ionic.Zip.dll), 运行源码需要加入这个库.
 ## 更新日志
 ### V3.0
 
