@@ -71,7 +71,7 @@ android.applicationVariants.all{ variant ->
             into("${buildDir}/manifests/$variant.name")
 
             filter{
-                String line -> line.replaceAll("UMENG_CHANNEL_VALUE", "${variant.productFlavors[0].name}")
+                String line -> line.replaceAll("UMENG_CHANNEL_VALUE", "${variant.productFlavors[0].name}").replaceAll("<!--.*?-->", "")
             }
 
             variant.processResources.manifestFile = file("${buildDir}/manifests/${variant.name}/${variant.dirName}/AndroidManifest.xml")
