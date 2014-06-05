@@ -29,6 +29,15 @@ JarSigner.jar 给 Apk 签名， `SignApk.jar`  文件是我们修改过的 `apk 
 
 [DotNetZip](http://dotnetzip.codeplex.com/) 解压缩和压缩文件使用的是DotNetZip(Ionic.Zip.dll), 运行源码需要加入这个库.
 ## 更新日志
+
+### V3.1
+
+2014-05-19
+
+更新内容
+
+>1. 修复Apk中资源文件重新打包后压缩方式(CompressionMethod)变化的问题
+
 ### V3.0
 
 2014-04-19
