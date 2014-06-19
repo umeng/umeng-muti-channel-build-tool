@@ -12,10 +12,20 @@ namespace CommonTools
     /// </summary>
     public class Sys
     {
+        /// <summary>
+        /// TODO: refactor
+        /// </summary>
+        private static bool redirct = true;
+        public static void setRedirect(bool enable)
+        {
+            redirct = enable;
+        }
 
         public static void Run(string cmd)
         {
-            new SyncCmd().run(cmd);
+            SyncCmd c = new SyncCmd();
+            c.log = redirct;
+            c.run(cmd);
         }
 
         public static void Run(string cmd, OnCmdExitHandler handler)
@@ -43,8 +53,9 @@ namespace CommonTools
 
     public class SyncCmd
     {
+        public bool log = true;
         private Process p = new Process();
-     
+        
         public SyncCmd(DataReceivedEventHandler hander = null)
         {
             p.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived);
@@ -84,7 +95,14 @@ namespace CommonTools
             p.Start();
             p.BeginOutputReadLine();
             p.BeginErrorReadLine();
-            p.StandardInput.WriteLine(cmd + " > log\\i.txt 2> log\\e.txt");
+            if (log)
+            {
+                p.StandardInput.WriteLine(cmd + " > log\\i.txt 2> log\\e.txt");
+            }
+            else
+            {
+                p.StandardInput.WriteLine(cmd);
+            }
             p.StandardInput.WriteLine("exit");
             p.WaitForExit();
         }
