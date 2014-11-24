@@ -119,13 +119,13 @@ android.applicationVariants.all{ variant ->
         //${buildDir}是指./build文件夹
         //${variant.dirName}是flavor/buildtype，例如GooglePlay/release，运行时会自动生成
         //下面的路径是类似这样：./build/manifests/GooglePlay/release/AndroidManifest.xml
-        def manifestFile = "${buildDir}/manifests/${variant.dirName}/AndroidManifest.xml"
+        def manifestFile = "${buildDir}/manifests/full/${variant.dirName}/AndroidManifest.xml"
         
         //将字符串UMENG_CHANNEL_VALUE替换成flavor的名字
         def updatedContent = new File(manifestFile).getText('UTF-8').replaceAll("UMENG_CHANNEL_VALUE", "${variant.productFlavors[0].name}")
         new File(manifestFile).write(updatedContent, 'UTF-8')
         
         //将此次flavor的AndroidManifest.xml文件指定为我们修改过的这个文件
-        variant.processResources.manifestFile = file("${buildDir}/manifests/${variant.dirName}/AndroidManifest.xml")
+        variant.processResources.manifestFile = file(mainfestFile)
     }    
 }
