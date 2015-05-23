@@ -89,9 +89,18 @@ namespace CommonTools
 
                 var attr_version = doc.DocumentElement.Attributes;
 
-                
-                VersionName = fetchString(attr_version["android:versionName"].Value);
-                VersionCode = fetchString(attr_version["android:versionCode"].Value);
+                // fix crash bug of build-tool v21
+                try
+                {
+                    VersionName = fetchString(attr_version["android:versionName"].Value);
+                    VersionCode = fetchString(attr_version["android:versionCode"].Value);
+                }
+                catch (Exception e)
+                {
+                    // because with build-tool v21, there are not VersionName and VersionCode in AndroidManifest.xml
+                    VersionName = "0";
+                    VersionCode = "0";
+                }
 
                 var application = doc.GetElementsByTagName("application")[0];
                 var attr_app = application.Attributes;
